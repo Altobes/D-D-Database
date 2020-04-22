@@ -5,7 +5,7 @@ CREATE TABLE StatBlock (
 	Speed tinyint,
 	StatID int,
 	Race varchar(20),
-	STR tinyint,
+	[STR] tinyint,
 	DEX tinyint,
 	CON tinyint,
 	[INT] tinyint,
@@ -18,21 +18,21 @@ CREATE TABLE StatBlock (
 --This is the only way I could find to have multiple values, there are no lists/arrays in SQL
 CREATE TABLE Spells (
 	Name varchar(50),
-	desc varchar(255),
+	Description varchar(255),
 	SpellID int,
 	Primary Key (SpellID)
 )
 
 CREATE TABLE Skills (
 	Name varchar(50),
-	desc varchar(255),
+	Description varchar(255),
 	SkillID int,
 	Primary Key (SkillID)
 )
 
 CREATE TABLE Items (
 	Name varchar(50),
-	desc varchar(255),
+	Description varchar(255),
 	ItemID int,
 	Primary Key (ItemID)
 )
@@ -63,7 +63,7 @@ CREATE TABLE StatItems (
 
 --Here is the join statement that should produce the correct results
 --We will most likely save this as a view
-SELECT * FROM StatBlock 
+SELECT * FROM StatBlock
 JOIN StatSpells ON StatBlock.StatID = StatSpells.StatID
 JOIN StatSkills ON StatBlock.StatID = StatSkills.StatID
 JOIN StatItems ON StatBlock.StatID = StatItems.StatID
