@@ -9,8 +9,8 @@ create table NPC(
 	StatID int NOT NULL,
 	CampaignID int NOT NULL,
 
-	Foreign key (StatID) References ([StatBlock]) StatID,
-	Foreign key (CampaignID) References (Campaign) CampaignID
+	Foreign key (StatID) References StatBlock (StatID),
+	Foreign key (CampaignID) References Campaign (CampaignID)
 )
 
 --Drop Table NPC
