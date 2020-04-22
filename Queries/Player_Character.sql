@@ -10,6 +10,6 @@ Foreign key(Username) References UserEntity(Username)
 On Update cascade On Delete set null,
 Foreign key(PartyID) References Party(PartyID)
 On Update cascade On Delete set null,
-Foreign key(StatID) References Stat_Block(StatID)
+Foreign key(StatID) References StatBlock(StatID)
 On Update cascade On Delete set null
 )
