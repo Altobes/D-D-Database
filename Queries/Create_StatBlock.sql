@@ -8,7 +8,7 @@ CREATE TABLE StatBlock (
 	STR tinyint,
 	DEX tinyint,
 	CON tinyint,
-	INT tinyint,
+	[INT] tinyint,
 	WIS tinyint,
 	CHA tinyint,
 	Primary Key (StatID)
