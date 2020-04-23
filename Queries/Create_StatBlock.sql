@@ -1,38 +1,38 @@
 --Create the base StatBlock table
 CREATE TABLE StatBlock (
-	Name varchar(50),
-	AC tinyint,
-	Speed tinyint,
+	Name varchar(50) NOT NULL,
+	AC tinyint NOT NULL,
+	Speed tinyint NOT NULL,
 	StatID int,
-	Race varchar(20),
-	[STR] tinyint,
-	DEX tinyint,
-	CON tinyint,
-	[INT] tinyint,
-	WIS tinyint,
-	CHA tinyint,
+	Race varchar(20) NOT NULL,
+	[STR] tinyint NOT NULL,
+	DEX tinyint NOT NULL,
+	CON tinyint NOT NULL,
+	[INT] tinyint NOT NULL,
+	WIS tinyint NOT NULL,
+	CHA tinyint NOT NULL,
 	Primary Key (StatID)
 )
 
 --There needs to be another table for each of Skills/Feats/Spells/Items
 --This is the only way I could find to have multiple values, there are no lists/arrays in SQL
 CREATE TABLE Spells (
-	Name varchar(50),
-	Description varchar(255),
+	Name varchar(50) NOT NULL,
+	Description varchar(255) NOT NULL,
 	SpellID int,
 	Primary Key (SpellID)
 )
 
 CREATE TABLE Skills (
-	Name varchar(50),
-	Description varchar(255),
+	Name varchar(50) NOT NULL,
+	Description varchar(255) NOT NULL,
 	SkillID int,
 	Primary Key (SkillID)
 )
 
 CREATE TABLE Items (
-	Name varchar(50),
-	Description varchar(255),
+	Name varchar(50) NOT NULL,
+	Description varchar(255) NOT NULL,
 	ItemID int,
 	Primary Key (ItemID)
 )
