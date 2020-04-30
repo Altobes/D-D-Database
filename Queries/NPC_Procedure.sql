@@ -28,7 +28,7 @@ SET @Status = @@ERROR
 IF @Status <> 0 
 BEGIN
 	--Return error code to the calling program to indicate failure
-	PRINT 'An error occurred getting the details for the order ' + CONVERT(varchar(30), @OrderID_1) + '.'
+	PRINT 'An error occurred'
 	RETURN(@Status)
 END
 
