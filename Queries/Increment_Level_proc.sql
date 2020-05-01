@@ -6,13 +6,17 @@ IF (@PartyID_1 is null) BEGIN
 	RETURN 1
 END
 
-DECLARE @NewLevel int
-SELECT @NewLevel = [Level] FROM Party WHERE PartyID = @PartyID_1
+IF (SELECT Count(PartyID) FROM Party WHERE PartyID = @PartyID_1) = 0
+BEGIN
+	PRINT('Error, Party Does not exist')
+	RETURN 3
+END
 
-@NewLevel = @NewLevel + 1
+DECLARE @Level int
+SELECT @Level = [Level] FROM Party WHERE PartyID = @PartyID_1
 
 UPDATE Party
-SET [Level] = @NewLevel 
+SET [Level] = @Level + 1
 WHERE PartyID = @PartyID_1
 
 GO
