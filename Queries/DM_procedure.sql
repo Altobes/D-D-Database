@@ -6,6 +6,15 @@ CREATE PROCEDURE [dbo].[insert_DM] (
 	@Name varchar(200), 
 	@Username varchar(200))
 AS
+If ((Select Username from User where @Username = Username) is null) 
+Begin
+	RaisError('Error: User not listed', 14, 2)
+End
+
+If ((select Username from DM where Username = @Username) is not null)
+Begin 
+	RaisError('Error: Selected user is already a DM', 14, 3)
+End
 Insert into [DM] ([DM_ID], [Name], [Username])
 VALUES (@DM_ID, @Name, @Username)
 
