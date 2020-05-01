@@ -73,7 +73,7 @@ public class Frag_Database {
 	 * Initialize the contents of the frame.
 	 */
 	void initialize() {
-		dbService.connect("yuans", "password"); // replace "password" with your own rose password
+		dbService.connect("username", "password"); // replace "username" and "password" with your own rose login
 		ArrayList<String> pc_temp = pc.getPlayerCharacter();
 		ArrayList<String> pty_temp = pc.getParty();
 		frame = new JFrame();

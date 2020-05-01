@@ -82,4 +82,23 @@ public class Player_character {
 		}
 		return  pty;
 	}
+	
+	public ArrayList<String> getBackStory() {	
+		//TO DO: Task 2 
+		ArrayList<String> stories = new ArrayList<String>();
+		java.sql.Statement stat = null;
+		String s=String.format("Select back_story from %s.dbo.Player_Character", this.dbService.databaseName);
+		try{
+			Connection c = this.dbService.getConnection();
+			stat = c.createStatement();
+			ResultSet r = ((java.sql.Statement) stat).executeQuery(s);
+			while(r.next()){
+				String bc = r.getString("back_story");
+				stories.add(bc);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return stories;
+	}
 }

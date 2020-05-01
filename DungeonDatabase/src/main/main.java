@@ -56,7 +56,7 @@ public class main {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		dbService.connect("yuans", "password"); // replace "password" with your own rose password
+		dbService.connect("username", "password"); // replace "username" and "password" with your own rose login
 		String username = null, password = null;
 
 		frame = new JFrame();

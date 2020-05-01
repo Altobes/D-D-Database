@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +14,9 @@ public class Frag_Player_character {
 
 	JFrame frame;
 	private JTable table;
+	private DatabaseConnectionService dbService = 
+			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
+	private Player_character pc = new Player_character(dbService);
 
 	/**
 	 * Launch the application.
@@ -41,6 +45,9 @@ public class Frag_Player_character {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		dbService.connect("username", "password"); // replace "username" and "password" with your own rose login
+		ArrayList<String> pc_temp = pc.getPlayerCharacter();
+		ArrayList<String> bs_temp = pc.getBackStory();
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
 		frame.setBounds(100, 100, 450, 300);
@@ -58,16 +65,23 @@ public class Frag_Player_character {
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Name", "Back Story"},
-				{"James", "Farmer"},
-				{"John Smith", null},
-			},
-			new String[] {
-				"New column", "New column"
-			}
-		));
+		DefaultTableModel tb = new DefaultTableModel(
+				new Object[][] {
+					{"Name", "Back Story"},
+				},
+				new String[] {
+					"New column", "New column"
+				}
+			);
+		for(int i = 0; i<pc_temp.size(); i++) {
+			tb.addRow(new Object[] {
+				pc_temp.get(i)
+			});
+		}
+		for(int i = 0; i<bs_temp.size(); i++) {
+			tb.setValueAt(bs_temp.get(i), i+1, 1);
+		}
+		table.setModel(tb);
 		table.getColumnModel().getColumn(0).setPreferredWidth(50);
 		table.getColumnModel().getColumn(1).setPreferredWidth(300);
 		table.setBounds(10, 75, 416, 178);
