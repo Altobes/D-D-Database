@@ -14,7 +14,19 @@ BEGIN
 	RETURN 2
 END
 
-UPDATE [Player]
+IF (SELECT Count(PlayerID) FROM Player_Character WHERE PlayerID = @PlayerID) = 0
+BEGIN
+	PRINT('Error, Party Does not exist')
+	RETURN 3
+END
+
+IF (SELECT Count(PartyID) FROM Party WHERE PartyID = @PartyID) = 0
+BEGIN
+	PRINT('Error, Party Does not exist')
+	RETURN 3
+END
+
+UPDATE [Player_Character]
 	SET PartyID = @PartyID
 	WHERE PlayerID = @PlayerID
 

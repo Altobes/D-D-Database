@@ -1,4 +1,4 @@
-CREATE PROCEDURE [Drop_Party]
+CREATE PROCEDURE [Delete_Party]
 		(@PartyID int)
 AS
 
@@ -8,7 +8,13 @@ BEGIN
 	RETURN 2
 END
 
-DROP Party
+IF (SELECT Count(PartyID) FROM Party WHERE PartyID = @PartyID) = 0
+BEGIN
+	PRINT('Error, Party Does not exist')
+	RETURN 3
+END
+
+DELETE Party
 	WHERE PartyID = @PartyID
 
 GO
