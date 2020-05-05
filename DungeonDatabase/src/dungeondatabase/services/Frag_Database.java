@@ -73,7 +73,7 @@ public class Frag_Database {
 	 * Initialize the contents of the frame.
 	 */
 	void initialize() {
-		dbService.connect("username", "password"); // replace "username" and "password" with your own rose login
+		dbService.connect("caranid", "Washington!1"); // replace "username" and "password" with your own rose login
 		ArrayList<String> pc_temp = pc.getPlayerCharacter();
 		ArrayList<String> pty_temp = pc.getParty();
 		frame = new JFrame();
@@ -123,9 +123,6 @@ public class Frag_Database {
 			}, new String[] {
 				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
 		}); 
-		tb.addRow(new Object[]
-				{"Player Character", "Stat", "Items", "Spells", "Skills",
-						"NPC", "Campaign", "Party"});
 		for(int i = 0; i<pc_temp.size(); i++) {
 			tb.addRow(new Object[] {
 				pc_temp.get(i)
