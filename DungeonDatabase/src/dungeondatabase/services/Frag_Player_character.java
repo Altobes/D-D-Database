@@ -2,9 +2,12 @@ package dungeondatabase.services;
 
 import java.awt.EventQueue;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JTable;
@@ -17,6 +20,7 @@ public class Frag_Player_character {
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
 	private Player_character pc = new Player_character(dbService);
+	
 
 	/**
 	 * Launch the application.
@@ -45,7 +49,7 @@ public class Frag_Player_character {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		dbService.connect("username", "password"); // replace "username" and "password" with your own rose login
+		dbService.connect("altobes", "Tails1233"); // replace "username" and "password" with your own rose login
 		ArrayList<String> pc_temp = pc.getPlayerCharacter();
 		ArrayList<String> bs_temp = pc.getBackStory();
 		frame = new JFrame();
@@ -63,6 +67,18 @@ public class Frag_Player_character {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_1.setBounds(10, 40, 184, 25);
 		frame.getContentPane().add(lblNewLabel_1);
+		
+		JButton btnNewButton = new JButton("Create New Character");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnNewButton.setBounds(200, 39, 200, 25);
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) { //Open create character menu
+				Frag_Create_Character window = new Frag_Create_Character();
+				window.frame.setVisible(true);
+			}
+		});
+		frame.getContentPane().add(btnNewButton);
 		
 		table = new JTable();
 		DefaultTableModel tb = new DefaultTableModel(
