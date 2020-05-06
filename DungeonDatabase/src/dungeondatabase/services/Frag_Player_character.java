@@ -20,7 +20,6 @@ public class Frag_Player_character {
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
 	private Player_character pc = new Player_character(dbService);
-	
 
 	/**
 	 * Launch the application.
@@ -45,11 +44,12 @@ public class Frag_Player_character {
 		initialize();
 	}
 
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		dbService.connect("altobes", "Tails1233"); // replace "username" and "password" with your own rose login
+		dbService.connect("caranid", "Washington!1"); // replace "username" and "password" with your own rose login
 		ArrayList<String> pc_temp = pc.getPlayerCharacter();
 		ArrayList<String> bs_temp = pc.getBackStory();
 		frame = new JFrame();
