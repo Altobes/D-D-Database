@@ -67,6 +67,8 @@ public class Frag_NPC {
 		));
 		table.setBounds(10, 75, 416, 178);
 		frame.getContentPane().add(table);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }

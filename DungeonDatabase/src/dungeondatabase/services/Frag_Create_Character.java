@@ -160,6 +160,8 @@ public class Frag_Create_Character {
 				}
 			});
 			frame.getContentPane().add(btnNewButton);
+			
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 		
 

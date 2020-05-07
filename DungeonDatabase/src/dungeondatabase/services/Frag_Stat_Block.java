@@ -83,6 +83,8 @@ public class Frag_Stat_Block {
 		));
 		table.setBounds(10, 81, 666, 372);
 		frame.getContentPane().add(table);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }

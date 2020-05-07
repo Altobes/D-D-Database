@@ -56,7 +56,7 @@ public class main {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		dbService.connect("caranid", "Washington!1"); // replace "username" and "password" with your own rose login
+		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
 		String username = null, password = null;
 
 		frame = new JFrame();
@@ -120,6 +120,8 @@ public class main {
 			}	
 		});
 		frame.getContentPane().add(btnNewButton_1);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public void runApplication(String[] args) {
