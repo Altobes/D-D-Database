@@ -125,45 +125,45 @@ public class Frag_Create_Statblock {
 			frame.getContentPane().add(dexField);
 			dexField.setColumns(10);
 			
-			JLabel conField = new JLabel("Constitution");
-			conField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			conField.setBounds(10, 320, 184, 25);
+			JLabel conLabel  = new JLabel("Constitution");
+			conLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			conLabel.setBounds(10, 320, 184, 25);
+			frame.getContentPane().add(conLabel);
+			
+			JTextField conField = new JTextField();
+			conField.setBounds(200, 320, 200, 25);
 			frame.getContentPane().add(conField);
+			conField.setColumns(10);
 			
-			JTextField textField_8 = new JTextField();
-			textField_8.setBounds(200, 320, 200, 25);
-			frame.getContentPane().add(textField_8);
-			textField_8.setColumns(10);
+			JLabel intLabel = new JLabel("Intelligence");
+			intLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			intLabel.setBounds(10, 360, 184, 25);
+			frame.getContentPane().add(intLabel);
 			
-			JLabel intField = new JLabel("Intelligence");
-			intField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			intField.setBounds(10, 360, 184, 25);
+			JTextField intField = new JTextField();
+			intField.setBounds(200, 360, 200, 25);
 			frame.getContentPane().add(intField);
+			intField.setColumns(10);
 			
-			JTextField textField_9 = new JTextField();
-			textField_9.setBounds(200, 360, 200, 25);
-			frame.getContentPane().add(textField_9);
-			textField_9.setColumns(10);
+			JLabel wisLabel = new JLabel("Wisdom");
+			wisLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			wisLabel.setBounds(10, 400, 184, 25);
+			frame.getContentPane().add(wisLabel);
 			
-			JLabel wisField = new JLabel("Wisdom");
-			wisField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			wisField.setBounds(10, 400, 184, 25);
+			JTextField wisField = new JTextField();
+			wisField.setBounds(200, 400, 200, 25);
 			frame.getContentPane().add(wisField);
+			wisField.setColumns(10);
 			
-			JTextField textField_10 = new JTextField();
-			textField_10.setBounds(200, 400, 200, 25);
-			frame.getContentPane().add(textField_10);
-			textField_10.setColumns(10);
+			JLabel chaLabel = new JLabel("Charisma");
+			chaLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			chaLabel.setBounds(10, 440, 184, 25);
+			frame.getContentPane().add(chaLabel);
 			
-			JLabel chaField = new JLabel("Charisma");
-			chaField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			chaField.setBounds(10, 440, 184, 25);
+			JTextField chaField = new JTextField();
+			chaField.setBounds(200, 440, 200, 25);
 			frame.getContentPane().add(chaField);
-			
-			JTextField textField_11 = new JTextField();
-			textField_11.setBounds(200, 440, 200, 25);
-			frame.getContentPane().add(textField_11);
-			textField_11.setColumns(10);
+			chaField.setColumns(10);
 			
 			JLabel lblNewLabel_12 = new JLabel("Languages");
 			lblNewLabel_12.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -185,6 +185,7 @@ public class Frag_Create_Statblock {
 					try {
 						cs = dbService.getConnection().prepareCall("{? = call CreateStatblock(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
 
+						System.out.println("Test");
 						String Name = new String(NameField.getText());
 						cs.setString(2, Name.trim());
 						
