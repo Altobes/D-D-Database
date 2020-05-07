@@ -1,6 +1,17 @@
 Use DungeonDatabase
 Go
 
+Create Table NPC(
+	[Name] varChar(200) NOT NULL,
+	NPC_ID int IDENTITY(1,1) NOT NULL,
+	CR int,
+	StatID int,
+	CampaignID int
+	Primary Key (NPC_ID),
+	Foreign Key (CampaignID) REFERENCES Campaign,
+	Foreign Key (StatID) REFERENCES StatBlock
+)
+
 CREATE PROCEDURE [dbo].[insert_NPC] (
 	@NPC_ID [int],
 	@Name varchar(200), 
