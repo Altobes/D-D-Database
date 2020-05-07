@@ -241,6 +241,6 @@ public class Frag_Create_Statblock {
 			});
 			frame.getContentPane().add(btnNewButton);
 			
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

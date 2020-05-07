@@ -255,7 +255,7 @@ public class Frag_Database {
 		});
 		frame.getContentPane().add(btnNewButton_8);
 		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
 

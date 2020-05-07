@@ -71,7 +71,7 @@ public class Frag_Items {
 		table.setBounds(10, 75, 416, 178);
 		frame.getContentPane().add(table);
 		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }
