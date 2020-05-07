@@ -49,7 +49,7 @@ public class Frag_Create_Character {
 		 * Initialize the contents of the frame.
 		 */
 		private void initialize() {
-			dbService.connect("", ""); // replace "username" and "password" with your own rose login
+			dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
 			frame = new JFrame();
 			frame.setAlwaysOnTop(true);
 			frame.setBounds(100, 100, 500, 300);

@@ -94,7 +94,7 @@ public class Frag_Party {
 		table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
 		frame.getContentPane().add(table);
 		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	
