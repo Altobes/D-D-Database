@@ -73,7 +73,7 @@ public class Frag_Database {
 	 * Initialize the contents of the frame.
 	 */
 	void initialize() {
-		dbService.connect("caranid", "Washington!1"); // replace "username" and "password" with your own rose login
+		dbService.connect("caranid", ""); // replace "username" and "password" with your own rose login
 		ArrayList<String> pc_temp = pc.getPlayerCharacter();
 		ArrayList<String> pty_temp = pc.getParty();
 		frame = new JFrame();
@@ -254,6 +254,8 @@ public class Frag_Database {
 			}	
 		});
 		frame.getContentPane().add(btnNewButton_8);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
 

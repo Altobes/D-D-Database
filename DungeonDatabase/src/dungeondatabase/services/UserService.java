@@ -33,7 +33,9 @@ public class UserService {
 	public boolean login(String username, String password) {
 		//TO DO: Complete this method.
 		java.sql.Statement stat = null;
-		String text=String.format("Select PasswordSalt, PasswordHash from %s.dbo.[User] Where Username = '%s'", this.dbService.databaseName,username);
+		String text=String.format("Select PasswordSalt, PasswordHash "
+				                + "From %s.dbo.[User] "
+				                + "Where Username = '%s'", this.dbService.databaseName,username);
 		try{
 			Connection c = this.dbService.getConnection();
 			stat=c.createStatement();

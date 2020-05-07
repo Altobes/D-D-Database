@@ -49,7 +49,7 @@ public class Frag_Player_character {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		dbService.connect("caranid", "Washington!1"); // replace "username" and "password" with your own rose login
+		dbService.connect("caranid", ""); // replace "username" and "password" with your own rose login
 		ArrayList<String> pc_temp = pc.getPlayerCharacter();
 		ArrayList<String> bs_temp = pc.getBackStory();
 		frame = new JFrame();
@@ -102,6 +102,8 @@ public class Frag_Player_character {
 		table.getColumnModel().getColumn(1).setPreferredWidth(300);
 		table.setBounds(10, 75, 416, 178);
 		frame.getContentPane().add(table);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }

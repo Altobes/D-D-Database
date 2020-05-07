@@ -68,14 +68,14 @@ public class Player_character {
 		//TO DO: Task 2 
 		ArrayList<String> pty = new ArrayList<String>();
 		java.sql.Statement stat = null;
-		String s=String.format("Select Name from %s.dbo.Party", this.dbService.databaseName);
+		String s = String.format("Select PartyID from %s.dbo.Player_Character", this.dbService.databaseName);
 		try{
 			Connection c = this.dbService.getConnection();
 			stat = c.createStatement();
 			ResultSet r = ((java.sql.Statement) stat).executeQuery(s);
 			while(r.next()){
-				String name = r.getString("Name");
-				pty.add(name);
+				String PartyID = r.getString("PartyID");
+				pty.add(PartyID);
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
