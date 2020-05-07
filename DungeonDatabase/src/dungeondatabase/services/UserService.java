@@ -51,11 +51,11 @@ public class UserService {
 				window.frame.setVisible(true);
 				return true;
 			}else{
-				JOptionPane.showMessageDialog(null, "Login Failed");
+				JOptionPane.showMessageDialog(null, "Login Failed: incorrect hash");
 				return false;
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, "Login Failed");
+			JOptionPane.showMessageDialog(null, "Login Failed: sql exception");
 			return false;	
 		}
 	}
