@@ -53,7 +53,7 @@ public class Frag_DM_View {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Frag_Database window = new Frag_Database();
+					Frag_DM_View window = new Frag_DM_View();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -97,7 +97,7 @@ public class Frag_DM_View {
 		choice.setBounds(119, 47, 96, 20);
 		frame.getContentPane().add(choice);
 		
-		lblNewLabel_1 = new JLabel("Player Character");
+		lblNewLabel_1 = new JLabel("Campaigns");
 		lblNewLabel_1.setBounds(10, 52, 118, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		
@@ -133,23 +133,6 @@ public class Frag_DM_View {
 		table.setColumnSelectionAllowed(true);
 		table.setBounds(10, 101, 666, 334);
 		frame.getContentPane().add(table);
-		
-		lblNewLabel_2 = new JLabel("Party");
-		lblNewLabel_2.setBounds(236, 51, 36, 13);
-		frame.getContentPane().add(lblNewLabel_2);
-		
-		textField = new JTextField();
-		textField.setBounds(473, 48, 96, 19);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		lblNewLabel_3 = new JLabel("Campaign");
-		lblNewLabel_3.setBounds(403, 51, 77, 13);
-		frame.getContentPane().add(lblNewLabel_3);
-		
-		btnNewButton = new JButton("Search");
-		btnNewButton.setBounds(579, 47, 97, 21);
-		frame.getContentPane().add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("Character");
 		btnNewButton_1.setBounds(10, 75, 96, 20);
@@ -254,18 +237,6 @@ public class Frag_DM_View {
 			}	
 		});
 		frame.getContentPane().add(btnNewButton_8);
-		
-		btnNewButton_9 = new JButton("DM View");
-		btnNewButton_9.setBounds(10, 10, 85, 20);
-		btnNewButton_9.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Frag_Party window = new Frag_Party();
-				window.frame.setVisible(true);
-
-			}	
-		});
-		frame.getContentPane().add(btnNewButton_9);
 		
 //			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

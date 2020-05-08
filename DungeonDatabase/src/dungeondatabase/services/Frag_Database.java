@@ -261,7 +261,7 @@ public class Frag_Database {
 		btnNewButton_9.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Frag_Party window = new Frag_Party();
+				Frag_DM_View window = new Frag_DM_View();
 				window.frame.setVisible(true);
 
 			}	
