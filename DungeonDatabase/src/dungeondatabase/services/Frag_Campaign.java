@@ -2,9 +2,12 @@ package dungeondatabase.services;
 
 import java.awt.EventQueue;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -57,13 +60,27 @@ public class Frag_Campaign {
 		lblNewLabel_1.setBounds(10, 40, 184, 25);
 		frame.getContentPane().add(lblNewLabel_1);
 		
+		JButton create_Campaign = new JButton("Create New Campaign");
+		create_Campaign.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		create_Campaign.setBounds(225, 39, 175, 25);
+		create_Campaign.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) { //Open create character menu
+				Frag_Create_Campaign window = new Frag_Create_Campaign();
+				window.frame.setVisible(true);
+			}
+		});
+		frame.getContentPane().add(create_Campaign);
+		
+		
+		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Name"},
+				{"Name", "CampaignID", "PartyID"},
 			},
 			new String[] {
-				"New column"
+				"New column", "New column", "New column"
 			}
 		));
 		table.setBounds(10, 75, 416, 178);
