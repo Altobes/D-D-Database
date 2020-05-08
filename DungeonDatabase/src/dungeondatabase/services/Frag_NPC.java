@@ -2,20 +2,25 @@ package dungeondatabase.services;
 
 import java.awt.EventQueue;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+
 
 public class Frag_NPC {
 
 	JFrame frame;
 	private JTable table;
+	private DatabaseConnectionService dbService = 
+			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
+	private NPC npc = new NPC(dbService);
 
 	/**
 	 * Launch the application.
@@ -44,6 +49,10 @@ public class Frag_NPC {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		dbService.connect("Dungeon19", "Password123");
+		ArrayList<String> npc_name = npc.getNPC();
+		ArrayList<String> npc_cr = npc.getCR();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.getContentPane().setLayout(null);
@@ -59,31 +68,69 @@ public class Frag_NPC {
 		lblNewLabel_1.setBounds(10, 40, 184, 25);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		JButton btnNewButton = new JButton("Create New NPC");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton.setBounds(200, 39, 200, 25);
-		btnNewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) { //Open create character menu
-				Frag_Create_NPC window = new Frag_Create_NPC();
-				window.frame.setVisible(true);
-			}
-		});
-		frame.getContentPane().add(btnNewButton);
-		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Name", "CR"},
-			},
-			new String[] {
-				"New column", "New column"
-			}
-		));
+		DefaultTableModel tb = new DefaultTableModel(
+				new Object[][] {
+				}, new String[] {
+					"New column", "New column"
+		});
+		tb.addRow(new Object[]{"Name", "CR"});
+		
+		for(int i = 0; i<npc_name.size(); i++) {
+			tb.addRow(new Object[] {
+				npc_name.get(i), npc_cr.get(i)
+			});
+		}
+		table.setModel(tb);
 		table.setBounds(10, 75, 416, 178);
 		frame.getContentPane().add(table);
 		
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+		JButton btnNewButton = new JButton("Create New NPC");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnNewButton.setBounds(95, 44, 193, 21);
+		btnNewButton.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Frag_Create_NPC window = new Frag_Create_NPC();
+				window.frame.setVisible(true);
+
+			}	
+		});
+		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Update");
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnNewButton_1.setBounds(330, 44, 85, 21);
+		btnNewButton_1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<String> new_name = npc.getNPC();
+				ArrayList<String> new_cr = npc.getCR();
+				table.setVisible(false);
+				updateTable(new_name, new_cr);
+			}	
+		});
+		frame.getContentPane().add(btnNewButton_1);
+	}
+	
+	private void updateTable(ArrayList<String> npc_name, ArrayList<String> npc_cr) {
+		table = new JTable();
+		DefaultTableModel tb = new DefaultTableModel(
+				new Object[][] {
+				}, new String[] {
+					"New column", "New column"
+		});
+		tb.addRow(new Object[]{"Name", "CR"});
+		
+		for(int i = 0; i<npc_name.size(); i++) {
+			tb.addRow(new Object[] {
+				npc_name.get(i), npc_cr.get(i)
+			});
+		}
+		table.setModel(tb);
+		table.setBounds(10, 75, 416, 178);
+		frame.getContentPane().add(table);
+	}
 }
