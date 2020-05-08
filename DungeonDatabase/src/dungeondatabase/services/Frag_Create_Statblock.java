@@ -185,7 +185,6 @@ public class Frag_Create_Statblock {
 					try {
 						cs = dbService.getConnection().prepareCall("{? = call CreateStatblock(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
 
-						System.out.println("Test");
 						String Name = new String(NameField.getText());
 						cs.setString(2, Name.trim());
 						

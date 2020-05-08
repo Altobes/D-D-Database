@@ -20,7 +20,6 @@ public class Frag_Create_Character {
 		JFrame frame;
 		private DatabaseConnectionService dbService = 
 				new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
-		//private Player_character pc = new Player_character(dbService);
 		
 		/**
 		 * Launch the application.
@@ -114,24 +113,33 @@ public class Frag_Create_Character {
 				public void actionPerformed(ActionEvent e) { //Open create character menu
 					CallableStatement cs = null;
 					try {
-						//@Name varChar(200) = 'John Smith', @story varChar(200) = '', @user varChar(200), @party int = NULL, @stat int = NULL) AS 
 						cs = dbService.getConnection().prepareCall("{? = call Create_PlayerCharacter(?, ?, ?, ?, ?)}");
-						//cs.setString(2, restName.trim());
 						
 						String Name = new String(nameField.getText());
 						cs.setString(2, Name);
 						
-						int party = Integer.parseInt(partyField.getText());
+						int party = -1;
+						
+						try {
+					         party = Integer.parseInt(partyField.getText());
+					      } catch (NumberFormatException e1) {
+					      }
 						cs.setInt(5, party);
 						
-						int Stat = Integer.parseInt(statField.getText());
+						int Stat = -1;
+						try {
+					         Stat = Integer.parseInt(statField.getText());
+					      } catch (NumberFormatException e1) {
+					    	  JOptionPane.showMessageDialog(null, "ERROR: Need Valid Statblock ID");
+					    	  return;
+					      }
 						cs.setInt(6, Stat);
 						
 						String Story = new String(storyField.getText());
 						cs.setString(3, Story);
 						
-						int User = 00000;  //UserID
-						cs.setInt(3, User);
+						String User = "altobes";  //UserID
+						cs.setString(4, User);
 
 						cs.registerOutParameter(1, Types.INTEGER);
 						cs.execute();
