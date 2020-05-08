@@ -46,8 +46,14 @@ public class Player_character {
 	
 	public ArrayList<ArrayList<String>> getStatBlock() {
 		ArrayList<ArrayList<String>> Statblocks = new ArrayList<ArrayList<String>>();
-		java.sql.Statement state = null;
+		for (int i = 0;i < 11;i++) {
+			Statblocks.add(new ArrayList<String>());
+		}
+		//java.sql.Statement state = null;
 		ArrayList<String> states = new ArrayList<String>();
+		
+		
+		String s=String.format("Select * from %s.dbo.StatBlock", this.dbService.databaseName);
 		String s1=String.format("Select Name from %s.dbo.StatBlock", this.dbService.databaseName);   states.add(s1);
 		String s2=String.format("Select AC from %s.dbo.StatBlock", this.dbService.databaseName);     states.add(s2);
 		String s3=String.format("Select Speed from %s.dbo.StatBlock", this.dbService.databaseName);  states.add(s3);
@@ -66,31 +72,33 @@ public class Player_character {
 			//state = c.createStatement();
 			ArrayList<ResultSet> results = new ArrayList<ResultSet>();
 			
-			for (int i = 1;i < states.size();i++) {
-				System.out.println("Test");
-				Connection c = dbService.getConnection();
-				System.out.println(c == null);
+			/*for (int i = 1;i < states.size();i++) {
+				this.dbService.connect("Dungeon19", "Password123");
+				Connection c = this.dbService.getConnection();
 				cs = c.prepareCall(states.get(i));
 				ResultSet r1 = cs.executeQuery();
 				results.add(r1);
+				System.out.println(r1.getRow());
+			} */
+			this.dbService.connect("Dungeon19", "Password123");
+			Connection c = this.dbService.getConnection();
+			cs = c.prepareCall(s);
+			ResultSet r1 = cs.executeQuery();
+			//results.add(r1);
+			while(r1.next()) {
+				Statblocks.get(0).add(r1.getString("Name"));
+				Statblocks.get(1).add(r1.getString("AC"));
+				Statblocks.get(2).add(r1.getString("Speed"));
+				Statblocks.get(3).add(r1.getString("StatID"));
+				Statblocks.get(4).add(r1.getString("Race"));
+				Statblocks.get(5).add(r1.getString("STR"));
+				Statblocks.get(6).add(r1.getString("DEX"));
+				Statblocks.get(7).add(r1.getString("CON"));
+				Statblocks.get(8).add(r1.getString("INT"));
+				Statblocks.get(9).add(r1.getString("WIS"));
+				Statblocks.get(10).add(r1.getString("CHA"));
 			}
-				
-
-			for (int i = 0; i < results.size();i++) {
-				Statblocks.get(0).add(results.get(0).getString("Name"));
-				Statblocks.get(1).add(results.get(1).getString("AC"));
-				Statblocks.get(2).add(results.get(2).getString("Speed"));
-				Statblocks.get(3).add(results.get(3).getString("StatID"));
-				Statblocks.get(4).add(results.get(4).getString("Race"));
-				Statblocks.get(5).add(results.get(5).getString("STR"));
-				Statblocks.get(6).add(results.get(6).getString("DEX"));
-				Statblocks.get(7).add(results.get(7).getString("CON"));
-				Statblocks.get(8).add(results.get(8).getString("INT"));
-				Statblocks.get(9).add(results.get(9).getString("WIS"));
-				Statblocks.get(10).add(results.get(10).getString("CHA"));
-				//String name = r.getString("Name");
-				//characters.add(name);
-			}
+			
 			
 			
 		}catch(SQLException e){

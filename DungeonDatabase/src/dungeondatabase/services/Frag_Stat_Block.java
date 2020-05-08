@@ -54,7 +54,6 @@ public class Frag_Stat_Block {
 		frame.getContentPane().setLayout(null);
 		
 		ArrayList<ArrayList<String>> stats = pc.getStatBlock();
-		System.out.println(stats);
 		
 		JLabel lblNewLabel = new JLabel("Dungeon Database");
 		lblNewLabel.setForeground(Color.ORANGE);
@@ -79,27 +78,28 @@ public class Frag_Stat_Block {
 		});
 		frame.getContentPane().add(btnNewButton);
 		
+		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		DefaultTableModel tb = new DefaultTableModel(
 			new Object[][] {
 				{"Name", "Language", "AC", "Speed", "Race", "STR", "DEX", "CON", "INT", "WIS", "CHA"},
 			},
 			new String[] {
 				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
 			}
-		));
+		);
 		table.setBounds(10, 81, 666, 372);
-		/*
-		for(int i = 0; i<pc_temp.size(); i++) {
+		
+		for(int i = 0; i < stats.get(0).size(); i++) {
 			tb.addRow(new Object[] {
-				pc_temp.get(i)
+				stats.get(0).get(i)
 			});
 		}
-		for(int i = 0; i<bs_temp.size(); i++) {
-			tb.setValueAt(bs_temp.get(i), i+1, 1);
+		for (int i = 0; i < stats.size(); i++) {
+			for (int j = 0;j < stats.get(i).size();j++)
+				tb.setValueAt(stats.get(i).get(j), j+1, i);
 		}
-		*/
-		
+		table.setModel(tb);
 		frame.getContentPane().add(table);
 		
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
