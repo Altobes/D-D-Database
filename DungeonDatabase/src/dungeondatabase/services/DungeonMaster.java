@@ -44,6 +44,29 @@ public class DungeonMaster {
 //			}
 		return true;
 	}
+	
+	public ArrayList<String> getDMCampaigns() {
+		
+		ArrayList<String> cams = new ArrayList<String>();
+		String s=String.format("Select Name from %s.dbo.Campaign Where (Select DM_ID From DM Where Username = %s) = Campaign.DM_ID", this.dbService.databaseName, "altobes");
+		CallableStatement cs = null;
+		try{
+			this.dbService.connect("Dungeon19", "Password123");
+			Connection c = this.dbService.getConnection();
+			cs = c.prepareCall(s);
+			ResultSet r = cs.executeQuery();
+			while(r.next()) {
+				cams.add(r.getString("Name"));
+			}
+			
+			
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return cams;
+	}
 
 	
 	public ArrayList<ArrayList<String>> getStatBlock() {
@@ -51,26 +74,11 @@ public class DungeonMaster {
 		for (int i = 0;i < 12;i++) {
 			Statblocks.add(new ArrayList<String>());
 		}
-		//java.sql.Statement state = null;
-		ArrayList<String> states = new ArrayList<String>();
-		
 		
 		String s=String.format("Select * from %s.dbo.StatBlock", this.dbService.databaseName);
 		CallableStatement cs = null;
 			
 		try{
-			//Connection c = this.dbService.getConnection();
-			//state = c.createStatement();
-			ArrayList<ResultSet> results = new ArrayList<ResultSet>();
-			
-			/*for (int i = 1;i < states.size();i++) {
-				this.dbService.connect("Dungeon19", "Password123");
-				Connection c = this.dbService.getConnection();
-				cs = c.prepareCall(states.get(i));
-				ResultSet r1 = cs.executeQuery();
-				results.add(r1);
-				System.out.println(r1.getRow());
-			} */
 			this.dbService.connect("Dungeon19", "Password123");
 			Connection c = this.dbService.getConnection();
 			cs = c.prepareCall(s);

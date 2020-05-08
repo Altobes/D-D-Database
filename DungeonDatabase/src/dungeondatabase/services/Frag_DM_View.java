@@ -43,7 +43,7 @@ public class Frag_DM_View {
 	private JButton btnNewButton_9;
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
-	private Player_character pc = new Player_character(dbService);
+	private DungeonMaster dm = new DungeonMaster(dbService);
 
 
 	/**
@@ -74,8 +74,6 @@ public class Frag_DM_View {
 	 */
 	void initialize() {
 		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
-		ArrayList<String> pc_temp = pc.getPlayerCharacter();
-		ArrayList<String> pty_temp = pc.getParty();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 700, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,10 +86,12 @@ public class Frag_DM_View {
 		lblNewLabel.setBounds(200, 10, 254, 31);
 		frame.getContentPane().add(lblNewLabel);
 		
+		ArrayList<String> camps = dm.getDMCampaigns();
+		
 		Choice choice = new Choice();
 		choice.add("None");
-		for(int i = 0; i<pc_temp.size(); i++) {
-			choice.add(pc_temp.get(i));
+		for(int i = 0; i<camps.size(); i++) {
+			choice.add(camps.get(i));
 		}	
 		choice.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		choice.setBounds(119, 47, 96, 20);
@@ -101,15 +101,18 @@ public class Frag_DM_View {
 		lblNewLabel_1.setBounds(10, 52, 118, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		
+		
+		/*
 		choice_1 = new Choice();
 		choice_1.add("None");
-		for(int i = 0; i<pty_temp.size(); i++) {
-			choice.add(pty_temp.get(i));
+		for(int i = 0; i< camps.size(); i++) {
+			choice.add(camps.get(i));
 		}	
 
 		choice_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		choice_1.setBounds(278, 47, 96, 20);
 		frame.getContentPane().add(choice_1);
+		*/
 		
 		table = new JTable();
 		table.setCellSelectionEnabled(true);
@@ -123,11 +126,13 @@ public class Frag_DM_View {
 			}, new String[] {
 				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
 		}); 
+		/*
 		for(int i = 0; i<pc_temp.size(); i++) {
 			tb.addRow(new Object[] {
 				pc_temp.get(i)
 			});
 		}
+		*/
 		table.setModel(tb);
 		table.getColumnModel().getColumn(0).setPreferredWidth(89);
 		table.setColumnSelectionAllowed(true);
