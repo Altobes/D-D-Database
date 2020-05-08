@@ -131,6 +131,9 @@ public class Player_character {
 			ResultSet r = ((java.sql.Statement) stat).executeQuery(s);
 			while(r.next()){
 				String PartyID = r.getString("PartyID");
+				if (PartyID == null || PartyID == "") {
+					PartyID = "Null";
+				}
 				pty.add(PartyID);
 			}
 		}catch(SQLException e){
