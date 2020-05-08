@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -17,6 +20,11 @@ public class Frag_Party {
 
 	JFrame frame;
 	private JTable table;
+	private DatabaseConnectionService dbService = 
+			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
+	private Party partyService = new Party(dbService);
+	
+	private ArrayList<String> partyIDs, partyNames, partyLevels, partyLocations;
 
 	/**
 	 * Launch the application.
@@ -45,6 +53,9 @@ public class Frag_Party {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		dbService.connect("Dungeon19", "Password123");
+		
+		
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
 		frame.setBounds(100, 100, 450, 300);
@@ -75,17 +86,38 @@ public class Frag_Party {
 				window.frame.setVisible(true);
 			}
 		});
+		
+		
 		frame.getContentPane().add(crtPrty);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Name", "Current   Location", "Level", "PartyID"},
-			},
-			new String[] {
-				"New column", "New column", "New column", "New column"
+		setData();
+		
+		frame.addWindowListener(new WindowListener() {
+			private boolean deactivated;
+			@Override
+			public void windowActivated(WindowEvent e) {
+				if (deactivated) {
+					Frag_Party f = new Frag_Party();
+					f.frame.setVisible(true);
+					frame.dispose();
+				}
+				deactivated = false;
 			}
-		));
+			@Override
+			public void windowClosed(WindowEvent e) {}
+			@Override
+			public void windowClosing(WindowEvent e) {}
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				deactivated = true;
+			}
+			@Override
+			public void windowDeiconified(WindowEvent e) {}
+			@Override
+			public void windowIconified(WindowEvent e) {}
+			@Override
+			public void windowOpened(WindowEvent e) {}
+		});
 		table.getColumnModel().getColumn(1).setPreferredWidth(100);
 		table.setBounds(10, 75, 416, 178);
 		table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
@@ -94,9 +126,29 @@ public class Frag_Party {
 		table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
 		frame.getContentPane().add(table);
 		
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	
+	public void setData() {
+		partyIDs = partyService.getPartyID();
+		partyNames = partyService.getPartyName();
+		partyLevels = partyService.getPartyLevel();
+		partyLocations = partyService.getCurrentLocation();
+		table = new JTable();
+		DefaultTableModel tb = new DefaultTableModel(
+				new Object[][] {
+					{"Name", "Current   Location", "Level", "PartyID"},
+				},
+				new String[] {
+					"New column", "New column", "New column", "New column"
+				}
+			);
+		for (int i = 0; i < partyIDs.size(); i++) {
+			tb.addRow(new Object[] {
+					partyNames.get(i), partyLocations.get(i), partyLevels.get(i), partyIDs.get(i)});
+		}
+		
+		table.setModel(tb);
+	}	
 	
 }

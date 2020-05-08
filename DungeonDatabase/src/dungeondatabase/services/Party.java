@@ -108,7 +108,7 @@ public class Party {
 			stat = c.createStatement();
 			ResultSet r = ((java.sql.Statement) stat).executeQuery(s);
 			while(r.next()){
-				String bc = r.getString("Place");
+				String bc = r.getString("Current Location");
 				Places.add(bc);
 			}
 		}catch(SQLException e){
