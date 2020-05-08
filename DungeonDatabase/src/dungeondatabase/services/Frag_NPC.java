@@ -2,9 +2,12 @@ package dungeondatabase.services;
 
 import java.awt.EventQueue;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -55,6 +58,18 @@ public class Frag_NPC {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_1.setBounds(10, 40, 184, 25);
 		frame.getContentPane().add(lblNewLabel_1);
+		
+		JButton btnNewButton = new JButton("Create New NPC");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnNewButton.setBounds(200, 39, 200, 25);
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) { //Open create character menu
+				Frag_Create_NPC window = new Frag_Create_NPC();
+				window.frame.setVisible(true);
+			}
+		});
+		frame.getContentPane().add(btnNewButton);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(

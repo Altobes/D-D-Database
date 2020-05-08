@@ -43,7 +43,7 @@ public class Frag_Create_Character {
 		public Frag_Create_Character() {
 			initialize();
 		}
-
+		
 		/**
 		 * Initialize the contents of the frame.
 		 */
@@ -171,6 +171,5 @@ public class Frag_Create_Character {
 			
 //			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
-		
 
 	}
