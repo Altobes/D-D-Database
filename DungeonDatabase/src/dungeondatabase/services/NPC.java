@@ -33,6 +33,15 @@ public class NPC {
 				JOptionPane.showMessageDialog(null, "Please Enter a NPC Name");
 				return false;
 			case 2:
+				JOptionPane.showMessageDialog(null, "Please Enter a Stat ID");
+				return false;
+			case 3:
+				JOptionPane.showMessageDialog(null, "Please Enter a Campaign ID");
+				return false;
+			case 4:
+				JOptionPane.showMessageDialog(null, "Please Enter NPC CR");
+				return false;
+			case 5:
 				JOptionPane.showMessageDialog(null, "NPC Name Exist, Please try another one");
 				return false;
 			}
