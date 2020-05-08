@@ -46,7 +46,7 @@ public class Player_character {
 	
 	public ArrayList<ArrayList<String>> getStatBlock() {
 		ArrayList<ArrayList<String>> Statblocks = new ArrayList<ArrayList<String>>();
-		for (int i = 0;i < 11;i++) {
+		for (int i = 0;i < 12;i++) {
 			Statblocks.add(new ArrayList<String>());
 		}
 		//java.sql.Statement state = null;
@@ -54,17 +54,6 @@ public class Player_character {
 		
 		
 		String s=String.format("Select * from %s.dbo.StatBlock", this.dbService.databaseName);
-		String s1=String.format("Select Name from %s.dbo.StatBlock", this.dbService.databaseName);   states.add(s1);
-		String s2=String.format("Select AC from %s.dbo.StatBlock", this.dbService.databaseName);     states.add(s2);
-		String s3=String.format("Select Speed from %s.dbo.StatBlock", this.dbService.databaseName);  states.add(s3);
-		String s4=String.format("Select StatID from %s.dbo.StatBlock", this.dbService.databaseName); states.add(s4);
-		String s5=String.format("Select Race from %s.dbo.StatBlock", this.dbService.databaseName);   states.add(s5);
-		String s6=String.format("Select STR from %s.dbo.StatBlock", this.dbService.databaseName);    states.add(s6);
-		String s7=String.format("Select DEX from %s.dbo.StatBlock", this.dbService.databaseName);    states.add(s7);
-		String s8=String.format("Select CON from %s.dbo.StatBlock", this.dbService.databaseName);    states.add(s8);
-		String s9=String.format("Select INT from %s.dbo.StatBlock", this.dbService.databaseName);    states.add(s9);
-		String s10=String.format("Select WIS from %s.dbo.StatBlock", this.dbService.databaseName);   states.add(s10);
-		String s11=String.format("Select CHA from %s.dbo.StatBlock", this.dbService.databaseName);   states.add(s11);
 		CallableStatement cs = null;
 			
 		try{
@@ -87,16 +76,17 @@ public class Player_character {
 			//results.add(r1);
 			while(r1.next()) {
 				Statblocks.get(0).add(r1.getString("Name"));
-				Statblocks.get(1).add(r1.getString("AC"));
-				Statblocks.get(2).add(r1.getString("Speed"));
-				Statblocks.get(3).add(r1.getString("StatID"));
-				Statblocks.get(4).add(r1.getString("Race"));
-				Statblocks.get(5).add(r1.getString("STR"));
-				Statblocks.get(6).add(r1.getString("DEX"));
-				Statblocks.get(7).add(r1.getString("CON"));
-				Statblocks.get(8).add(r1.getString("INT"));
-				Statblocks.get(9).add(r1.getString("WIS"));
-				Statblocks.get(10).add(r1.getString("CHA"));
+				Statblocks.get(1).add(r1.getString("StatID"));
+				Statblocks.get(2).add(r1.getString("Languages"));
+				Statblocks.get(3).add(r1.getString("AC"));
+				Statblocks.get(4).add(r1.getString("Speed"));
+				Statblocks.get(5).add(r1.getString("Race"));
+				Statblocks.get(6).add(r1.getString("STR"));
+				Statblocks.get(7).add(r1.getString("DEX"));
+				Statblocks.get(8).add(r1.getString("CON"));
+				Statblocks.get(9).add(r1.getString("INT"));
+				Statblocks.get(10).add(r1.getString("WIS"));
+				Statblocks.get(11).add(r1.getString("CHA"));
 			}
 			
 			

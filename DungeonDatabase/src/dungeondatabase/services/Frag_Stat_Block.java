@@ -6,12 +6,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import javafx.stage.WindowEvent;
 
 public class Frag_Stat_Block {
 
@@ -53,7 +58,6 @@ public class Frag_Stat_Block {
 		frame.setBounds(100, 100, 700, 500);
 		frame.getContentPane().setLayout(null);
 		
-		ArrayList<ArrayList<String>> stats = pc.getStatBlock();
 		
 		JLabel lblNewLabel = new JLabel("Dungeon Database");
 		lblNewLabel.setForeground(Color.ORANGE);
@@ -66,6 +70,26 @@ public class Frag_Stat_Block {
 		lblNewLabel_1.setBounds(10, 40, 114, 31);
 		frame.getContentPane().add(lblNewLabel_1);
 		
+		
+		
+		
+		
+		table = new JTable();
+		DefaultTableModel tb = new DefaultTableModel(
+			new Object[][] {
+				{"Name", "StatID", "Language", "AC", "Speed", "Race", "STR", "DEX", "CON", "INT", "WIS", "CHA"},
+			},
+			new String[] {
+				"New column","New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
+			}
+		);
+		table.setBounds(10, 81, 666, 372);
+		
+		fillTable(tb);
+		
+		table.setModel(tb);
+		frame.getContentPane().add(table);
+		
 		JButton btnNewButton = new JButton("Create New Statblock");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton.setBounds(200, 39, 200, 25);
@@ -77,18 +101,44 @@ public class Frag_Stat_Block {
 			}
 		});
 		frame.getContentPane().add(btnNewButton);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		
-		table = new JTable();
-		DefaultTableModel tb = new DefaultTableModel(
-			new Object[][] {
-				{"Name", "Language", "AC", "Speed", "Race", "STR", "DEX", "CON", "INT", "WIS", "CHA"},
-			},
-			new String[] {
-				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
+		frame.addWindowListener(new WindowListener() {
+			private boolean deactivated;
+			@Override
+			public void windowActivated(java.awt.event.WindowEvent e) {
+				if (deactivated) {
+					Frag_Stat_Block stats = new Frag_Stat_Block();
+					stats.frame.setVisible(true);
+					frame.dispose();
+				}
+				deactivated = false;
 			}
-		);
-		table.setBounds(10, 81, 666, 372);
+			@Override
+			public void windowClosed(java.awt.event.WindowEvent e) {
+			}
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent e) {
+			}
+			@Override
+			public void windowDeactivated(java.awt.event.WindowEvent e) {
+				deactivated = true;
+			}
+			@Override
+			public void windowDeiconified(java.awt.event.WindowEvent e) {
+			}
+			@Override
+			public void windowIconified(java.awt.event.WindowEvent e) {
+			}
+			@Override
+			public void windowOpened(java.awt.event.WindowEvent e) {
+			}
+		});
+		
+	}
+	
+	void fillTable(DefaultTableModel tb) {
+		ArrayList<ArrayList<String>> stats = pc.getStatBlock();
 		
 		for(int i = 0; i < stats.get(0).size(); i++) {
 			tb.addRow(new Object[] {
@@ -99,10 +149,6 @@ public class Frag_Stat_Block {
 			for (int j = 0;j < stats.get(i).size();j++)
 				tb.setValueAt(stats.get(i).get(j), j+1, i);
 		}
-		table.setModel(tb);
-		frame.getContentPane().add(table);
 		
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
 }

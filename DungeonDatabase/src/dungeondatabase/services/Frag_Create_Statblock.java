@@ -19,7 +19,6 @@ public class Frag_Create_Statblock {
 		JFrame frame;
 		private DatabaseConnectionService dbService = 
 				new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
-		//private StatBlock pc = new StatBlock(dbService);
 			
 		/**
 		 * Launch the application.
