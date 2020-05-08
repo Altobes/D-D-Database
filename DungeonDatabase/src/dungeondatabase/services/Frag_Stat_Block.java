@@ -53,9 +53,6 @@ public class Frag_Stat_Block {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
-		boolean active = false;
-		
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
 		frame.setBounds(100, 100, 700, 500);

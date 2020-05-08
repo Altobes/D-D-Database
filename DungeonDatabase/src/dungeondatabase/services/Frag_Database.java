@@ -41,6 +41,7 @@ public class Frag_Database {
 	private JButton btnNewButton_6;
 	private JButton btnNewButton_7;
 	private JButton btnNewButton_8;
+	private JButton btnNewButton_9;
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
 	private Player_character pc = new Player_character(dbService);
@@ -254,6 +255,18 @@ public class Frag_Database {
 			}	
 		});
 		frame.getContentPane().add(btnNewButton_8);
+		
+		btnNewButton_9 = new JButton("DM View");
+		btnNewButton_9.setBounds(10, 10, 85, 20);
+		btnNewButton_9.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Frag_Party window = new Frag_Party();
+				window.frame.setVisible(true);
+
+			}	
+		});
+		frame.getContentPane().add(btnNewButton_9);
 		
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
