@@ -121,7 +121,7 @@ public class Frag_Create_Character {
 						int party = -1;
 						
 						try {
-					         party = Integer.parseInt(partyField.getText());
+					         party = Integer.parseInt(partwait sal me or yField.getText());
 					      } catch (NumberFormatException e1) {
 					      }
 						cs.setInt(5, party);
