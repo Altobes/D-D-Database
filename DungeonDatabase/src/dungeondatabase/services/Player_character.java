@@ -44,6 +44,62 @@ public class Player_character {
 		return true;
 	}
 	
+	public ArrayList<ArrayList<String>> getStatBlock() {
+		ArrayList<ArrayList<String>> Statblocks = new ArrayList<ArrayList<String>>();
+		java.sql.Statement state = null;
+		ArrayList<String> states = new ArrayList<String>();
+		String s1=String.format("Select Name from %s.dbo.StatBlock", this.dbService.databaseName);   states.add(s1);
+		String s2=String.format("Select AC from %s.dbo.StatBlock", this.dbService.databaseName);     states.add(s2);
+		String s3=String.format("Select Speed from %s.dbo.StatBlock", this.dbService.databaseName);  states.add(s3);
+		String s4=String.format("Select StatID from %s.dbo.StatBlock", this.dbService.databaseName); states.add(s4);
+		String s5=String.format("Select Race from %s.dbo.StatBlock", this.dbService.databaseName);   states.add(s5);
+		String s6=String.format("Select STR from %s.dbo.StatBlock", this.dbService.databaseName);    states.add(s6);
+		String s7=String.format("Select DEX from %s.dbo.StatBlock", this.dbService.databaseName);    states.add(s7);
+		String s8=String.format("Select CON from %s.dbo.StatBlock", this.dbService.databaseName);    states.add(s8);
+		String s9=String.format("Select INT from %s.dbo.StatBlock", this.dbService.databaseName);    states.add(s9);
+		String s10=String.format("Select WIS from %s.dbo.StatBlock", this.dbService.databaseName);   states.add(s10);
+		String s11=String.format("Select CHA from %s.dbo.StatBlock", this.dbService.databaseName);   states.add(s11);
+		CallableStatement cs = null;
+			
+		try{
+			//Connection c = this.dbService.getConnection();
+			//state = c.createStatement();
+			ArrayList<ResultSet> results = new ArrayList<ResultSet>();
+			
+			for (int i = 1;i < states.size();i++) {
+				System.out.println("Test");
+				Connection c = dbService.getConnection();
+				System.out.println(c == null);
+				cs = c.prepareCall(states.get(i));
+				ResultSet r1 = cs.executeQuery();
+				results.add(r1);
+			}
+				
+
+			for (int i = 0; i < results.size();i++) {
+				Statblocks.get(0).add(results.get(0).getString("Name"));
+				Statblocks.get(1).add(results.get(1).getString("AC"));
+				Statblocks.get(2).add(results.get(2).getString("Speed"));
+				Statblocks.get(3).add(results.get(3).getString("StatID"));
+				Statblocks.get(4).add(results.get(4).getString("Race"));
+				Statblocks.get(5).add(results.get(5).getString("STR"));
+				Statblocks.get(6).add(results.get(6).getString("DEX"));
+				Statblocks.get(7).add(results.get(7).getString("CON"));
+				Statblocks.get(8).add(results.get(8).getString("INT"));
+				Statblocks.get(9).add(results.get(9).getString("WIS"));
+				Statblocks.get(10).add(results.get(10).getString("CHA"));
+				//String name = r.getString("Name");
+				//characters.add(name);
+			}
+			
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return Statblocks;
+	}
+	
 
 	public ArrayList<String> getPlayerCharacter() {	
 		//TO DO: Task 2 

@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +17,9 @@ public class Frag_Stat_Block {
 
 	JFrame frame;
 	private JTable table;
+	private DatabaseConnectionService dbService = 
+			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
+	private Player_character pc = new Player_character(dbService);
 
 	/**
 	 * Launch the application.
@@ -48,6 +52,9 @@ public class Frag_Stat_Block {
 		frame.setAlwaysOnTop(true);
 		frame.setBounds(100, 100, 700, 500);
 		frame.getContentPane().setLayout(null);
+		
+		ArrayList<ArrayList<String>> stats = pc.getStatBlock();
+		System.out.println(stats);
 		
 		JLabel lblNewLabel = new JLabel("Dungeon Database");
 		lblNewLabel.setForeground(Color.ORANGE);
@@ -82,6 +89,17 @@ public class Frag_Stat_Block {
 			}
 		));
 		table.setBounds(10, 81, 666, 372);
+		/*
+		for(int i = 0; i<pc_temp.size(); i++) {
+			tb.addRow(new Object[] {
+				pc_temp.get(i)
+			});
+		}
+		for(int i = 0; i<bs_temp.size(); i++) {
+			tb.setValueAt(bs_temp.get(i), i+1, 1);
+		}
+		*/
+		
 		frame.getContentPane().add(table);
 		
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
