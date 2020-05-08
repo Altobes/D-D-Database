@@ -1,25 +1,30 @@
 package dungeondatabase.services;
 
-import java.awt.Color;
 import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.CallableStatement;
-import java.sql.SQLException;
-import java.sql.Types;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Color;
 
 public class Frag_Create_NPC {
+
 	JFrame frame;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JButton btnNewButton;
+	private JLabel lblNewLabel_1;
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
-	
+	private NPC npc = new NPC(dbService);
+
 	/**
 	 * Launch the application.
 	 */
@@ -47,127 +52,77 @@ public class Frag_Create_NPC {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
+		dbService.connect("Dungeon19", "Password123");
 		frame = new JFrame();
-		frame.setAlwaysOnTop(true);
-		frame.setBounds(100, 100, 500, 300);
+		frame.setBounds(100, 100, 450, 300);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Dungeon Database");
-		lblNewLabel.setForeground(Color.ORANGE);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		lblNewLabel.setBounds(101, 0, 250, 42);
+		JLabel lblNewLabel = new JLabel("NPC Name");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel.setBounds(25, 40, 100, 27);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("NPC");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_1.setBounds(10, 40, 184, 25);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel lblNpcCr = new JLabel("NPC CR");
+		lblNpcCr.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNpcCr.setBounds(25, 85, 100, 27);
+		frame.getContentPane().add(lblNpcCr);
 		
-		JLabel lblNewLabel_2 = new JLabel("Name");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_2.setBounds(10, 80, 184, 25);
-		frame.getContentPane().add(lblNewLabel_2);
+		JLabel lblStatId = new JLabel("Stat ID");
+		lblStatId.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblStatId.setBounds(25, 130, 100, 27);
+		frame.getContentPane().add(lblStatId);
 		
-		JTextField nameField = new JTextField();
-		nameField.setBounds(200, 80, 200, 25);
-		frame.getContentPane().add(nameField);
-		nameField.setColumns(10);
-
-		JLabel lblNewLabel_3 = new JLabel("CR");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_3.setBounds(10, 120, 184, 25);
-		frame.getContentPane().add(lblNewLabel_3);
+		JLabel lblCampagin = new JLabel("Campaign ID");
+		lblCampagin.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCampagin.setBounds(25, 175, 100, 27);
+		frame.getContentPane().add(lblCampagin);
 		
-		JTextField crField = new JTextField();
-		crField.setBounds(200, 120, 200, 25);
-		frame.getContentPane().add(crField);
-		crField.setColumns(10);
+		textField = new JTextField();
+		textField.setBounds(140, 40, 229, 27);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
 		
-		JLabel lblNewLabel_4 = new JLabel("Stat");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_4.setBounds(10, 160, 184, 25);
-		frame.getContentPane().add(lblNewLabel_4);
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(140, 85, 229, 27);
+		frame.getContentPane().add(textField_1);
 		
-		JTextField statField = new JTextField();
-		statField.setBounds(200, 160, 200, 25);
-		frame.getContentPane().add(statField);
-		statField.setColumns(10);
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(140, 130, 229, 27);
+		frame.getContentPane().add(textField_2);
 		
-		JLabel lblNewLabel_5 = new JLabel("Campaign");
-		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_5.setBounds(10, 200, 184, 25);
-		frame.getContentPane().add(lblNewLabel_5);
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(140, 175, 229, 27);
+		frame.getContentPane().add(textField_3);
 		
-		JTextField campaignField = new JTextField();
-		campaignField.setBounds(200, 200, 200, 25);
-		frame.getContentPane().add(campaignField);
-		campaignField.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Create");
+		btnNewButton = new JButton("Create");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnNewButton.setBounds(200, 45, 200, 20);
+		btnNewButton.setBounds(250, 220, 119, 27);
 		btnNewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) { //Open create character menu
-				CallableStatement cs = null;
-				try {
-					cs = dbService.getConnection().prepareCall("{? = call CreateNPC(?, ?, ?, ?)}");
-					
-					String Name = new String(nameField.getText());
-					cs.setString(2, Name);
-					
-					int cr = 0;
-					
-					try {
-				         cr = Integer.parseInt(crField.getText());
-				      } catch (NumberFormatException e1) {
-				      }
-					cs.setInt(3, cr);
-					
-					int Stat = -1;
-					try {
-				         Stat = Integer.parseInt(statField.getText());
-				      } catch (NumberFormatException e1) {
-				    	  JOptionPane.showMessageDialog(null, "ERROR: Need Valid Statblock ID");
-				    	  return;
-				      }
-					cs.setInt(4, Stat);
-					
-					String Story = new String(campaignField.getText());
-					cs.setString(5, Story);
 
-					cs.registerOutParameter(1, Types.INTEGER);
-					cs.execute();
-					
-					int result = cs.getInt(1);
-					if (result == 4) {
-						JOptionPane.showMessageDialog(null, "ERROR: Need to enter a CR");
-					}
-					else if (result == 3) {
-						JOptionPane.showMessageDialog(null, "ERROR: Need Valid Campaign ID");
-					}
-					else if (result == 2) {
-						JOptionPane.showMessageDialog(null, "ERROR: Need Valid Statblock ID");
-					}
-					else if (result == 1) {
-						JOptionPane.showMessageDialog(null, "ERROR: Need Valid Name");
-					}
-					else if (result == 0) {
-						JOptionPane.showMessageDialog(null, "Successfully Created NPC");
-					}
-			
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String npc_name = textField.getText();
+				int npc_cr = Integer.parseInt(textField_1.getText());
+				int statID = Integer.parseInt(textField_2.getText());
+				int campagignID = Integer.parseInt(textField_3.getText());
+				System.out.println(npc_name);
+				System.out.println(npc_cr);
+				System.out.println(statID);
+				System.out.println(campagignID);
+				npc.addNPC(npc_name, npc_cr, statID, campagignID);
+				frame.setVisible(false);
+
+			}	
 		});
 		frame.getContentPane().add(btnNewButton);
 		
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		lblNewLabel_1 = new JLabel("Create New NPC");
+		lblNewLabel_1.setForeground(Color.ORANGE);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblNewLabel_1.setBounds(150, 5, 168, 20);
+		frame.getContentPane().add(lblNewLabel_1);
 	}
-	
-
-
 }
