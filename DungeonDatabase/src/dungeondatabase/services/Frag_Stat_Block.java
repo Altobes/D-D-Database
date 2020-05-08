@@ -53,6 +53,9 @@ public class Frag_Stat_Block {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		boolean active = false;
+		
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
 		frame.setBounds(100, 100, 700, 500);
@@ -98,6 +101,7 @@ public class Frag_Stat_Block {
 			public void actionPerformed(ActionEvent e) { //Open create character menu
 				Frag_Create_Statblock window = new Frag_Create_Statblock();
 				window.frame.setVisible(true);
+				
 			}
 		});
 		frame.getContentPane().add(btnNewButton);
@@ -108,9 +112,8 @@ public class Frag_Stat_Block {
 			@Override
 			public void windowActivated(java.awt.event.WindowEvent e) {
 				if (deactivated) {
-					Frag_Stat_Block stats = new Frag_Stat_Block();
-					stats.frame.setVisible(true);
-					frame.dispose();
+					tb.setRowCount(1);
+					fillTable(tb);
 				}
 				deactivated = false;
 			}
