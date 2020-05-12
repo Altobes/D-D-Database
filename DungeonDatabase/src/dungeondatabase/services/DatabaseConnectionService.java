@@ -13,6 +13,7 @@ public class DatabaseConnectionService {
 
 	public String databaseName;
 	public String serverName;
+	public String username;
 
 	public DatabaseConnectionService(String serverName, String databaseName) {
 		//DO NOT CHANGE THIS METHOD

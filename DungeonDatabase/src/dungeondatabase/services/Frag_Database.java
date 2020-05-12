@@ -76,7 +76,10 @@ public class Frag_Database {
 	 * Create the application.
 	 */
 	public Frag_Database() {
-//		this.dbService = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
+		initialize();
+	}
+	public Frag_Database(String user) {
+		this.user = user;
 		initialize();
 	}
 
@@ -88,15 +91,15 @@ public class Frag_Database {
 		ArrayList<String> pc_temp = pc.getPlayerCharacter();
 		ArrayList<String> pty_temp = pc.getParty();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 700, 500);
+		frame.setBounds(100, 100, 750, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Dungeon Database");
+		JLabel lblNewLabel = new JLabel("Dungeon Database for " + this.user);
 		lblNewLabel.setForeground(Color.ORANGE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(200, 10, 254, 31);
+		lblNewLabel.setBounds(225, 4, 500, 31);
 		frame.getContentPane().add(lblNewLabel);
 		
 		Choice choice = new Choice();
@@ -314,7 +317,7 @@ public class Frag_Database {
 		Connection c = this.dbService.getConnection();
 		cs = c.prepareCall("Select Username from DM Where Username = ?");
 		//cs.setString(1, this.dbService.databaseName);
-		cs.setString(1, "altobes");
+		cs.setString(1, user);
 		ResultSet r = cs.executeQuery();
 		if (!r.next()) {
 			JOptionPane.showMessageDialog(null, "User is not DM");

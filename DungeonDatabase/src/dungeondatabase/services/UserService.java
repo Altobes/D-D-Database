@@ -47,7 +47,7 @@ public class UserService {
 			String temp = hashPassword(sb, password);
 			if(temp.equals(h)){
 				JOptionPane.showMessageDialog(null, "Login Success");
-				Frag_Database window = new Frag_Database();
+				Frag_Database window = new Frag_Database(username);
 				window.frame.setVisible(true);
 				return true;
 			}else{
