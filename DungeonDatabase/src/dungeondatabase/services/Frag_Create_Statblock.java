@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -190,29 +191,29 @@ public class Frag_Create_Statblock {
 						String Race = new String(raceField.getText());
 						cs.setString(6, Race.trim());
 						
-						int Speed = Integer.parseInt(speedField.getText());
-						cs.setInt(5, Speed);
+						int Speed = -1;
+						setAttributes(cs, Speed, 5, speedField);
 						
-						int AC = Integer.parseInt(acField.getText());
-						cs.setInt(4, AC);
+						int AC = -1;
+						setAttributes(cs, AC, 4, acField);
 						
-						int Str = Integer.parseInt(strengthField.getText());
-						cs.setInt(7, Str);
+						int Str = -1;
+						setAttributes(cs, Str, 7, strengthField);
 						
-						int Dex = Integer.parseInt(dexField.getText());
-						cs.setInt(8, Dex);
+						int Dex = -1;
+						setAttributes(cs, Dex, 8, dexField);
 						
-						int Con = Integer.parseInt(conField.getText());
-						cs.setInt(9, Con);
+						int Con = -1;
+						setAttributes(cs, Con, 9, conField);
 						
-						int Int = Integer.parseInt(intField.getText());
-						cs.setInt(10, Int);
+						int Int = -1;
+						setAttributes(cs, Int, 10, intField);
 						
-						int Wis = Integer.parseInt(wisField.getText());
-						cs.setInt(11, Wis);
+						int Wis = -1;
+						setAttributes(cs, Wis, 11, wisField);
 						
-						int Cha = Integer.parseInt(chaField.getText());
-						cs.setInt(12, Cha);
+						int Cha = -1;
+						setAttributes(cs, Cha, 12, chaField);
 						
 						String Languages = new String(langField.getText());
 						cs.setString(3, Languages.trim());
@@ -220,16 +221,9 @@ public class Frag_Create_Statblock {
 						cs.registerOutParameter(1, Types.INTEGER);
 						
 						cs.execute();
-						//int result = cs.getInt(1);
-						/*
-						if (result == 1) {
-							JOptionPane.showMessageDialog(null, "ERROR: Restaurant name cannot be null or empty");
-							
-						}
-						else if (result == 2) {
-							JOptionPane.showMessageDialog(null, "ERROR: Restaurant name already exists.");
-						}
-						*/
+						
+						JOptionPane.showMessageDialog(null, "Stat Block Created");
+						frame.dispose();
 				
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
@@ -241,5 +235,14 @@ public class Frag_Create_Statblock {
 			frame.getContentPane().add(btnNewButton);
 			
 //			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+		
+	public void setAttributes(CallableStatement cs, int attr, int parameterNumber, JTextField textField) throws SQLException {
+		try {
+			attr = Integer.parseInt(textField.getText());
+		} catch (NumberFormatException exception) {
+			attr = -1;
+		}
+		cs.setInt(parameterNumber, attr);
 	}
 }

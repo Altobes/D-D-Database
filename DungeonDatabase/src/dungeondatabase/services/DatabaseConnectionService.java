@@ -33,7 +33,7 @@ public class DatabaseConnectionService {
 		try{
 			this.connection = DriverManager.getConnection(connectionUrl);
 		}catch(SQLException e){
-			System.out.println("Error!!!");
+			System.out.println("Error: Connection Failed. See stack Trace.");
 			e.printStackTrace();
 			this.closeConnection();
 			return false;

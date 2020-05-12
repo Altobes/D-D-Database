@@ -100,7 +100,8 @@ public class main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String password = new String(passwordField.getPassword());
-				if(us.login(textField.getText(), password)) {
+				String username = textField.getText();
+				if(us.login(username, password)) {
 					frame.dispose();
 				}
 			}

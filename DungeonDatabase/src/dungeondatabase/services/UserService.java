@@ -51,11 +51,13 @@ public class UserService {
 				window.frame.setVisible(true);
 				return true;
 			}else{
-				JOptionPane.showMessageDialog(null, "Login Failed: incorrect hash");
+				int currentLine = new Throwable().getStackTrace()[0].getLineNumber() + 1;
+				JOptionPane.showMessageDialog(null, "Login Failed: Error on line " + currentLine);
 				return false;
 			}
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, "Login Failed: sql exception");
+			int currentLine = new Throwable().getStackTrace()[0].getLineNumber() + 1;
+			JOptionPane.showMessageDialog(null, "Login Failed: Error on line " + currentLine);
 			return false;	
 		}
 	}
