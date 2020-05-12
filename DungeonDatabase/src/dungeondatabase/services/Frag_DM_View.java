@@ -78,7 +78,7 @@ public class Frag_DM_View {
 		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
 		frame = new JFrame();
 		frame.setBounds(100, 100, 700, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Dungeon Database");
