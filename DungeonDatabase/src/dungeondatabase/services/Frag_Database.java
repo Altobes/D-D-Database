@@ -7,8 +7,11 @@ import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.HeadlessException;
+
 import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.AbstractListModel;
 import javax.swing.JSlider;
@@ -17,6 +20,11 @@ import javax.swing.JTree;
 import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.awt.Choice;
 import javax.swing.JButton;
@@ -42,10 +50,12 @@ public class Frag_Database {
 	private JButton btnNewButton_7;
 	private JButton btnNewButton_8;
 	private JButton btnNewButton_9;
+	private JButton btnNewButton_10;
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
 	private Player_character pc = new Player_character(dbService);
 
+	private String user = "altobes";
 
 	/**
 	 * Launch the application.
@@ -257,18 +267,85 @@ public class Frag_Database {
 		frame.getContentPane().add(btnNewButton_8);
 		
 		btnNewButton_9 = new JButton("DM View");
-		btnNewButton_9.setBounds(10, 10, 85, 20);
+		btnNewButton_9.setBounds(5, 10, 85, 20);
 		btnNewButton_9.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try {
+					if (!checkDM()) {
+						return;
+					}
+					
+				} catch (HeadlessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				Frag_DM_View window = new Frag_DM_View();
 				window.frame.setVisible(true);
-
-			}	
+			}
 		});
 		frame.getContentPane().add(btnNewButton_9);
 		
+		btnNewButton_10 = new JButton("Register DM");
+		btnNewButton_10.setBounds(95, 10, 110, 20);
+		btnNewButton_10.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					RegisterDM();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		frame.getContentPane().add(btnNewButton_10);
+		
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	private boolean checkDM() throws HeadlessException, SQLException {
+		CallableStatement cs = null;
+		this.dbService.connect("Dungeon19", "Password123");
+		//String s=String.format("Select Username from %s.dbo.DM Where Username = %s", this.dbService.databaseName, "altobes");
+		Connection c = this.dbService.getConnection();
+		cs = c.prepareCall("Select Username from DM Where Username = ?");
+		//cs.setString(1, this.dbService.databaseName);
+		cs.setString(1, "altobes");
+		ResultSet r = cs.executeQuery();
+		if (!r.next()) {
+			JOptionPane.showMessageDialog(null, "User is not DM");
+			return false;
+		}
+		return true;
+	}	
+	
+	private boolean RegisterDM() throws SQLException {
+		CallableStatement cs = null;
+		this.dbService.connect("Dungeon19", "Password123");
+		Connection c = this.dbService.getConnection();
+		cs = c.prepareCall("{? = call CreateDM(?)}");
+		cs.registerOutParameter(1, Types.INTEGER);
+		cs.setString(2, user);
+		cs.execute();
+		int result = cs.getInt(1);
+		
+		if (result == 2) {
+			JOptionPane.showMessageDialog(null, "User is not listed");
+			return false;
+		}
+		else if (result == 3) {
+			JOptionPane.showMessageDialog(null, "User is already DM");
+			return false;
+		}
+		else if (result == 1) {
+			JOptionPane.showMessageDialog(null, "User is now DM");
+			return true;
+		}
+		return true;
 	}
 }
 

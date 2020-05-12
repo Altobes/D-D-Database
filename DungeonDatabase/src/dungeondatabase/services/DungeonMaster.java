@@ -48,12 +48,19 @@ public class DungeonMaster {
 	public ArrayList<String> getDMCampaigns() {
 		
 		ArrayList<String> cams = new ArrayList<String>();
-		String s=String.format("Select Name from %s.dbo.Campaign Where (Select DM_ID From DM Where Username = %s) = Campaign.DM_ID", this.dbService.databaseName, "altobes");
+		
 		CallableStatement cs = null;
 		try{
 			this.dbService.connect("Dungeon19", "Password123");
 			Connection c = this.dbService.getConnection();
-			cs = c.prepareCall(s);
+			//cs = c.prepareCall(s);
+			cs = c.prepareCall("Select Name\r\n" + 
+					"From Campaign\r\n" + 
+					"Inner Join (Select CampaignID\r\n" + 
+					"			From DM\r\n" + 
+					"			Inner Join DM_Manages_Campaign as DMC on DMC.DM_ID = DM.DM_ID\r\n" + 
+					"			Where Username = ?) as DMDM on DMDM.CampaignID = Campaign.CampaignID");
+			cs.setString(1, "altobes");
 			ResultSet r = cs.executeQuery();
 			while(r.next()) {
 				cams.add(r.getString("Name"));

@@ -87,10 +87,11 @@ public class Frag_Create_Campaign {
 			public void actionPerformed(ActionEvent e) { // Open create character menu
 				CallableStatement cs = null;
 				try {
-					cs = dbService.getConnection().prepareCall("{? = call Create_Campaign(?, ?)}");
+					cs = dbService.getConnection().prepareCall("{? = call Create_Campaign(?, ?, ?)}");
 
 					String Name = new String(nameField.getText());
 					cs.setString(2, Name);
+					cs.setString(3, "altobes"); //DM User
 
 					int party = -1;
 

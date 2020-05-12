@@ -17,6 +17,8 @@ import javax.swing.JTree;
 import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.awt.Choice;
 import javax.swing.JButton;
@@ -88,31 +90,54 @@ public class Frag_DM_View {
 		
 		ArrayList<String> camps = dm.getDMCampaigns();
 		
-		Choice choice = new Choice();
-		choice.add("None");
+		Choice choice_1 = new Choice();
+		choice_1.add("None");
 		for(int i = 0; i<camps.size(); i++) {
-			choice.add(camps.get(i));
+			choice_1.add(camps.get(i));
 		}	
-		choice.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		choice.setBounds(119, 47, 96, 20);
-		frame.getContentPane().add(choice);
+		choice_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		choice_1.setBounds(119, 47, 200, 20);
+		
+		choice_1.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent a) {
+				String camp = a.getItemSelectable().getSelectedObjects().toString();
+				System.out.println(camp);
+				
+			}	
+		});
+		frame.getContentPane().add(choice_1);
 		
 		lblNewLabel_1 = new JLabel("Campaigns");
 		lblNewLabel_1.setBounds(10, 52, 118, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		
-		/*
-		choice_1 = new Choice();
-		choice_1.add("None");
-		for(int i = 0; i< camps.size(); i++) {
-			choice.add(camps.get(i));
-		}	
+		JButton create_Campaign = new JButton("New Campaign");
+		create_Campaign.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		create_Campaign.setBounds(350, 47, 175, 20);
+		create_Campaign.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) { // Open create character menu
+				Frag_Create_Campaign window = new Frag_Create_Campaign();
+				window.frame.setVisible(true);
+			}
+		});
+		frame.getContentPane().add(create_Campaign);
+		
+		JButton create_party = new JButton("New Party");
+		create_party.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		create_party.setBounds(535, 47, 125, 20);
+		create_party.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) { // Open create character menu
+				Frag_Create_Campaign window = new Frag_Create_Campaign();
+				window.frame.setVisible(true);
+			}
+		});
+		frame.getContentPane().add(create_party);
 
-		choice_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		choice_1.setBounds(278, 47, 96, 20);
-		frame.getContentPane().add(choice_1);
-		*/
 		
 		table = new JTable();
 		table.setCellSelectionEnabled(true);
