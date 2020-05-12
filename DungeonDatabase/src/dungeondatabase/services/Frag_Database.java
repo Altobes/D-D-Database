@@ -51,8 +51,7 @@ public class Frag_Database {
 	private JButton btnNewButton_8;
 	private JButton btnNewButton_9;
 	private JButton btnNewButton_10;
-	private DatabaseConnectionService dbService = 
-			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
+	private DatabaseConnectionService dbService = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
 	private Player_character pc = new Player_character(dbService);
 
 	private String user = "altobes";
@@ -77,6 +76,7 @@ public class Frag_Database {
 	 * Create the application.
 	 */
 	public Frag_Database() {
+//		this.dbService = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
 		initialize();
 	}
 
