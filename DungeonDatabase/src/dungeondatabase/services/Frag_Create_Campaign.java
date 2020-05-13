@@ -19,7 +19,7 @@ public class Frag_Create_Campaign {
 	JFrame frame;
 	private DatabaseConnectionService dbService = new DatabaseConnectionService("golem.csse.rose-hulman.edu",
 			"DungeonDatabase");
-
+	private String user;
 	/**
 	 * Launch the application.
 	 */
@@ -41,6 +41,11 @@ public class Frag_Create_Campaign {
 	 */
 	public Frag_Create_Campaign() {
 		initialize();
+	}
+	
+	public Frag_Create_Campaign(String user) {
+		initialize();
+		this.user = user;
 	}
 
 	/**
@@ -91,14 +96,10 @@ public class Frag_Create_Campaign {
 
 					String Name = new String(nameField.getText());
 					cs.setString(2, Name);
-					cs.setString(3, "altobes"); //DM User
+					cs.setString(4, user); //DM User
 
-					int party = -1;
-
-					try {
-						party = Integer.parseInt(partyID.getText());
-					} catch (NumberFormatException e1) {
-					}
+					int party = Integer.parseInt(partyID.getText());
+					
 					cs.setInt(3, party);
 
 					cs.registerOutParameter(1, Types.INTEGER);
@@ -109,6 +110,10 @@ public class Frag_Create_Campaign {
 						JOptionPane.showMessageDialog(null, "ERROR: Must provide valid party id");
 					} else if (result == 2) {
 						JOptionPane.showMessageDialog(null, "ERROR: Party does not exist");
+					} else if (result == 3) {
+						JOptionPane.showMessageDialog(null, "ERROR: User not listed");
+					} else if (result == 4) {
+						JOptionPane.showMessageDialog(null, "ERROR: user not DM");
 					} else if (result == 0) {
 						JOptionPane.showMessageDialog(null, "Successfully Created Campaign");
 					}

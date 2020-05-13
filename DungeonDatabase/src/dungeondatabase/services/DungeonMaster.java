@@ -13,9 +13,11 @@ public class DungeonMaster {
 	
 
 	private DatabaseConnectionService dbService = null;
+	private String user;
 	
-	public DungeonMaster(DatabaseConnectionService dbService) {
+	public DungeonMaster(DatabaseConnectionService dbService, String user) {
 		this.dbService = dbService;
+		this.user = user;
 	}
 	
 	public boolean addResturant(String restName, String addr, String contact) {
@@ -45,28 +47,29 @@ public class DungeonMaster {
 		return true;
 	}
 	
-	public ArrayList<String> getDMCampaigns() {
+	public ArrayList<ArrayList<String>> getDMCampaigns() {
 		
-		ArrayList<String> cams = new ArrayList<String>();
+		ArrayList<ArrayList<String>> cams = new ArrayList<ArrayList<String>>();
 		
 		CallableStatement cs = null;
 		try{
 			this.dbService.connect("Dungeon19", "Password123");
 			Connection c = this.dbService.getConnection();
 			//cs = c.prepareCall(s);
-			cs = c.prepareCall("Select Name\r\n" + 
+			cs = c.prepareCall("Select Name, Campaign.CampaignID\r\n" + 
 					"From Campaign\r\n" + 
 					"Inner Join (Select CampaignID\r\n" + 
 					"			From DM\r\n" + 
 					"			Inner Join DM_Manages_Campaign as DMC on DMC.DM_ID = DM.DM_ID\r\n" + 
 					"			Where Username = ?) as DMDM on DMDM.CampaignID = Campaign.CampaignID");
-			cs.setString(1, "altobes");
+			cs.setString(1, user);
 			ResultSet r = cs.executeQuery();
 			while(r.next()) {
-				cams.add(r.getString("Name"));
+				ArrayList<String> temp = new ArrayList<String>();
+				temp.add(r.getString("Name"));
+				temp.add(r.getString("CampaignID"));
+				cams.add(temp);
 			}
-			
-			
 			
 		}catch(SQLException e){
 			e.printStackTrace();

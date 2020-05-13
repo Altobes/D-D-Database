@@ -44,6 +44,7 @@ public class Frag_Create_Party {
 	public Frag_Create_Party() {
 		initialize();
 	}
+	
 
 	/**
 	 * Initialize the contents of the frame.

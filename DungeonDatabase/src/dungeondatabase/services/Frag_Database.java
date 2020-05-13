@@ -286,7 +286,7 @@ public class Frag_Database {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				Frag_DM_View window = new Frag_DM_View();
+				Frag_DM_View window = new Frag_DM_View(user);
 				window.frame.setVisible(true);
 			}
 		});
