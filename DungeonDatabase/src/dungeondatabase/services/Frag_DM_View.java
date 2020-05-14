@@ -20,6 +20,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -52,7 +54,7 @@ public class Frag_DM_View {
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
 	private String user = "altobes";
-	private DungeonMaster dm = new DungeonMaster(dbService, user);
+	private DungeonMaster dm = null;
 	private String camp;
 	private DefaultTableModel tb;
 	private int Party;
@@ -78,14 +80,16 @@ public class Frag_DM_View {
 	 * Create the application.
 	 */
 	public Frag_DM_View() {
-		initialize();
 		this.dm = new DungeonMaster(this.dbService, user);
+		initialize();
+		
 	}
 	
 	public Frag_DM_View(String user) {
-		initialize();
 		this.user = user;
 		this.dm = new DungeonMaster(this.dbService, user);
+		initialize();
+		
 	}
 
 	/**
@@ -110,7 +114,7 @@ public class Frag_DM_View {
 		Choice choice_1 = new Choice();
 		choice_1.add("None");
 		for(int i = 0; i<camps.size(); i++) {
-			choice_1.add(camps.get(i).get(0) + ": " + camps.get(i).get(1));
+			choice_1.add(camps.get(i).get(0) + ": #" + camps.get(i).get(1));
 		}	
 		choice_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		choice_1.setBounds(119, 47, 200, 20);
@@ -119,37 +123,29 @@ public class Frag_DM_View {
 			@Override
 			public void itemStateChanged(ItemEvent a) {
 				String temp = choice_1.getSelectedItem();
-				if (temp.equals(null)) {
+				if (temp.equals("None")) {
 					camp = "None";
 					return;
 				}
-				int t =temp.indexOf(":");
-				camp = temp.substring(t+1).trim();
 				
-				try {
-					
-					String g = String.format("USE %s Select PartyID From Campaign Where CampaignID = %s", dbService.databaseName, camp);
-					CallableStatement cs = null;
-					dbService.connect("Dungeon19", "Password123");
-					Connection c = dbService.getConnection();
-					//cs = c.prepareCall("Select PartyID From Campaign Where CampaignID = ?");
-					cs = c.prepareCall(g);
-					//cs.setInt(2, Integer.parseInt(camp));
-					ResultSet r = cs.executeQuery();
-					
-					
-					fillTable(camp);
-					if (r.getRow() == 0) {
-						JOptionPane.showMessageDialog(null, "No party ID found");
-						return;
+				int t = -1;
+				for (int i = temp.length()-1;i > 0;i--) {
+					if (temp.substring(i, i+1).equals("#")) {
+						t = i+1;
+						break;
 					}
-					Party = r.getInt("PartyID");
-					
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
+				
+				camp = temp.substring(t).trim();
+				System.out.println(camp);
+				int temparty = dm.getParty(camp);
+				
+				fillTable(camp);
+				if (temparty == -1) {
+					JOptionPane.showMessageDialog(null, "No party ID found");
+					return;
+				}
+				Party = temparty;
 				
 			}	
 		});
@@ -171,6 +167,46 @@ public class Frag_DM_View {
 			}
 		});
 		frame.getContentPane().add(create_Campaign);
+		
+		frame.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+			}
+
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowIconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
 		JButton create_party = new JButton("New Party");
 		create_party.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -202,8 +238,7 @@ public class Frag_DM_View {
 				}
 				
 				int playerID = Integer.parseInt(player);
-				String campaignID = choice_1.getSelectedItem();
-				if (campaignID.equals("None")) {
+				if (camp.equals("None")) {
 					JOptionPane.showMessageDialog(null, "ERROR: Choose campaign");
 					return;
 				}

@@ -2,8 +2,10 @@ package dungeondatabase.services;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -20,42 +22,12 @@ public class DungeonMaster {
 		this.user = user;
 	}
 	
-	public boolean addResturant(String restName, String addr, String contact) {
-		//TO DO: Task 5
-//			try{
-//				Connection c = this.dbService.getConnection();
-//				CallableStatement proc = c.prepareCall("{?=call AddRestaurant(?,?,?)}");
-//				proc.registerOutParameter(1, Types.INTEGER);
-//				proc.setString(2, restName);
-//				proc.setString(3, addr);
-//				proc.setString(4, contact);
-//				proc.execute();
-//				switch(proc.getInt(1)) {
-//				case 1:
-//					JOptionPane.showMessageDialog(null, "Please Enter a Restaurant Name");
-//					return false;
-//				case 2:
-//					JOptionPane.showMessageDialog(null, "Restaurant Name Exist, Please try another one");
-//					return false;
-//				}
-//				JOptionPane.showMessageDialog(null, "Successful adding: "+ restName);
-//				return true;
-//			}catch(SQLException e){
-//				JOptionPane.showMessageDialog(null, "Error!!!");
-//				return false;
-//			}
-		return true;
-	}
-	
 	public ArrayList<ArrayList<String>> getDMCampaigns() {
-		
 		ArrayList<ArrayList<String>> cams = new ArrayList<ArrayList<String>>();
-		
 		CallableStatement cs = null;
 		try{
 			this.dbService.connect("Dungeon19", "Password123");
 			Connection c = this.dbService.getConnection();
-			//cs = c.prepareCall(s);
 			cs = c.prepareCall("Select Name, Campaign.CampaignID\r\n" + 
 					"From Campaign\r\n" + 
 					"Inner Join (Select CampaignID\r\n" + 
@@ -76,6 +48,37 @@ public class DungeonMaster {
 		}
 		
 		return cams;
+	}
+	
+	public int getParty(String campaign) {
+		
+		int party = -1;
+		
+		try{
+			this.dbService.connect("Dungeon19", "Password123");
+			Connection c = this.dbService.getConnection();
+			String s = String.format("USE %s ", dbService.databaseName);
+			PreparedStatement cs = c.prepareStatement(s + "Select Campaign.PartyID From Campaign Where Campaign.CampaignID = ?");
+			cs.setInt(1, Integer.parseInt(campaign));
+			ResultSet r = cs.executeQuery();
+			
+			if (!r.next()) {
+				c.close();
+				return party;
+			}
+			
+			
+			party = r.getInt("PartyID");
+			c.close();
+			return party;
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return party;
+			
+			 
+		
 	}
 
 	
@@ -116,8 +119,7 @@ public class DungeonMaster {
 				Statblocks.get(12).add(r1.getString("CHA"));
 			}
 			
-			
-			
+			c.close();
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
