@@ -102,29 +102,29 @@ public class Frag_Database {
 		lblNewLabel.setBounds(225, 4, 500, 31);
 		frame.getContentPane().add(lblNewLabel);
 		
-		Choice choice = new Choice();
-		choice.add("None");
-		for(int i = 0; i<pc_temp.size(); i++) {
-			choice.add(pc_temp.get(i));
-		}	
-		choice.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		choice.setBounds(119, 47, 96, 20);
-		frame.getContentPane().add(choice);
-		
-		lblNewLabel_1 = new JLabel("Player Character");
-		lblNewLabel_1.setBounds(10, 52, 118, 13);
-		frame.getContentPane().add(lblNewLabel_1);
-		
-		choice_1 = new Choice();
-		choice_1.add("None");
-		for(int i = 0; i<pty_temp.size(); i++) {
-			choice.add(pty_temp.get(i));
-		}	
-
-		choice_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		choice_1.setBounds(278, 47, 96, 20);
-		frame.getContentPane().add(choice_1);
-		
+//		Choice choice = new Choice();
+//		choice.add("None");
+//		for(int i = 0; i<pc_temp.size(); i++) {
+//			choice.add(pc_temp.get(i));
+//		}	
+//		choice.setFont(new Font("Tahoma", Font.PLAIN, 12));
+//		choice.setBounds(119, 47, 96, 20);
+//		frame.getContentPane().add(choice);
+//		
+//		lblNewLabel_1 = new JLabel("Player Character");
+//		lblNewLabel_1.setBounds(10, 52, 118, 13);
+//		frame.getContentPane().add(lblNewLabel_1);
+//		
+//		choice_1 = new Choice();
+//		choice_1.add("None");
+//		for(int i = 0; i<pty_temp.size(); i++) {
+//			choice.add(pty_temp.get(i));
+//		}	
+//
+//		choice_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+//		choice_1.setBounds(278, 47, 96, 20);
+//		frame.getContentPane().add(choice_1);
+//		
 		table = new JTable();
 		table.setCellSelectionEnabled(true);
 		table.setForeground(Color.BLACK);
@@ -148,22 +148,21 @@ public class Frag_Database {
 		table.setBounds(10, 101, 666, 334);
 		frame.getContentPane().add(table);
 		
-		lblNewLabel_2 = new JLabel("Party");
-		lblNewLabel_2.setBounds(236, 51, 36, 13);
-		frame.getContentPane().add(lblNewLabel_2);
-		
-		textField = new JTextField();
-		textField.setBounds(473, 48, 96, 19);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		lblNewLabel_3 = new JLabel("Campaign");
-		lblNewLabel_3.setBounds(403, 51, 77, 13);
-		frame.getContentPane().add(lblNewLabel_3);
-		
-		btnNewButton = new JButton("Search");
-		btnNewButton.setBounds(579, 47, 97, 21);
-		frame.getContentPane().add(btnNewButton);
+//		lblNewLabel_2 = new JLabel("Party");
+//		lblNewLabel_2.setBounds(236, 51, 36, 13);
+//		frame.getContentPane().add(lblNewLabel_2);
+//		
+//		textField = new JTextField();
+//		textField.setBounds(473, 48, 96, 19);
+//		frame.getContentPane().add(textField);
+//		textField.setColumns(10);
+//		
+//		lblNewLabel_3 = new JLabel("Campaign");
+//		lblNewLabel_3.setBounds(403, 51, 77, 13);
+//		frame.getContentPane().add(lblNewLabel_3);
+//		btnNewButton = new JButton("Search");
+//		btnNewButton.setBounds(579, 47, 97, 21);
+//		frame.getContentPane().add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("Character");
 		btnNewButton_1.setBounds(10, 75, 96, 20);
