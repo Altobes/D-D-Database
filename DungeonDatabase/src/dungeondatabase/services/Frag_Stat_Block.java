@@ -136,7 +136,7 @@ public class Frag_Stat_Block {
 	}
 	
 	void fillTable(DefaultTableModel tb) {
-		ArrayList<ArrayList<String>> stats = null;//pc.getStatBlock();
+		ArrayList<ArrayList<String>> stats = pc.getStatBlock();
 		
 		for(int i = 0; i < stats.get(0).size(); i++) {
 			tb.addRow(new Object[] {

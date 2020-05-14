@@ -79,34 +79,41 @@ public class DungeonMaster {
 	}
 
 	
-	public ArrayList<ArrayList<String>> getStatBlock() {
+	public ArrayList<ArrayList<String>> getStatBlock(String campaign) {
 		ArrayList<ArrayList<String>> Statblocks = new ArrayList<ArrayList<String>>();
-		for (int i = 0;i < 12;i++) {
+		for (int i = 0;i < 13;i++) {
 			Statblocks.add(new ArrayList<String>());
 		}
+		//java.sql.Statement state = null;
 		
-		String s=String.format("Select * from %s.dbo.StatBlock", this.dbService.databaseName);
+		String g = String.format("USE %s Select PC.Name, PlayerID, S.StatID, Languages, AC, Speed, Race, STR, DEX, CON, INT, WIS, CHA\r\n" + 
+				"From StatBlock as S\r\n" + 
+				"Inner Join Player_Character as PC on PC.StatID = S.StatID\r\n" + 
+				"Where PC.PartyID  = (Select PartyID\r\n" + 
+				"					 From Campaign\r\n" + 
+				"					 Where CampaignID = %s)",dbService.databaseName ,campaign);
+		//String s=String.format("Select * from %s.dbo.StatBlock ", this.dbService.databaseName);
 		CallableStatement cs = null;
 			
 		try{
 			this.dbService.connect("Dungeon19", "Password123");
 			Connection c = this.dbService.getConnection();
-			cs = c.prepareCall(s);
+			cs = c.prepareCall(g);
 			ResultSet r1 = cs.executeQuery();
-			//results.add(r1);
 			while(r1.next()) {
 				Statblocks.get(0).add(r1.getString("Name"));
-				Statblocks.get(1).add(r1.getString("StatID"));
-				Statblocks.get(2).add(r1.getString("Languages"));
-				Statblocks.get(3).add(r1.getString("AC"));
-				Statblocks.get(4).add(r1.getString("Speed"));
-				Statblocks.get(5).add(r1.getString("Race"));
-				Statblocks.get(6).add(r1.getString("STR"));
-				Statblocks.get(7).add(r1.getString("DEX"));
-				Statblocks.get(8).add(r1.getString("CON"));
-				Statblocks.get(9).add(r1.getString("INT"));
-				Statblocks.get(10).add(r1.getString("WIS"));
-				Statblocks.get(11).add(r1.getString("CHA"));
+				Statblocks.get(1).add(r1.getString("PlayerID"));
+				Statblocks.get(2).add(r1.getString("StatID"));
+				Statblocks.get(3).add(r1.getString("Languages"));
+				Statblocks.get(4).add(r1.getString("AC"));
+				Statblocks.get(5).add(r1.getString("Speed"));
+				Statblocks.get(6).add(r1.getString("Race"));
+				Statblocks.get(7).add(r1.getString("STR"));
+				Statblocks.get(8).add(r1.getString("DEX"));
+				Statblocks.get(9).add(r1.getString("CON"));
+				Statblocks.get(10).add(r1.getString("INT"));
+				Statblocks.get(11).add(r1.getString("WIS"));
+				Statblocks.get(12).add(r1.getString("CHA"));
 			}
 			
 			

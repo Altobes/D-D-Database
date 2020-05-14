@@ -51,11 +51,11 @@ public class Frag_DM_View {
 	private JButton btnNewButton_9;
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
-	String user = "altobes";
+	private String user = "altobes";
 	private DungeonMaster dm = new DungeonMaster(dbService, user);
 	private String camp;
 	private DefaultTableModel tb;
-	private int CampaignParty;
+	private int Party;
 
 
 	/**
@@ -79,6 +79,7 @@ public class Frag_DM_View {
 	 */
 	public Frag_DM_View() {
 		initialize();
+		this.dm = new DungeonMaster(this.dbService, user);
 	}
 	
 	public Frag_DM_View(String user) {
@@ -117,10 +118,39 @@ public class Frag_DM_View {
 
 			@Override
 			public void itemStateChanged(ItemEvent a) {
-				camp = choice_1.getSelectedItem();
-				int t = camp.indexOf(":");
-				camp = camp.substring(t+1);
-				fillTable(camp);
+				String temp = choice_1.getSelectedItem();
+				if (temp.equals(null)) {
+					camp = "None";
+					return;
+				}
+				int t =temp.indexOf(":");
+				camp = temp.substring(t+1).trim();
+				
+				try {
+					
+					String g = String.format("USE %s Select PartyID From Campaign Where CampaignID = %s", dbService.databaseName, camp);
+					CallableStatement cs = null;
+					dbService.connect("Dungeon19", "Password123");
+					Connection c = dbService.getConnection();
+					//cs = c.prepareCall("Select PartyID From Campaign Where CampaignID = ?");
+					cs = c.prepareCall(g);
+					//cs.setInt(2, Integer.parseInt(camp));
+					ResultSet r = cs.executeQuery();
+					
+					
+					fillTable(camp);
+					if (r.getRow() == 0) {
+						JOptionPane.showMessageDialog(null, "No party ID found");
+						return;
+					}
+					Party = r.getInt("PartyID");
+					
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}	
 		});
 		frame.getContentPane().add(choice_1);
@@ -154,21 +184,67 @@ public class Frag_DM_View {
 		});
 		frame.getContentPane().add(create_party);
 		
+		JTextField characterField = new JTextField();
+		characterField.setBounds(740, 60, 200, 25);
+		frame.getContentPane().add(characterField);
+		characterField.setColumns(10);
+		
 		JButton add_character = new JButton("Add Character");
 		add_character.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		add_character.setBounds(700, 20, 135, 20);
 		add_character.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e1) { // Open create character menu
+				String player = characterField.getText();
+				if (player.equals("")) {
+					JOptionPane.showMessageDialog(null, "ERROR: Need Player ID");
+					return;
+				}
 				
+				int playerID = Integer.parseInt(player);
+				String campaignID = choice_1.getSelectedItem();
+				if (campaignID.equals("None")) {
+					JOptionPane.showMessageDialog(null, "ERROR: Choose campaign");
+					return;
+				}
+				
+				CallableStatement cs = null;
+				dbService.connect("Dungeon19", "Password123");
+				Connection c = dbService.getConnection();
+				try {
+					cs = c.prepareCall("{? = call Add_Player(?, ?)}");
+					cs.setInt(2, playerID);
+					cs.setInt(3, Party);
+					cs.registerOutParameter(1, Types.INTEGER);
+					cs.execute();
+					int result = cs.getInt(1);
+					c.close();
+					
+					if (result == 1) {
+						JOptionPane.showMessageDialog(null, "Invalid Player ID");
+						return;
+					}
+					else if (result == 2) {
+						JOptionPane.showMessageDialog(null, "Invalid Party ID");
+						return;
+					}
+					else if (result == 3) {
+						JOptionPane.showMessageDialog(null, "Party Does not exist");
+						return;
+					}
+					else if (result == 0) {
+						JOptionPane.showMessageDialog(null, "Player Add Successful");
+						fillTable(camp);
+						return;
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		frame.getContentPane().add(add_character);
 		
-		JTextField characterField = new JTextField();
-		characterField.setBounds(740, 60, 200, 25);
-		frame.getContentPane().add(characterField);
-		characterField.setColumns(10);
 		
 		JButton drop_character = new JButton("Drop Character");
 		drop_character.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -188,34 +264,40 @@ public class Frag_DM_View {
 					JOptionPane.showMessageDialog(null, "ERROR: Choose campaign");
 					return;
 				}
-				int t = campaignID.indexOf(":");
-				int campaign = Integer.parseInt(campaignID.substring(t+1).trim());
 				
 				CallableStatement cs = null;
 				dbService.connect("Dungeon19", "Password123");
 				Connection c = dbService.getConnection();
 				try {
-					cs = c.prepareCall("Select PartyID From Campaign Where CampaignID = ?");
-					cs.setInt(1, campaign);
-					ResultSet r = cs.executeQuery();
-					
 					cs = c.prepareCall("{? = call Drop_Player(?, ?)}");
-					cs.setString(2, user);
-					cs.setString(3, r.getString("PartyID"));
+					cs.setInt(2, playerID);
+					cs.setInt(3, Party);
 					cs.registerOutParameter(1, Types.INTEGER);
 					cs.execute();
 					int result = cs.getInt(1);
+					c.close();
 					
-					
-					
-					cs.execute();
+					if (result == 1) {
+						JOptionPane.showMessageDialog(null, "Invalid Player ID");
+						return;
+					}
+					else if (result == 2) {
+						JOptionPane.showMessageDialog(null, "Invalid Party ID");
+						return;
+					}
+					else if (result == 3) {
+						JOptionPane.showMessageDialog(null, "Party Does not exist");
+						return;
+					}
+					else if (result == 0) {
+						JOptionPane.showMessageDialog(null, "Player Drop Successful");
+						fillTable(camp);
+						return;
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
-				
 			}
 		});
 		frame.getContentPane().add(drop_character);
@@ -230,10 +312,10 @@ public class Frag_DM_View {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		/*DefaultTableModel*/tb = new DefaultTableModel(
 				new Object[][] {
-					{"Name", "StatID", "Language", "AC", "Speed", "Race", "STR", "DEX", "CON", "INT", "WIS", "CHA"},
+					{"Name", "PlayerID", "StatID", "Language", "AC", "Speed", "Race", "STR", "DEX", "CON", "INT", "WIS", "CHA"},
 				},
 				new String[] {
-					"New column","New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
+					"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
 				}
 			);
 		
@@ -355,8 +437,7 @@ public class Frag_DM_View {
 		if (camp == "None") {
 			return;
 		}
-		Player_character pc = new Player_character(dbService);
-		ArrayList<ArrayList<String>> stats = pc.getStatBlock(camp);
+		ArrayList<ArrayList<String>> stats = dm.getStatBlock(camp);
 		
 		
 		for(int i = 0; i < stats.get(0).size(); i++) {

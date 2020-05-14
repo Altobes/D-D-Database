@@ -44,29 +44,21 @@ public class Player_character {
 		return true;
 	}
 	
-	public ArrayList<ArrayList<String>> getStatBlock(String campaign) {
+	public ArrayList<ArrayList<String>> getStatBlock() {
 		ArrayList<ArrayList<String>> Statblocks = new ArrayList<ArrayList<String>>();
 		for (int i = 0;i < 12;i++) {
 			Statblocks.add(new ArrayList<String>());
 		}
-		//java.sql.Statement state = null;
 		
-		String g = String.format("Select *\r\n" + 
-				"From StatBlock\r\n" + 
-				"Where StatID = (Select StatID \r\n" + 
-				"				From Player_Character as PC\r\n" + 
-				"				Inner Join (Select PartyID \r\n" + 
-				"							From Campaign\r\n" + 
-				"							Where CampaignID = %s) as C on C.PartyID = PC.PartyID)", campaign);
-		//String s=String.format("Select * from %s.dbo.StatBlock ", this.dbService.databaseName);
+		String s=String.format("Select * from %s.dbo.StatBlock", this.dbService.databaseName);
 		CallableStatement cs = null;
 			
 		try{
-			ArrayList<ResultSet> results = new ArrayList<ResultSet>();
 			this.dbService.connect("Dungeon19", "Password123");
 			Connection c = this.dbService.getConnection();
-			cs = c.prepareCall(g);
+			cs = c.prepareCall(s);
 			ResultSet r1 = cs.executeQuery();
+			//results.add(r1);
 			while(r1.next()) {
 				Statblocks.get(0).add(r1.getString("Name"));
 				Statblocks.get(1).add(r1.getString("StatID"));
