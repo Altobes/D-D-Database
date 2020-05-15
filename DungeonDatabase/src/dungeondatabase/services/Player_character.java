@@ -220,4 +220,56 @@ public class Player_character {
 		return id;
 		
 	}
+
+	public ArrayList<ArrayList<String>> getSkills(String PlayerID) {
+		ArrayList<ArrayList<String>> characters = new ArrayList<ArrayList<String>>();
+		CallableStatement cs = null;
+		try{
+			this.dbService.connect("Dungeon19", "Password123");
+			Connection c = this.dbService.getConnection();
+			cs = c.prepareCall("SELECT Skills.Name as [Name], Skills.Description as [Description]\r\n" + 
+					"FROM Player_Character as P join StatSkills as S on S.StatID = P.StatID\r\n" + 
+					"JOIN Skills on Skills.SkillID = S.SkillID\r\n" + 
+					"WHERE P.PlayerID = ?");
+			cs.setString(1, PlayerID);
+			ResultSet r = cs.executeQuery();
+			while(r.next()) {
+				ArrayList<String> temp = new ArrayList<String>();
+				temp.add(r.getString("Name"));
+				temp.add(r.getString("Description"));
+				characters.add(temp);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return characters;
+	}
+
+	public ArrayList<ArrayList<String>> getSpells(String PlayerID) {
+		ArrayList<ArrayList<String>> characters = new ArrayList<ArrayList<String>>();
+		CallableStatement cs = null;
+		try{
+			this.dbService.connect("Dungeon19", "Password123");
+			Connection c = this.dbService.getConnection();
+			cs = c.prepareCall("SELECT Spells.Name as [Name], Spells.Description as [Description]\r\n" + 
+					"FROM Player_Character as P join StatSpells as S on S.StatID = P.StatID\r\n" + 
+					"JOIN Spells on Spells.SpellID = S.SpellID\r\n" + 
+					"WHERE P.PlayerID = ?");
+			cs.setString(1, PlayerID);
+			ResultSet r = cs.executeQuery();
+			while(r.next()) {
+				ArrayList<String> temp = new ArrayList<String>();
+				temp.add(r.getString("Name"));
+				temp.add(r.getString("Description"));
+				characters.add(temp);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return characters;
+	}
 }

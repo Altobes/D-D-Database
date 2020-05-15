@@ -209,7 +209,7 @@ public class Frag_Database {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Frag_Spells window = new Frag_Spells();
+				Frag_Spells window = new Frag_Spells(user);
 				window.frame.setVisible(true);
 
 			}	
@@ -222,7 +222,7 @@ public class Frag_Database {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Frag_Skills window = new Frag_Skills();
+				Frag_Skills window = new Frag_Skills(user);
 				window.frame.setVisible(true);
 
 			}	

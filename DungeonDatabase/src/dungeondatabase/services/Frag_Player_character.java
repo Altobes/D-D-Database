@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JTable;
@@ -22,6 +23,7 @@ public class Frag_Player_character {
 	private Player_character pc = new Player_character(dbService);
 	
 	private String user = "altobes";
+	private DefaultTableModel tb;
 
 	/**
 	 * Launch the application.
@@ -89,8 +91,39 @@ public class Frag_Player_character {
 		});
 		frame.getContentPane().add(btnNewButton);
 		
+		frame.addWindowListener(new WindowListener() {
+			private boolean deactivated;
+			@Override
+			public void windowActivated(java.awt.event.WindowEvent e) {
+				if (deactivated) {
+					tb.setRowCount(1);
+					fillTable(tb);
+				}
+				deactivated = false;
+			}
+			@Override
+			public void windowClosed(java.awt.event.WindowEvent e) {
+			}
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent e) {
+			}
+			@Override
+			public void windowDeactivated(java.awt.event.WindowEvent e) {
+				deactivated = true;
+			}
+			@Override
+			public void windowDeiconified(java.awt.event.WindowEvent e) {
+			}
+			@Override
+			public void windowIconified(java.awt.event.WindowEvent e) {
+			}
+			@Override
+			public void windowOpened(java.awt.event.WindowEvent e) {
+			}
+		});
+		
 		table = new JTable();
-		DefaultTableModel tb = new DefaultTableModel(
+		tb = new DefaultTableModel(
 				new Object[][] {
 					{"Name", "Back Story"},
 				},
@@ -113,6 +146,22 @@ public class Frag_Player_character {
 		frame.getContentPane().add(table);
 		
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	void fillTable(DefaultTableModel tb) {
+		ArrayList<String> names = pc.getPlayerCharacter(user);
+		ArrayList<String> backstories = pc.getBackStory(user);
+		
+		for(int i = 0; i<names.size(); i++) {
+			tb.addRow(new Object[] {
+				names.get(i)
+			});
+		}
+		for(int i = 0; i<backstories.size(); i++) {
+			tb.setValueAt(backstories.get(i), i+1, 1);
+		}
+		
+		
 	}
 
 }

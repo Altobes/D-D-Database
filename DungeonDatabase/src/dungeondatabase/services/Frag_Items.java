@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowListener;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -146,6 +147,37 @@ public class Frag_Items {
 			}	
 		});
 		frame.getContentPane().add(choice_1);
+		
+		frame.addWindowListener(new WindowListener() {
+			private boolean deactivated;
+			@Override
+			public void windowActivated(java.awt.event.WindowEvent e) {
+				if (deactivated) {
+					tb.setRowCount(1);
+					fillTable(character_num);
+				}
+				deactivated = false;
+			}
+			@Override
+			public void windowClosed(java.awt.event.WindowEvent e) {
+			}
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent e) {
+			}
+			@Override
+			public void windowDeactivated(java.awt.event.WindowEvent e) {
+				deactivated = true;
+			}
+			@Override
+			public void windowDeiconified(java.awt.event.WindowEvent e) {
+			}
+			@Override
+			public void windowIconified(java.awt.event.WindowEvent e) {
+			}
+			@Override
+			public void windowOpened(java.awt.event.WindowEvent e) {
+			}
+		});
 		
 		table = new JTable();
 		table.setModel(tb);
