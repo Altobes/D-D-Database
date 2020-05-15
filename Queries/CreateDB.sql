@@ -1,15 +1,15 @@
-Create Database DungeonDatabase
-on
+Create Database [DungeonDatabaseTest]
+ON
 	Primary (
-	NAME = DungeonDatabase,
-	FILENAME = 'E:\Database\MSSQL12.MSSQLSERVER\MSSQL\DATA\DungeonDatabase.mdf',
+	NAME = DungeonDatabaseData,
+	FILENAME = 'E:\Database\MSSQL12.MSSQLSERVER\MSSQL\DATA\DungeonDatabaseData.mdf',
 	SIZE=10MB,
 	MAXSIZE = 250MB,
 	FILEGROWTH = 15%
 	)
 Log On (
-	Name = 'DungeonLog',
-	FILENAME = 'E:\Database\MSSQL12.MSSQLSERVER\MSSQL\DATA\DungeonLog.ldf',
+	Name = 'DungeonTestLog',
+	FILENAME = 'E:\Database\MSSQL12.MSSQLSERVER\MSSQL\DATA\DungeonTestLog.ldf',
 	SIZE = 3MB,
 	MAXSIZE= 25MB,
 	FILEGROWTH = 15%
