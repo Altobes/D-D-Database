@@ -1,0 +1,26 @@
+
+/****** Object:  Table [dbo].[Campaign]    Script Date: 5/15/2020 12:53:34 AM ******/
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Campaign](
+	[Name] [varchar](50) NOT NULL,
+	[CampaignID] [int] NOT NULL,
+	[PartyID] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CampaignID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+ALTER TABLE [dbo].[Campaign]  WITH CHECK ADD  CONSTRAINT [FK__Campaign__PartyI__5441852A] FOREIGN KEY([PartyID])
+REFERENCES [dbo].[Party] ([PartyID])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+
+
+ALTER TABLE [dbo].[Campaign] CHECK CONSTRAINT [FK__Campaign__PartyI__5441852A]
+
+
+
