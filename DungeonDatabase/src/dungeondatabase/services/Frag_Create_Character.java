@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import java.awt.event.ActionListener;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
@@ -20,6 +20,8 @@ public class Frag_Create_Character {
 	JFrame frame;
 	private DatabaseConnectionService dbService = new DatabaseConnectionService("golem.csse.rose-hulman.edu",
 			"DungeonDatabase");
+	
+	private String user = "altobes";
 
 	/**
 	 * Launch the application.
@@ -41,6 +43,10 @@ public class Frag_Create_Character {
 	 * Create the application.
 	 */
 	public Frag_Create_Character() {
+		initialize();
+	}
+	public Frag_Create_Character(String user) {
+		this.user = user;
 		initialize();
 	}
 
@@ -105,29 +111,37 @@ public class Frag_Create_Character {
 		frame.getContentPane().add(storyField);
 		storyField.setColumns(10);
 		
-		JLabel lblNewLabel_6 = new JLabel("Create Stat Block");
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_6.setBounds(10, 240, 184, 25);
-		frame.getContentPane().add(lblNewLabel_6);
-		
-		JButton createStatButton = new JButton("Create New Statblock");
-		createStatButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		createStatButton.setBounds(200, 240, 200, 25);
-		Frag_Create_Statblock window = new Frag_Create_Statblock();
-		createStatButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) { //Open create character menu
-				window.frame.setVisible(true);
-				
-			}
-		});
-		window.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().add(createStatButton);
+//		JLabel lblNewLabel_6 = new JLabel("Create Stat Block");
+//		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
+//		lblNewLabel_6.setBounds(10, 240, 184, 25);
+//		frame.getContentPane().add(lblNewLabel_6);
+//		
+//		JButton createStatButton = new JButton("Create New Statblock");
+//		createStatButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+//		createStatButton.setBounds(200, 240, 200, 25);
+//		Frag_Create_Statblock window = new Frag_Create_Statblock();
+//		createStatButton.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) { //Open create character menu
+//				window.frame.setVisible(true);
+//				
+//			}
+//		});
+//		window.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		frame.getContentPane().add(createStatButton);
 
 		JButton btnNewButton = new JButton("Create");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton.setBounds(200, 45, 200, 20);
-		btnNewButton.addActionListener(new ActionListener() {
+		
+		class createListener implements ActionListener {
+			
+			String user;
+			
+			public createListener(String user) {
+				this.user = user;
+			}
+
 			@Override
 			public void actionPerformed(ActionEvent e) { // Open create character menu
 				CallableStatement cs = null;
@@ -157,15 +171,15 @@ public class Frag_Create_Character {
 					String Story = new String(storyField.getText());
 					cs.setString(3, Story);
 
-					String User = "altobes"; // UserID
-					cs.setString(4, User);
+					System.out.println("User: " + user);
+					cs.setString(4, user);
 
 					cs.registerOutParameter(1, Types.INTEGER);
 					cs.execute();
 
 					int result = cs.getInt(1);
 					if (result == 3) {
-						JOptionPane.showMessageDialog(null, "ERROR: Need Valid User ID");
+						JOptionPane.showMessageDialog(null, "ERROR: Need Valid User ID. " + user + " is not valid.");
 					} else if (result == 4) {
 						JOptionPane.showMessageDialog(null, "ERROR: Need Valid Party ID");
 					} else if (result == 5) {
@@ -174,6 +188,7 @@ public class Frag_Create_Character {
 						JOptionPane.showMessageDialog(null, "ERROR: Need Valid Name");
 					} else if (result == 0) {
 						JOptionPane.showMessageDialog(null, "Successfully Created Player");
+						frame.dispose();
 					}
 
 				} catch (SQLException e1) {
@@ -181,10 +196,14 @@ public class Frag_Create_Character {
 					e1.printStackTrace();
 				}
 			}
-		});
+			
+		}
+		ActionListener create = new createListener(user);
+		
+		btnNewButton.addActionListener(create);
+		
 		frame.getContentPane().add(btnNewButton);
 
-//			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
+	
 }

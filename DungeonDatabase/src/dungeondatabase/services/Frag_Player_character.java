@@ -20,6 +20,8 @@ public class Frag_Player_character {
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
 	private Player_character pc = new Player_character(dbService);
+	
+	private String user = "altobes";
 
 	/**
 	 * Launch the application.
@@ -43,6 +45,10 @@ public class Frag_Player_character {
 	public Frag_Player_character() {
 		initialize();
 	}
+	public Frag_Player_character(String user) {
+		this.user = user;
+		initialize();
+	}
 
 
 	/**
@@ -50,13 +56,12 @@ public class Frag_Player_character {
 	 */
 	private void initialize() {
 		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
-		ArrayList<String> pc_temp = pc.getPlayerCharacter();
-		ArrayList<String> bs_temp = pc.getBackStory();
+		ArrayList<String> pc_temp = pc.getPlayerCharacter(user);
+		ArrayList<String> bs_temp = pc.getBackStory(user);
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
 		frame.setBounds(100, 100, 450, 300);
 		frame.getContentPane().setLayout(null);
-		
 		JLabel lblNewLabel = new JLabel("Dungeon Database");
 		lblNewLabel.setForeground(Color.ORANGE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
@@ -74,8 +79,12 @@ public class Frag_Player_character {
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) { //Open create character menu
-				Frag_Create_Character window = new Frag_Create_Character();
+//				Frag_Create_Character window = new Frag_Create_Character();
+//				window.frame.setVisible(true);
+				
+				Frag_Create_Statblock window = new Frag_Create_Statblock(user);
 				window.frame.setVisible(true);
+				
 			}
 		});
 		frame.getContentPane().add(btnNewButton);

@@ -84,11 +84,10 @@ public class Player_character {
 	}
 	
 
-	public ArrayList<String> getPlayerCharacter() {	
-		//TO DO: Task 2 
+	public ArrayList<String> getPlayerCharacter(String user) {	
 		ArrayList<String> characters = new ArrayList<String>();
 		java.sql.Statement stat = null;
-		String s=String.format("Select Name from %s.dbo.Player_Character", this.dbService.databaseName);
+		String s=String.format("Select Name From %s.dbo.Player_Character Where Username = '%s'", this.dbService.databaseName, user);
 		try{
 			Connection c = this.dbService.getConnection();
 			stat = c.createStatement();
@@ -103,11 +102,10 @@ public class Player_character {
 		return characters;
 	}
 	
-	public ArrayList<String> getParty() {	
-		//TO DO: Task 2 
+	public ArrayList<String> getParty(String user) {	
 		ArrayList<String> pty = new ArrayList<String>();
 		java.sql.Statement stat = null;
-		String s = String.format("Select PartyID from %s.dbo.Player_Character", this.dbService.databaseName);
+		String s = String.format("Select PartyID from %s.dbo.Player_Character Where Username = '%s'", this.dbService.databaseName, user);
 		try{
 			Connection c = this.dbService.getConnection();
 			stat = c.createStatement();
@@ -125,11 +123,10 @@ public class Player_character {
 		return  pty;
 	}
 	
-	public ArrayList<String> getBackStory() {	
-		//TO DO: Task 2 
+	public ArrayList<String> getBackStory(String user) {	
 		ArrayList<String> stories = new ArrayList<String>();
 		java.sql.Statement stat = null;
-		String s=String.format("Select back_story from %s.dbo.Player_Character", this.dbService.databaseName);
+		String s=String.format("Select back_story from %s.dbo.Player_Character Where Username = '%s'", this.dbService.databaseName, user);
 		try{
 			Connection c = this.dbService.getConnection();
 			stat = c.createStatement();

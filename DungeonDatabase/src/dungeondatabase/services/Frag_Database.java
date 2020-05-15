@@ -88,8 +88,8 @@ public class Frag_Database {
 	 */
 	void initialize() {
 		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
-		ArrayList<String> pc_temp = pc.getPlayerCharacter();
-		ArrayList<String> pty_temp = pc.getParty();
+		ArrayList<String> pc_temp = pc.getPlayerCharacter(user);
+		ArrayList<String> pty_temp = pc.getParty(user);
 		frame = new JFrame();
 		frame.setBounds(100, 100, 750, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -170,7 +170,7 @@ public class Frag_Database {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Frag_Player_character window = new Frag_Player_character();
+				Frag_Player_character window = new Frag_Player_character(user);
 				window.frame.setVisible(true);
 
 			}	
