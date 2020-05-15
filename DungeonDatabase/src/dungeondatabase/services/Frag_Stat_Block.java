@@ -94,19 +94,19 @@ public class Frag_Stat_Block {
 		table.setModel(tb);
 		frame.getContentPane().add(table);
 		
-//		JButton btnNewButton = new JButton("Create New Statblock");
-//		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		btnNewButton.setBounds(200, 39, 200, 25);
-//		btnNewButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) { //Open create character menu
-//				Frag_Create_Statblock window = new Frag_Create_Statblock();
-//				window.frame.setVisible(true);
-//				
-//			}
-//		});
-//		frame.getContentPane().add(btnNewButton);
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JButton btnNewButton = new JButton("Modify Statblock");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnNewButton.setBounds(450, 39, 200, 25);
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) { //Open create character menu
+				Frag_Modify_Statblock window = new Frag_Modify_Statblock();
+				window.frame.setVisible(true);
+				
+			}
+		});
+		frame.getContentPane().add(btnNewButton);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.addWindowListener(new WindowListener() {
 			private boolean deactivated;
