@@ -183,7 +183,7 @@ public class Frag_Database {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Frag_Stat_Block window = new Frag_Stat_Block();
+				Frag_Stat_Block window = new Frag_Stat_Block(user);
 				window.frame.setVisible(true);
 
 			}	

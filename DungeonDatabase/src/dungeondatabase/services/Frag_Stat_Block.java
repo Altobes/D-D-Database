@@ -23,6 +23,8 @@ public class Frag_Stat_Block {
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
 	private Player_character pc = new Player_character(dbService);
+	
+	private String user;
 
 	/**
 	 * Launch the application.
@@ -44,6 +46,10 @@ public class Frag_Stat_Block {
 	 * Create the application.
 	 */
 	public Frag_Stat_Block() {
+		initialize();
+	}
+	public Frag_Stat_Block(String user) {
+		this.user = user;
 		initialize();
 	}
 
@@ -136,7 +142,7 @@ public class Frag_Stat_Block {
 	}
 	
 	void fillTable(DefaultTableModel tb) {
-		ArrayList<ArrayList<String>> stats = pc.getStatBlock();
+		ArrayList<ArrayList<String>> stats = pc.getStatBlock(user);
 		
 		for(int i = 0; i < stats.get(0).size(); i++) {
 			tb.addRow(new Object[] {

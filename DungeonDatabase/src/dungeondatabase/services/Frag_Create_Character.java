@@ -171,7 +171,6 @@ public class Frag_Create_Character {
 					String Story = new String(storyField.getText());
 					cs.setString(3, Story);
 
-					System.out.println("User: " + user);
 					cs.setString(4, user);
 
 					cs.registerOutParameter(1, Types.INTEGER);
