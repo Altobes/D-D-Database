@@ -137,7 +137,6 @@ public class Frag_DM_View {
 				}
 				
 				camp = temp.substring(t).trim();
-				System.out.println(camp);
 				int temparty = dm.getParty(camp);
 				
 				fillTable(camp);
@@ -156,6 +155,8 @@ public class Frag_DM_View {
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		
+		
+		
 		JButton create_Campaign = new JButton("New Campaign");
 		create_Campaign.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		create_Campaign.setBounds(350, 47, 175, 20);
@@ -165,6 +166,8 @@ public class Frag_DM_View {
 				Frag_Create_Campaign window = new Frag_Create_Campaign(user);
 				window.frame.setVisible(true);
 			}
+
+			
 		});
 		frame.getContentPane().add(create_Campaign);
 		
@@ -173,40 +176,43 @@ public class Frag_DM_View {
 			@Override
 			public void windowActivated(WindowEvent arg0) {
 				// TODO Auto-generated method stub
-				
+				updateCampaigns();
 			}
-
+			private void updateCampaigns() {
+				choice_1.removeAll();
+				ArrayList<ArrayList<String>> camps = dm.getDMCampaigns();
+				choice_1.add("None");
+				for(int i = 0; i<camps.size(); i++) {
+					choice_1.add(camps.get(i).get(0) + ": #" + camps.get(i).get(1));
+				}	
+			}
 			@Override
 			public void windowClosed(WindowEvent arg0) {
+				// TODO Auto-generated method stub	
 			}
-
 			@Override
 			public void windowClosing(WindowEvent arg0) {
+				// TODO Auto-generated method stub	
 			}
-
 			@Override
 			public void windowDeactivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub	
 			}
-
 			@Override
 			public void windowDeiconified(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
+				// TODO Auto-generated method stub	
 			}
-
 			@Override
 			public void windowIconified(WindowEvent arg0) {
 				// TODO Auto-generated method stub
-				
 			}
-
 			@Override
 			public void windowOpened(WindowEvent arg0) {
 				// TODO Auto-generated method stub
-				
 			}
 			
 		});
+		
 		
 		JButton create_party = new JButton("New Party");
 		create_party.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -359,110 +365,6 @@ public class Frag_DM_View {
 		table.setColumnSelectionAllowed(true);
 		table.setBounds(10, 101, 960, 334);
 		frame.getContentPane().add(table);
-		
-		btnNewButton_1 = new JButton("Character");
-		btnNewButton_1.setBounds(10, 75, 96, 20);
-		btnNewButton_1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Frag_Player_character window = new Frag_Player_character();
-				window.frame.setVisible(true);
-
-			}	
-		});
-		frame.getContentPane().add(btnNewButton_1);
-		
-		btnNewButton_2 = new JButton("Stat");
-		btnNewButton_2.setBounds(104, 75, 85, 20);
-		btnNewButton_2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Frag_Stat_Block window = new Frag_Stat_Block();
-				window.frame.setVisible(true);
-
-			}	
-		});
-		frame.getContentPane().add(btnNewButton_2);
-		
-		btnNewButton_3 = new JButton("Items");
-		btnNewButton_3.setBounds(187, 75, 85, 20);
-		btnNewButton_3.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Frag_Items window = new Frag_Items();
-				window.frame.setVisible(true);
-
-			}	
-		});
-		frame.getContentPane().add(btnNewButton_3);
-		
-		btnNewButton_4 = new JButton("Spells");
-		btnNewButton_4.setBounds(268, 75, 85, 20);
-		btnNewButton_4.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Frag_Spells window = new Frag_Spells();
-				window.frame.setVisible(true);
-
-			}	
-		});
-		frame.getContentPane().add(btnNewButton_4);
-		
-		btnNewButton_5 = new JButton("Skills");
-		btnNewButton_5.setBounds(347, 75, 85, 20);
-		btnNewButton_5.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Frag_Skills window = new Frag_Skills();
-				window.frame.setVisible(true);
-
-			}	
-		});
-		frame.getContentPane().add(btnNewButton_5);
-		
-		btnNewButton_6 = new JButton("NPC");
-		btnNewButton_6.setBounds(431, 75, 81, 20);
-		btnNewButton_6.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Frag_NPC window = new Frag_NPC();
-				window.frame.setVisible(true);
-
-			}	
-		});
-		frame.getContentPane().add(btnNewButton_6);
-		
-		btnNewButton_7 = new JButton("Campaign");
-		btnNewButton_7.setBounds(512, 75, 82, 20);
-		btnNewButton_7.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Frag_Campaign window = new Frag_Campaign();
-				window.frame.setVisible(true);
-
-			}	
-		});
-		frame.getContentPane().add(btnNewButton_7);
-		
-		btnNewButton_8 = new JButton("Party");
-		btnNewButton_8.setBounds(594, 75, 85, 20);
-		btnNewButton_8.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Frag_Party window = new Frag_Party();
-				window.frame.setVisible(true);
-
-			}	
-		});
-		frame.getContentPane().add(btnNewButton_8);
 		
 //			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
