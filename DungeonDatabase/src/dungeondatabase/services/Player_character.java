@@ -143,4 +143,77 @@ public class Player_character {
 		}
 		return stories;
 	}
+	
+	public ArrayList<ArrayList<String>> getAllCharacters(String user) {
+		ArrayList<ArrayList<String>> characters = new ArrayList<ArrayList<String>>();
+		CallableStatement cs = null;
+		try{
+			this.dbService.connect("Dungeon19", "Password123");
+			Connection c = this.dbService.getConnection();
+			cs = c.prepareCall("Select Name, PlayerID\r\n" + 
+					"FROM Player_Character\r\n"
+					+ "WHERE Username = ?");
+			cs.setString(1, user);
+			ResultSet r = cs.executeQuery();
+			while(r.next()) {
+				ArrayList<String> temp = new ArrayList<String>();
+				temp.add(r.getString("Name"));
+				temp.add(r.getString("PlayerID"));
+				characters.add(temp);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return characters;
+	}
+
+	public ArrayList<ArrayList<String>> getItems(String PlayerID) {
+		ArrayList<ArrayList<String>> characters = new ArrayList<ArrayList<String>>();
+		CallableStatement cs = null;
+		try{
+			this.dbService.connect("Dungeon19", "Password123");
+			Connection c = this.dbService.getConnection();
+			cs = c.prepareCall("SELECT Items.Name as [Name], Items.Description as [Description]\r\n" + 
+					"FROM Player_Character as P join StatItems as S on S.StatID = P.StatID\r\n" + 
+					"JOIN Items on Items.ItemID = S.ItemID\r\n" + 
+					"WHERE P.PlayerID = ?");
+			cs.setString(1, PlayerID);
+			ResultSet r = cs.executeQuery();
+			while(r.next()) {
+				ArrayList<String> temp = new ArrayList<String>();
+				temp.add(r.getString("Name"));
+				temp.add(r.getString("Description"));
+				characters.add(temp);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return characters;
+	}
+	
+	public String getStatID(String PlayerID) {
+		String id = "";
+		CallableStatement cs = null;
+		try{
+			this.dbService.connect("Dungeon19", "Password123");
+			Connection c = this.dbService.getConnection();
+			cs = c.prepareCall("SELECT StatID\r\n" + 
+					"FROM Player_Character\r\n" + 
+					"WHERE PlayerID = ?");
+			cs.setString(1, PlayerID);
+			ResultSet r = cs.executeQuery();
+			r.next();
+			id = r.getString("StatID");
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return id;
+		
+	}
 }

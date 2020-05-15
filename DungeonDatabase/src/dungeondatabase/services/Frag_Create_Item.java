@@ -20,6 +20,8 @@ public class Frag_Create_Item {
 	private DatabaseConnectionService dbService = new DatabaseConnectionService("golem.csse.rose-hulman.edu",
 			"DungeonDatabase");
 	private String user;
+	private String player;
+	private Player_character p;
 	/**
 	 * Launch the application.
 	 */
@@ -43,9 +45,10 @@ public class Frag_Create_Item {
 		initialize();
 	}
 	
-	public Frag_Create_Item(String user) {
+	public Frag_Create_Item(String PlayerID) {
 		initialize();
-		this.user = user;
+		this.player = PlayerID;
+		this.p = new Player_character(dbService);
 	}
 
 	/**
@@ -92,11 +95,11 @@ public class Frag_Create_Item {
 			public void actionPerformed(ActionEvent e) { // Open create character menu
 				CallableStatement cs = null;
 				try {
-					cs = dbService.getConnection().prepareCall("{? = call Create_Item(?, ?)}");
+					cs = dbService.getConnection().prepareCall("{? = call Create_Item(?, ?, ?)}");
 
 					String Name = new String(nameField.getText());
 					cs.setString(2, Name);
-					//cs.setString(4, user);
+					cs.setString(4, p.getStatID(player));
 					
 					String desc = new String(description.getText());
 					
@@ -109,7 +112,7 @@ public class Frag_Create_Item {
 					if (result == 1) {
 						JOptionPane.showMessageDialog(null, "ERROR: Must provide valid Name and Description");
 					} else if (result == 0) {
-						JOptionPane.showMessageDialog(null, "Successfully Created Campaign");
+						JOptionPane.showMessageDialog(null, "Successfully Created Item");
 					}
 
 				} catch (SQLException e1) {

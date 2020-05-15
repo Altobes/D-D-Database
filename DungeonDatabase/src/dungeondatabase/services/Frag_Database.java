@@ -196,7 +196,7 @@ public class Frag_Database {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Frag_Items window = new Frag_Items();
+				Frag_Items window = new Frag_Items(user);
 				window.frame.setVisible(true);
 
 			}	
