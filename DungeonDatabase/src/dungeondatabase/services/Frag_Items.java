@@ -54,13 +54,13 @@ public class Frag_Items {
 	 * Create the application.
 	 */
 	public Frag_Items() {
-		initialize();
 		this.user = "altobes";
+		initialize();
 	}
 	
 	public Frag_Items(String username) {
-		initialize();
 		this.user = username;
+		initialize();
 	}
 
 	/**

@@ -27,12 +27,12 @@ public class main {
 	private JLabel lblNewLabel_2;
 	private JPasswordField passwordField;
 	private JTextField textField;
-	private String databaseName = "DungeonDatabaseTest";
+	private String databaseName = "DungeonDatabase";
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", databaseName);
 	private UserService us = new UserService(dbService);
-	private String user = "REPLACE ME!!!!";
-	private String pass = "REPLACE ME!!!!";
+	private String user = "Dungeon19";
+	private String pass = "Password123";
 
 	/**
 	 * Launch the application.

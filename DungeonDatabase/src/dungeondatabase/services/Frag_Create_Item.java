@@ -46,9 +46,9 @@ public class Frag_Create_Item {
 	}
 	
 	public Frag_Create_Item(String PlayerID) {
-		initialize();
 		this.player = PlayerID;
 		this.p = new Player_character(dbService);
+		initialize();
 	}
 
 	/**
