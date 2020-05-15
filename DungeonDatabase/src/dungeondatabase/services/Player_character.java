@@ -50,8 +50,14 @@ public class Player_character {
 			Statblocks.add(new ArrayList<String>());
 		}
 		
-		String s=String.format("Select * From %s.dbo.StatBlock as SB JOIN %s.dbo.Player_Character as PC ON SB.Name = PC.Name Where PC.Username = '%s'", this.dbService.databaseName, this.dbService.databaseName, user);
-//		String s=String.format("Select * From %s.dbo.StatBlock as SB JOIN %s.dbo.Player_Character as PC ON SB.Name = PC.Name Where PC.Username = '%s')", this.dbService.databaseName, user);
+		String s=String.format("Select SB.Name, SB.AC, SB.Speed, SB.StatID, SB.Race, SB.STR, SB.DEX, SB.CON, SB.INT, SB.WIS, SB.CHA, SB.Languages "
+							 + "From %s.dbo.StatBlock as SB "
+							 + "JOIN %s.dbo.Player_Character as PC "
+							 + "ON SB.Name = PC.Name "
+							 + "Where PC.Username = '%s'"
+							 
+							 , this.dbService.databaseName, this.dbService.databaseName, user);
+
 		CallableStatement cs = null;
 			
 		try{
