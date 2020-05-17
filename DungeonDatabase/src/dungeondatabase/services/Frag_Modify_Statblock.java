@@ -239,8 +239,6 @@ public class Frag_Modify_Statblock {
 					JOptionPane.showMessageDialog(null, "Stat Block Created");
 					frame.dispose();
 					
-					Frag_Create_Character window = new Frag_Create_Character(user);
-					window.frame.setVisible(true);
 			
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -256,8 +254,7 @@ public class Frag_Modify_Statblock {
 		
 		
 		frame.getContentPane().add(btnNewButton);
-
-//			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	public void setAttributes(CallableStatement cs, int attr, int parameterNumber, JTextField textField)
