@@ -9,6 +9,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.JTable;
@@ -58,11 +60,12 @@ public class Frag_Player_character {
 	 */
 	private void initialize() {
 		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
-		ArrayList<String> pc_temp = pc.getPlayerCharacter(user);
-		ArrayList<String> bs_temp = pc.getBackStory(user);
+		//ArrayList<String> pc_temp = pc.getPlayerCharacter(user);
+		//ArrayList<String> bs_temp = pc.getBackStory(user);
+		ArrayList<ArrayList<String>> players = pc.getPlayerAll(user);
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 600, 300);
 		frame.getContentPane().setLayout(null);
 		JLabel lblNewLabel = new JLabel("Dungeon Database");
 		lblNewLabel.setForeground(Color.ORANGE);
@@ -125,24 +128,24 @@ public class Frag_Player_character {
 		table = new JTable();
 		tb = new DefaultTableModel(
 				new Object[][] {
-					{"Name", "Back Story"},
+					{"Name", "ID", "Back Story"},
 				},
 				new String[] {
-					"New column", "New column"
+					"New column", "New column" , "New Column"
 				}
 			);
-		for(int i = 0; i<pc_temp.size(); i++) {
+		for (int i = 0;i < players.get(0).size();i++) {
 			tb.addRow(new Object[] {
-				pc_temp.get(i)
-			});
-		}
-		for(int i = 0; i<bs_temp.size(); i++) {
-			tb.setValueAt(bs_temp.get(i), i+1, 1);
+					players.get(0).get(i)
+				});
+			tb.setValueAt(players.get(1).get(i), i+1, 1);
+			tb.setValueAt(players.get(2).get(i), i+1, 2);
 		}
 		table.setModel(tb);
 		table.getColumnModel().getColumn(0).setPreferredWidth(50);
-		table.getColumnModel().getColumn(1).setPreferredWidth(300);
-		table.setBounds(10, 75, 416, 178);
+		table.getColumnModel().getColumn(1).setPreferredWidth(5);
+		table.getColumnModel().getColumn(2).setPreferredWidth(300);
+		table.setBounds(10, 75, 570, 178);
 		frame.getContentPane().add(table);
 		
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

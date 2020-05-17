@@ -106,7 +106,7 @@ public class Frag_Stat_Block {
 			}
 		});
 		frame.getContentPane().add(btnNewButton);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.addWindowListener(new WindowListener() {
 			private boolean deactivated;

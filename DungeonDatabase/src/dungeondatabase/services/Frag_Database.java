@@ -91,7 +91,7 @@ public class Frag_Database {
 		ArrayList<String> pc_temp = pc.getPlayerCharacter(user);
 		ArrayList<String> pty_temp = pc.getParty(user);
 		frame = new JFrame();
-		frame.setBounds(100, 100, 750, 500);
+		frame.setBounds(100, 100, 750, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -99,7 +99,7 @@ public class Frag_Database {
 		lblNewLabel.setForeground(Color.ORANGE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(225, 4, 500, 31);
+		lblNewLabel.setBounds(170, 4, 500, 31);
 		frame.getContentPane().add(lblNewLabel);
 		
 //		Choice choice = new Choice();
@@ -125,6 +125,7 @@ public class Frag_Database {
 //		choice_1.setBounds(278, 47, 96, 20);
 //		frame.getContentPane().add(choice_1);
 //		
+		/*
 		table = new JTable();
 		table.setCellSelectionEnabled(true);
 		table.setForeground(Color.BLACK);
@@ -147,6 +148,7 @@ public class Frag_Database {
 		table.setColumnSelectionAllowed(true);
 		table.setBounds(10, 101, 666, 334);
 		frame.getContentPane().add(table);
+		*/
 		
 //		lblNewLabel_2 = new JLabel("Party");
 //		lblNewLabel_2.setBounds(236, 51, 36, 13);
@@ -164,8 +166,10 @@ public class Frag_Database {
 //		btnNewButton.setBounds(579, 47, 97, 21);
 //		frame.getContentPane().add(btnNewButton);
 		
+		int buttonplace = 150;
+		
 		btnNewButton_1 = new JButton("Character");
-		btnNewButton_1.setBounds(10, 75, 96, 20);
+		btnNewButton_1.setBounds(buttonplace, 75, 96, 20);
 		btnNewButton_1.addActionListener(new ActionListener() {
 
 			@Override
@@ -178,7 +182,7 @@ public class Frag_Database {
 		frame.getContentPane().add(btnNewButton_1);
 		
 		btnNewButton_2 = new JButton("Stat");
-		btnNewButton_2.setBounds(104, 75, 85, 20);
+		btnNewButton_2.setBounds(buttonplace+95, 75, 85, 20);
 		btnNewButton_2.addActionListener(new ActionListener() {
 
 			@Override
@@ -191,7 +195,7 @@ public class Frag_Database {
 		frame.getContentPane().add(btnNewButton_2);
 		
 		btnNewButton_3 = new JButton("Items");
-		btnNewButton_3.setBounds(187, 75, 85, 20);
+		btnNewButton_3.setBounds(buttonplace+179, 75, 85, 20);
 		btnNewButton_3.addActionListener(new ActionListener() {
 
 			@Override
@@ -204,7 +208,7 @@ public class Frag_Database {
 		frame.getContentPane().add(btnNewButton_3);
 		
 		btnNewButton_4 = new JButton("Spells");
-		btnNewButton_4.setBounds(268, 75, 85, 20);
+		btnNewButton_4.setBounds(buttonplace+258, 75, 85, 20);
 		btnNewButton_4.addActionListener(new ActionListener() {
 
 			@Override
@@ -217,7 +221,7 @@ public class Frag_Database {
 		frame.getContentPane().add(btnNewButton_4);
 		
 		btnNewButton_5 = new JButton("Skills");
-		btnNewButton_5.setBounds(347, 75, 85, 20);
+		btnNewButton_5.setBounds(buttonplace+337, 75, 85, 20);
 		btnNewButton_5.addActionListener(new ActionListener() {
 
 			@Override
@@ -228,6 +232,8 @@ public class Frag_Database {
 			}	
 		});
 		frame.getContentPane().add(btnNewButton_5);
+		
+		/*
 		
 		btnNewButton_6 = new JButton("NPC");
 		btnNewButton_6.setBounds(431, 75, 81, 20);
@@ -267,9 +273,10 @@ public class Frag_Database {
 			}	
 		});
 		frame.getContentPane().add(btnNewButton_8);
+		*/
 		
 		btnNewButton_9 = new JButton("DM View");
-		btnNewButton_9.setBounds(5, 10, 85, 20);
+		btnNewButton_9.setBounds(300, 40, 85, 20);
 		btnNewButton_9.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -292,7 +299,7 @@ public class Frag_Database {
 		frame.getContentPane().add(btnNewButton_9);
 		
 		btnNewButton_10 = new JButton("Register DM");
-		btnNewButton_10.setBounds(95, 10, 110, 20);
+		btnNewButton_10.setBounds(400, 40, 110, 20);
 		btnNewButton_10.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

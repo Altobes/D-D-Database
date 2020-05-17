@@ -2,6 +2,7 @@ package dungeondatabase.services;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -63,6 +64,34 @@ public class Player_character {
 		return Statblocks;
 	}
 	
+	public ArrayList<ArrayList<String>> getPlayerAll(String user) {
+		ArrayList<ArrayList<String>> players = new ArrayList<ArrayList<String>>();
+		for (int i = 0;i < 3;i++) {
+			players.add(new ArrayList<String>());
+		}
+		String g = String.format("USE %s ",dbService.databaseName);
+		CallableStatement cs = null;
+			
+		try{
+			this.dbService.connect("Dungeon19", "Password123");
+			Connection c = this.dbService.getConnection();
+			cs = c.prepareCall(g + "Select PC.Name, PC.PlayerID, PC.back_story From Player_Character PC \r\n Where PC.Username = ?");
+			cs.setString(1, user);
+			ResultSet r = cs.executeQuery();
+			while(r.next()) {
+				players.get(0).add(r.getString("Name"));
+				players.get(1).add(r.getString("PlayerID"));
+				players.get(2).add(r.getString("back_story"));
+			}
+			c.close();
+			return players;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 
 	public ArrayList<String> getPlayerCharacter(String user) {	
 		ArrayList<String> characters = new ArrayList<String>();
@@ -81,6 +110,7 @@ public class Player_character {
 		}
 		return characters;
 	}
+	
 	
 	public ArrayList<String> getParty(String user) {	
 		ArrayList<String> pty = new ArrayList<String>();
