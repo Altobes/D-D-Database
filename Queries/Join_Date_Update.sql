@@ -1,6 +1,3 @@
-Use DungeonDatabase
-Go
-
 Create Trigger [Join_Date_Update] on UserEntity
 For Update
 AS
