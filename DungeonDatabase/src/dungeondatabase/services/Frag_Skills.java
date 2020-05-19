@@ -30,8 +30,7 @@ public class Frag_Skills {
 	JFrame frame;
 	private JTable table;
 	public String user;
-	private DatabaseConnectionService dbService = 
-			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
+	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
 	private String character_num;
 	private DefaultTableModel tb;
 	private Player_character p;
@@ -70,7 +69,7 @@ public class Frag_Skills {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		dbService.connect("Dungeon19", "Password123");
+		dbService.connect(Dataclass.USER, Dataclass.PASS);
 		p = new Player_character(dbService);
 		ArrayList<ArrayList<String>> characters = p.getAllCharacters(user);
 		

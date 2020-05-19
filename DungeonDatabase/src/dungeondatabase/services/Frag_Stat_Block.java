@@ -20,8 +20,7 @@ public class Frag_Stat_Block {
 
 	JFrame frame;
 	private JTable table;
-	private DatabaseConnectionService dbService = 
-			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
+	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
 	private Player_character pc = new Player_character(dbService);
 	
 	private String user;
@@ -57,6 +56,7 @@ public class Frag_Stat_Block {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		dbService.connect(Dataclass.USER, Dataclass.PASS);
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
 		frame.setBounds(100, 100, 700, 500);

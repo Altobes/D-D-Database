@@ -15,11 +15,13 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class DBInit {
 
 	private static final String URL = "jdbc:sqlserver://golem.csse.rose-hulman.edu";
-	private static final String USER = "REPLACE ME!!!!";
-	private static final String PASSWORD = "REPLACE ME!!!!";
+	private static String USER = Dataclass.USER;
+	private static String PASSWORD = Dataclass.PASS;
 	private static String INSTRUCTIONS = new String();
 
 	public static Connection getConnection() throws SQLException {
@@ -48,7 +50,7 @@ public class DBInit {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,e.getMessage());
 		}
 
 	}
@@ -77,6 +79,7 @@ public class DBInit {
 			stmt.execute(content);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null,e.getMessage());
 		}
 	}
 }
