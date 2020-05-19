@@ -31,26 +31,15 @@ import java.util.ArrayList;
 import java.awt.Choice;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+
+import com.ibm.icu.util.ULocale.Type;
+
 import java.awt.Color;
 
 public class Frag_DM_View {
 	JFrame frame;
 	private JLabel lblNewLabel_1;
-	private Choice choice_1;
 	private JTable table;
-	private JLabel lblNewLabel_2;
-	private JTextField textField;
-	private JLabel lblNewLabel_3;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_2;
-	private JButton btnNewButton_3;
-	private JButton btnNewButton_4;
-	private JButton btnNewButton_5;
-	private JButton btnNewButton_6;
-	private JButton btnNewButton_7;
-	private JButton btnNewButton_8;
-	private JButton btnNewButton_9;
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
 	private String user = "altobes";
@@ -214,17 +203,6 @@ public class Frag_DM_View {
 		});
 		
 		
-		JButton create_party = new JButton("New Party");
-		create_party.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		create_party.setBounds(535, 47, 125, 20);
-		create_party.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) { // Open create character menu
-				Frag_Create_Party window = new Frag_Create_Party();
-				window.frame.setVisible(true);
-			}
-		});
-		frame.getContentPane().add(create_party);
 		
 		JTextField characterField = new JTextField();
 		characterField.setBounds(740, 60, 200, 25);
@@ -342,6 +320,51 @@ public class Frag_DM_View {
 			}
 		});
 		frame.getContentPane().add(drop_character);
+		
+		JButton deleteCamp = new JButton("Delete Campaign");
+		deleteCamp.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		deleteCamp.setBounds(10, 10, 160, 20);
+		deleteCamp.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e2) { // Open create character menu
+				String campaignID = choice_1.getSelectedItem();
+				if (campaignID.equals("None")) {
+					JOptionPane.showMessageDialog(null, "ERROR: Choose campaign");
+					return;
+				}
+				int campaign = Integer.parseInt(camp);
+				
+				CallableStatement cs = null;
+				dbService.connect("Dungeon19", "Password123");
+				Connection c = dbService.getConnection();
+				try {
+					cs = c.prepareCall("? = call Delete_Campaign(?)");
+					cs.setInt(2, campaign);
+					cs.registerOutParameter(1, Types.INTEGER);
+					cs.execute();
+					int result = cs.getInt(1);
+					if (result == 1) {
+						JOptionPane.showMessageDialog(null, "ERROR: Invalid Campaign");
+						return;
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Campaign Deleted");
+						choice_1.removeAll();
+						ArrayList<ArrayList<String>> camps = dm.getDMCampaigns();
+						choice_1.add("None");
+						for(int i = 0; i<camps.size(); i++) {
+							choice_1.add(camps.get(i).get(0) + ": #" + camps.get(i).get(1));
+						}	
+					}
+					
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		frame.getContentPane().add(deleteCamp);
 	
 		
 		table = new JTable();

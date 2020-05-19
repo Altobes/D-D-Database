@@ -45,6 +45,10 @@ public class Frag_Create_Party {
 		initialize();
 	}
 	
+	public Frag_Create_Party(String user) {
+		
+	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -105,7 +109,7 @@ public class Frag_Create_Party {
 			public void actionPerformed(ActionEvent e) { //Open create character menu
 				CallableStatement cs = null;
 				try {
-					cs = dbService.getConnection().prepareCall("{? = call Create_Party(?, ?, ?)}");
+					cs = dbService.getConnection().prepareCall("{? = call Create_Party(?, ?, ?, ?)}");
 					
 					String Name = new String(nameField.getText());
 					cs.setString(2, Name);
@@ -115,6 +119,8 @@ public class Frag_Create_Party {
 					
 					String location = locationField.getText();
 					cs.setString(4, location);
+					
+					cs.registerOutParameter(5, Types.INTEGER);
 
 					cs.registerOutParameter(1, Types.INTEGER);
 					cs.execute();

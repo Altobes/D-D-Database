@@ -51,6 +51,7 @@ public class Frag_Database {
 	private JButton btnNewButton_8;
 	private JButton btnNewButton_9;
 	private JButton btnNewButton_10;
+	private JButton deleteButton;
 	private DatabaseConnectionService dbService = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
 	private Player_character pc = new Player_character(dbService);
 
@@ -76,17 +77,21 @@ public class Frag_Database {
 	 * Create the application.
 	 */
 	public Frag_Database() {
-		initialize();
+		initialize("Password123");
 	}
 	public Frag_Database(String user) {
 		this.user = user;
-		initialize();
+		initialize("Password123");
+	}
+	public Frag_Database(String user, String hash) {
+		this.user = user;
+		initialize(hash);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	void initialize() {
+	void initialize(String hash) {
 		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
 		ArrayList<String> pc_temp = pc.getPlayerCharacter(user);
 		ArrayList<String> pty_temp = pc.getParty(user);
@@ -312,6 +317,38 @@ public class Frag_Database {
 			}
 		});
 		frame.getContentPane().add(btnNewButton_10);
+		
+		deleteButton = new JButton("Delete User");
+		deleteButton.setBounds(10, 10, 100, 20);
+		deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					CallableStatement cs = null;
+					dbService.connect("Dungeon19", "Password123");
+					Connection c = dbService.getConnection();
+						cs = c.prepareCall("{? = call Delete_User(?, ?)}");
+						cs.setString(2, user);
+						cs.setString(3, hash);
+						cs.registerOutParameter(1, Types.INTEGER);
+						cs.execute();
+						int result = cs.getInt(1);
+						if (result == 1) {
+							JOptionPane.showMessageDialog(null, "Invalid Credentials");
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "User Deleted");
+							frame.dispose();	
+						}
+						c.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		frame.getContentPane().add(deleteButton);		
+		
 		
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
