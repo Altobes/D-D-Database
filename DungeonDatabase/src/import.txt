@@ -1,0 +1,28 @@
+User:
+username1, password1
+username2, password2
+;
+StatBlock:
+StatID, Name, Language, AC, Speed, Race, STR, DEX, CON, INT, WIS, CHA
+StatID, NAME, LANGUAGE, ac, SPEED, race, str, dex, con, int, wis, cha
+;
+Player_Character:
+PlayerID, Name, Backstory, username, partyID, StatID
+;
+DM:
+username, DMID
+UserName2, DM_ID_2
+;
+Items:
+Name, Description, PlayerID
+Name2, Description2, PlayerID
+Name3, Description3, PlayerID2
+;
+Spells:
+spellName, SpellDesc, PlayerID
+SpellName, SpellDesc2, PlayerID2
+;
+Skills:
+SkillName, SkillID, PlayerID
+;
+
