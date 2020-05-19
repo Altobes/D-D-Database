@@ -20,8 +20,7 @@ public class Frag_Campaign {
 
 	JFrame frame;
 	private JTable table;
-	private DatabaseConnectionService dbService = new DatabaseConnectionService("golem.csse.rose-hulman.edu",
-			"DungeonDatabase");
+	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
 	private Campaign CampaignService = new Campaign(dbService);
 
 	private ArrayList<String> CampaignIDs, CampaignNames, PartyIDs;
@@ -53,7 +52,7 @@ public class Frag_Campaign {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		dbService.connect("Dungeon19", "Password123");
+		dbService.connect(Dataclass.USER, Dataclass.PASS);
 		
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);

@@ -182,7 +182,7 @@ public class Player_character {
 		try{
 			this.dbService.connect("Dungeon19", "Password123");
 			Connection c = this.dbService.getConnection();
-			cs = c.prepareCall("SELECT Items.Name as [Name], Items.Description as [Description]\r\n" + 
+			cs = c.prepareCall("SELECT Items.ItemID as ID, Items.Name as [Name], Items.Description as [Description]\r\n" + 
 					"FROM Player_Character as P join StatItems as S on S.StatID = P.StatID\r\n" + 
 					"JOIN Items on Items.ItemID = S.ItemID\r\n" + 
 					"WHERE P.PlayerID = ?");
@@ -190,6 +190,7 @@ public class Player_character {
 			ResultSet r = cs.executeQuery();
 			while(r.next()) {
 				ArrayList<String> temp = new ArrayList<String>();
+				temp.add(r.getString("ID"));
 				temp.add(r.getString("Name"));
 				temp.add(r.getString("Description"));
 				characters.add(temp);
@@ -230,7 +231,7 @@ public class Player_character {
 		try{
 			this.dbService.connect("Dungeon19", "Password123");
 			Connection c = this.dbService.getConnection();
-			cs = c.prepareCall("SELECT Skills.Name as [Name], Skills.Description as [Description]\r\n" + 
+			cs = c.prepareCall("SELECT Skills.SkillID as ID, Skills.Name as [Name], Skills.Description as [Description]\r\n" + 
 					"FROM Player_Character as P join StatSkills as S on S.StatID = P.StatID\r\n" + 
 					"JOIN Skills on Skills.SkillID = S.SkillID\r\n" + 
 					"WHERE P.PlayerID = ?");
@@ -238,6 +239,7 @@ public class Player_character {
 			ResultSet r = cs.executeQuery();
 			while(r.next()) {
 				ArrayList<String> temp = new ArrayList<String>();
+				temp.add(r.getString("ID"));
 				temp.add(r.getString("Name"));
 				temp.add(r.getString("Description"));
 				characters.add(temp);
@@ -256,7 +258,7 @@ public class Player_character {
 		try{
 			this.dbService.connect("Dungeon19", "Password123");
 			Connection c = this.dbService.getConnection();
-			cs = c.prepareCall("SELECT Spells.Name as [Name], Spells.Description as [Description]\r\n" + 
+			cs = c.prepareCall("SELECT Spells.SpellID as ID, Spells.Name as [Name], Spells.Description as [Description]\r\n" + 
 					"FROM Player_Character as P join StatSpells as S on S.StatID = P.StatID\r\n" + 
 					"JOIN Spells on Spells.SpellID = S.SpellID\r\n" + 
 					"WHERE P.PlayerID = ?");
@@ -264,6 +266,7 @@ public class Player_character {
 			ResultSet r = cs.executeQuery();
 			while(r.next()) {
 				ArrayList<String> temp = new ArrayList<String>();
+				temp.add(r.getString("ID"));
 				temp.add(r.getString("Name"));
 				temp.add(r.getString("Description"));
 				characters.add(temp);

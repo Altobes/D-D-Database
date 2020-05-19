@@ -52,7 +52,7 @@ public class Frag_Database {
 	private JButton btnNewButton_9;
 	private JButton btnNewButton_10;
 	private JButton deleteButton;
-	private DatabaseConnectionService dbService = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
+	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
 	private Player_character pc = new Player_character(dbService);
 
 	private String user = "altobes";
@@ -92,7 +92,7 @@ public class Frag_Database {
 	 * Initialize the contents of the frame.
 	 */
 	void initialize(String hash) {
-		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
+		dbService.connect(Dataclass.USER, Dataclass.PASS);
 		ArrayList<String> pc_temp = pc.getPlayerCharacter(user);
 		ArrayList<String> pty_temp = pc.getParty(user);
 		frame = new JFrame();

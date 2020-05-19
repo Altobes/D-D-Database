@@ -18,8 +18,7 @@ public class Frag_NPC {
 
 	JFrame frame;
 	private JTable table;
-	private DatabaseConnectionService dbService = 
-			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
+	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
 	private NPC npc = new NPC(dbService);
 
 	/**
@@ -49,7 +48,7 @@ public class Frag_NPC {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		dbService.connect("Dungeon19", "Password123");
+		dbService.connect(Dataclass.USER, Dataclass.PASS);
 		ArrayList<String> npc_name = npc.getNPC();
 		ArrayList<String> npc_cr = npc.getCR();
 		

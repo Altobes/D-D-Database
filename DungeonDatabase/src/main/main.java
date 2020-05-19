@@ -1,7 +1,6 @@
 package main;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -10,15 +9,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-
 import dungeondatabase.services.DBInit;
 import dungeondatabase.services.DatabaseConnectionService;
+import dungeondatabase.services.Dataclass;
 import dungeondatabase.services.UserService;
-
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 
 public class main {
 
@@ -27,24 +23,24 @@ public class main {
 	private JLabel lblNewLabel_2;
 	private JPasswordField passwordField;
 	private JTextField textField;
-	private String databaseName = "DungeonDatabase";
-	private DatabaseConnectionService dbService = 
-			new DatabaseConnectionService("golem.csse.rose-hulman.edu", databaseName);
+	private String databaseName = Dataclass.DBNAME;
+	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
 	private UserService us = new UserService(dbService);
-	private String user = "Dungeon19";
-	private String pass = "Password123";
+	private static String user = Dataclass.USER;
+	private static String pass = Dataclass.PASS;
 
 	/**
 	 * Launch the application.
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					main window = new main();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+//					e.printStackTrace();
 				}
 			}
 		});
@@ -64,7 +60,6 @@ public class main {
 
 //		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
 		dbService.connect(user, pass);
-		String username = null, password = null;
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

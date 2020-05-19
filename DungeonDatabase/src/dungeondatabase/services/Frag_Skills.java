@@ -17,19 +17,20 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.awt.Choice;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Frag_Skills {
 
 	JFrame frame;
 	private JTable table;
 	public String user;
-	private DatabaseConnectionService dbService = 
-			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
+	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
 	private String character_num;
 	private DefaultTableModel tb;
 	private Player_character p;
@@ -42,7 +43,7 @@ public class Frag_Skills {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Frag_Items window = new Frag_Items();
+					Frag_Skills window = new Frag_Skills();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,22 +69,22 @@ public class Frag_Skills {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		dbService.connect("Dungeon19", "Password123");
+		dbService.connect(Dataclass.USER, Dataclass.PASS);
 		p = new Player_character(dbService);
 		ArrayList<ArrayList<String>> characters = p.getAllCharacters(user);
 		
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 650, 300);
 		frame.getContentPane().setLayout(null);
-		tb = new DefaultTableModel(
-				new Object[][] {
-					{"Name", "Description"},
-				},
-				new String[] {
-					"New column", "New column"
+		tb = new DefaultTableModel(new Object[][] {{"ID", "Name", "Description"},},
+				new String[] {"New Column", "New column", "New column"}) 
+			{
+				public boolean isCellEditable(int row, int column) {
+					return false;
 				}
-			);
+			};
+		
 		
 		JLabel lblNewLabel = new JLabel("Dungeon Database");
 		lblNewLabel.setForeground(Color.ORANGE);
@@ -107,6 +108,21 @@ public class Frag_Skills {
 			}
 		});
 		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnDelete = new JButton("Delete Skill");
+		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnDelete.setBounds(410, 39, 200, 25);
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (deleteSkill()) {
+					JOptionPane.showMessageDialog(null, "Successfully deleted Skill");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "ERROR: Could not delete Skill");
+				}
+			}
+		});
+		frame.getContentPane().add(btnDelete);
 		
 		Choice choice_1 = new Choice();
 		choice_1.add("None");
@@ -147,6 +163,7 @@ public class Frag_Skills {
 			}	
 		});
 		frame.getContentPane().add(choice_1);
+		
 		frame.addWindowListener(new WindowListener() {
 			private boolean deactivated;
 			@Override
@@ -180,9 +197,10 @@ public class Frag_Skills {
 		
 		table = new JTable();
 		table.setModel(tb);
-		table.getColumnModel().getColumn(0).setPreferredWidth(50);
-		table.getColumnModel().getColumn(1).setPreferredWidth(300);
-		table.setBounds(10, 75, 416, 178);
+		table.getColumnModel().getColumn(0).setPreferredWidth(10);
+		table.getColumnModel().getColumn(1).setPreferredWidth(200);
+		table.getColumnModel().getColumn(2).setPreferredWidth(600);
+		table.setBounds(10, 75, 716, 178);
 		frame.getContentPane().add(table);
 		
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -193,18 +211,38 @@ public class Frag_Skills {
 		if (character == "None") {
 			return;
 		}
-		ArrayList<ArrayList<String>> items = p.getSkills(character);
-		if (items.size() == 0) {
+		ArrayList<ArrayList<String>> Skills = p.getSkills(character);
+		if (Skills.size() == 0) {
 			System.out.println("Empty Skill List");
 			return;
 		}
 		
-		for(int i = 0; i < items.size(); i++) {
+		for(int i = 0; i < Skills.size(); i++) {
 			tb.addRow(new Object[] {
-				items.get(i).get(0), items.get(i).get(1)
+				Skills.get(i).get(0), Skills.get(i).get(1), Skills.get(i).get(2)
 			});
 		}
 	}
-
+	
+	private boolean deleteSkill() {
+		CallableStatement cs = null;
+		if (table.getSelectedRowCount() != 1) {
+			return false;
+		}
+		try {
+			Connection c = this.dbService.getConnection();
+			cs = dbService.getConnection().prepareCall("{? = call Delete_Skill(?, ?)}");
+			Object SkillID = table.getValueAt(table.getSelectedRow(), 0);
+			cs.setString(2, SkillID.toString());
+			cs.setString(3, p.getStatID(character_num));
+			
+			cs.registerOutParameter(1, Types.INTEGER);
+			cs.execute();
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 
 }

@@ -18,8 +18,7 @@ import javax.swing.JTextField;
 
 public class Frag_Modify_Statblock {
 	JFrame frame;
-	private DatabaseConnectionService dbService = new DatabaseConnectionService("golem.csse.rose-hulman.edu",
-			"DungeonDatabase");
+	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
 	private String user = "altobes";
 
 	/**
@@ -54,7 +53,7 @@ public class Frag_Modify_Statblock {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
+		dbService.connect(Dataclass.USER, Dataclass.PASS);
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
 		frame.setBounds(100, 100, 500, 600);

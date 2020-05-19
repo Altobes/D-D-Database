@@ -40,8 +40,12 @@ public class Frag_DM_View {
 	JFrame frame;
 	private JLabel lblNewLabel_1;
 	private JTable table;
+/*
 	private DatabaseConnectionService dbService = 
 			new DatabaseConnectionService("golem.csse.rose-hulman.edu", "DungeonDatabase");
+=======
+*/
+	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
 	private String user = "altobes";
 	private DungeonMaster dm = null;
 	private String camp;
@@ -85,7 +89,7 @@ public class Frag_DM_View {
 	 * Initialize the contents of the frame.
 	 */
 	void initialize() {
-		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
+		dbService.connect(Dataclass.USER, Dataclass.PASS);
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 500);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
