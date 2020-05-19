@@ -199,9 +199,9 @@ public class Frag_Items {
 		table = new JTable();
 		table.setModel(tb);
 		table.getColumnModel().getColumn(0).setPreferredWidth(10);
-		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setPreferredWidth(200);
 		table.getColumnModel().getColumn(2).setPreferredWidth(600);
-		table.setBounds(10, 75, 516, 178);
+		table.setBounds(10, 75, 716, 178);
 		frame.getContentPane().add(table);
 		
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
