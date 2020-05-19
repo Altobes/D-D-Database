@@ -182,7 +182,7 @@ public class Player_character {
 		try{
 			this.dbService.connect("Dungeon19", "Password123");
 			Connection c = this.dbService.getConnection();
-			cs = c.prepareCall("SELECT Items.Name as [Name], Items.Description as [Description]\r\n" + 
+			cs = c.prepareCall("SELECT Items.ItemID as ID, Items.Name as [Name], Items.Description as [Description]\r\n" + 
 					"FROM Player_Character as P join StatItems as S on S.StatID = P.StatID\r\n" + 
 					"JOIN Items on Items.ItemID = S.ItemID\r\n" + 
 					"WHERE P.PlayerID = ?");
@@ -190,6 +190,7 @@ public class Player_character {
 			ResultSet r = cs.executeQuery();
 			while(r.next()) {
 				ArrayList<String> temp = new ArrayList<String>();
+				temp.add(r.getString("ID"));
 				temp.add(r.getString("Name"));
 				temp.add(r.getString("Description"));
 				characters.add(temp);

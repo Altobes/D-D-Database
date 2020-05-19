@@ -17,11 +17,13 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.awt.Choice;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Frag_Items {
 
@@ -74,16 +76,16 @@ public class Frag_Items {
 		
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 650, 300);
 		frame.getContentPane().setLayout(null);
-		tb = new DefaultTableModel(
-				new Object[][] {
-					{"Name", "Description"},
-				},
-				new String[] {
-					"New column", "New column"
+		tb = new DefaultTableModel(new Object[][] {{"ID", "Name", "Description"},},
+				new String[] {"New Column", "New column", "New column"}) 
+			{
+				public boolean isCellEditable(int row, int column) {
+					return false;
 				}
-			);
+			};
+		
 		
 		JLabel lblNewLabel = new JLabel("Dungeon Database");
 		lblNewLabel.setForeground(Color.ORANGE);
@@ -107,6 +109,21 @@ public class Frag_Items {
 			}
 		});
 		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnDelete = new JButton("Delete Item");
+		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnDelete.setBounds(410, 39, 200, 25);
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (deleteItem()) {
+					JOptionPane.showMessageDialog(null, "Successfully deleted item");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "ERROR: Could not delete item");
+				}
+			}
+		});
+		frame.getContentPane().add(btnDelete);
 		
 		Choice choice_1 = new Choice();
 		choice_1.add("None");
@@ -181,9 +198,10 @@ public class Frag_Items {
 		
 		table = new JTable();
 		table.setModel(tb);
-		table.getColumnModel().getColumn(0).setPreferredWidth(50);
-		table.getColumnModel().getColumn(1).setPreferredWidth(300);
-		table.setBounds(10, 75, 416, 178);
+		table.getColumnModel().getColumn(0).setPreferredWidth(10);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(2).setPreferredWidth(600);
+		table.setBounds(10, 75, 516, 178);
 		frame.getContentPane().add(table);
 		
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -202,9 +220,30 @@ public class Frag_Items {
 		
 		for(int i = 0; i < items.size(); i++) {
 			tb.addRow(new Object[] {
-				items.get(i).get(0), items.get(i).get(1)
+				items.get(i).get(0), items.get(i).get(1), items.get(i).get(2)
 			});
 		}
+	}
+	
+	private boolean deleteItem() {
+		CallableStatement cs = null;
+		if (table.getSelectedRowCount() != 1) {
+			return false;
+		}
+		try {
+			Connection c = this.dbService.getConnection();
+			cs = dbService.getConnection().prepareCall("{? = call Delete_Item(?, ?)}");
+			Object itemID = table.getValueAt(table.getSelectedRow(), 0);
+			cs.setString(2, itemID.toString());
+			cs.setString(3, p.getStatID(character_num));
+			
+			cs.registerOutParameter(1, Types.INTEGER);
+			cs.execute();
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 }
