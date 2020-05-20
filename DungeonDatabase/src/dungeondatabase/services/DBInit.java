@@ -55,7 +55,7 @@ public class DBInit {
 
 	}
 
-	public static void createNewTable(String fileName, String databaseName, String user, String pass) {
+	public static void runSql(String fileName, String databaseName, String user, String pass) {
 		// SQLite connection string
 		String url = "jdbc:sqlserver://golem.csse.rose-hulman.edu" + ";" + "database=" + databaseName + ";" + "user="
 				+ user + ";" + "password=" + pass;
@@ -78,6 +78,7 @@ public class DBInit {
 			// create a new table
 			stmt.execute(content);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(null,e.getMessage());
 		}

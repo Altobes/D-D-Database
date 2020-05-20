@@ -58,7 +58,7 @@ public class Frag_Create_Character {
 		frame.setBounds(100, 100, 500, 350);
 		frame.getContentPane().setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Dungeon Database");
+		JLabel lblNewLabel = new JLabel(Dataclass.DBNAME);
 		lblNewLabel.setForeground(Color.ORANGE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		lblNewLabel.setBounds(101, 0, 250, 42);

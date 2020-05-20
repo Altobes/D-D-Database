@@ -36,7 +36,7 @@ public class DatabaseConnectionService {
 		try{
 			this.connection = DriverManager.getConnection(connectionUrl);
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, "Connot Find Database: " + databaseName + "\n Click on the title button to create a new database");
+			JOptionPane.showMessageDialog(null, e.getMessage());
 //			e.printStackTrace();
 //				// Create View
 //				db.runSQL("C:\\Users\\Administrator\\Desktop\\D-D-Database\\Queries\\CharacterSheet_View.sql");		
