@@ -25,11 +25,13 @@ public class DataImport {
 		
 		int[] params = new int[] {0, 1, 2}; //Fill this with the number of 
 											//parameters required for each statement
+											//Number of ?'s
 		
 		int insertIndex = 0; //The index to keep track of which insert to run
 		
-		db.connect(Dataclass.USER, Dataclass.PASS);
-		Connection c = db.getConnection();
+		//TODO: uncomment this to connect to the database
+//		db.connect(Dataclass.USER, Dataclass.PASS);
+//		Connection c = db.getConnection();
 		
 		File text = new File("./src/import.txt");
 		Scanner s = null;
@@ -69,6 +71,7 @@ public class DataImport {
 				}
 				System.out.println("----------------------------------");
 				//Do stuff with insert statement while inserting arguments here
+				//TODO: uncomment this once populate is working
 //				CallableStatement cs = c.prepareCall(inserts[insertIndex]);
 //				for (int i = 1; i <= params[insertIndex]; i++) {
 //					cs.setString(i, args.get(i));
@@ -76,13 +79,18 @@ public class DataImport {
 //				cs.execute();
 				args.clear();
 			}
+			System.out.println("----------------------------------");
 			insertIndex++;
 		}
-		return false;
+		return true;
 	}
 	
 	private static String[] populateArray() {
 		String[] s = new String[15];
+		//TODO: populate the array
+		//In order of the import document
+		//0th element is ignored
+		//Also update the params with the number of parameters in each statement
 		//Grab data from somewhere and return import statements or something
 		return s;
 	}
