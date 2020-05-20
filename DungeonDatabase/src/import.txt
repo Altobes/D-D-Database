@@ -25,4 +25,32 @@ SpellName, SpellDesc2, PlayerID2
 Skills:
 SkillName, SkillID, PlayerID
 ;
+StatItems:
+1, 2
+3, 4
+;
+StatSpells:
+1, 2
+3, 5
+;
+StatSkills:
+1, 3
+2, 4
+;
+Party:
+Level, Name, Location
+Level2, Name2, Location3
+;
+Campaign:
+Name, PartyID
+Name2, PartyID2
+Name3, PartyID3
+;
+NPC:
+ID, Name, CR, StatID, CampaignID
+;
+DM_Manages_Campaign:
+DMID, CAMPID
+DM_ID, CAMP_ID
+;
 
