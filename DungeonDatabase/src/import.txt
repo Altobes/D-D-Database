@@ -42,9 +42,9 @@ Level, Name, Location
 Level2, Name2, Location3
 ;
 Campaign:
-Name, PartyID
-Name2, PartyID2
-Name3, PartyID3
+Name, PartyID, DM_ID
+Name2, PartyID2, DM_ID
+Name3, PartyID3, DM_ID
 ;
 NPC:
 ID, Name, CR, StatID, CampaignID
