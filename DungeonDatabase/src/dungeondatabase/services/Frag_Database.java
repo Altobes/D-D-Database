@@ -100,7 +100,7 @@ public class Frag_Database {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Dungeon Database for " + this.user);
+		JLabel lblNewLabel = new JLabel(Dataclass.DBNAME + " for " + this.user);
 		lblNewLabel.setForeground(Color.ORANGE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);

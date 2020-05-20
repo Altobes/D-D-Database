@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Font;
 import dungeondatabase.services.DBInit;
@@ -128,20 +130,65 @@ public class main {
 				DBInit db = new DBInit();
 				// Create Database
 				try {
-					db.createNewDatabase("C:\\Users\\Administrator\\Desktop\\D-D-Database\\Queries\\CreateDB.sql");
+					JOptionPane.showMessageDialog(null, "Creating Database: " + databaseName);
+					db.createNewDatabase("./Queries/CreateDB.sql");
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				// Create Table
-				db.createNewTable("C:\\Users\\Administrator\\Desktop\\D-D-Database\\Queries\\CreateTable\\Create_Party.sql", databaseName, user, pass);
-				db.createNewTable("C:\\Users\\Administrator\\Desktop\\D-D-Database\\Queries\\CreateTable\\Create_Campaign.sql", databaseName, user, pass);
-				db.createNewTable("C:\\Users\\Administrator\\Desktop\\D-D-Database\\Queries\\CreateTable\\Create_DM.sql", databaseName, user, pass);
-				db.createNewTable("C:\\Users\\Administrator\\Desktop\\D-D-Database\\Queries\\CreateTable\\DM_Manages_Campaign.sql", databaseName, user, pass);
-				db.createNewTable("C:\\Users\\Administrator\\Desktop\\D-D-Database\\Queries\\CreateTable\\Create_StatBlock.sql", databaseName, user, pass);
-				db.createNewTable("C:\\Users\\Administrator\\Desktop\\D-D-Database\\Queries\\CreateTable\\Create_NPC.sql", databaseName, user, pass);
-				db.createNewTable("C:\\Users\\Administrator\\Desktop\\D-D-Database\\Queries\\CreateTable\\Create_Player_Character.sql", databaseName, user, pass);
-				db.createNewTable("C:\\Users\\Administrator\\Desktop\\D-D-Database\\Queries\\CreateTable\\Create_user.sql", databaseName, user, pass);
+				JOptionPane.showMessageDialog(null, "Creating Tables...");
+				db.runSql("./Queries/CreateTable/Create_Party.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateTable/Create_Campaign.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateTable/Create_DM.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateTable/DM_Manages_Campaign.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateTable/Create_StatBlock.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateTable/Create_NPC.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateTable/Create_Player_Character.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateTable/Create_user.sql", databaseName, user, pass);
+				
+				// Create Store Procedures
+				JOptionPane.showMessageDialog(null, "Creating Store Procedures...");
+				db.runSql("./Queries/CreateStoreProcedure/Create/Add_Player_To_Party_proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Add_Statblock.sql", databaseName, user, pass);
+//				db.runSql("./Queries/CreateStoreProcedure/Create/AddDM_Proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Change_Backstory.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Change_Player_Name.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Create_Campaign_Proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Create_DM.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Create_Item_Proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Create_NPC_Proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Create_Party.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Create_Player.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Create_Skill_Proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Create_Spell_Proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Create_User.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/CreateStatBlock_Proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Create/Insert_DM.sql", databaseName, user, pass);
+				
+				db.runSql("./Queries/CreateStoreProcedure/Delete/Delete_Campaign_Proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Delete/Delete_DM_Proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Delete/Delete_Items_Proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Delete/Delete_Party_proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Delete/Delete_Player.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Delete/Delete_Skills_proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Delete/Delete_Spells_proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Delete/Delete_User.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Delete/DM_Manages.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Delete/Drop_DM.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Delete/Drop_Player_From_Party_proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Delete/Drop_Statblock_Player.sql", databaseName, user, pass);
+				
+				db.runSql("./Queries/CreateStoreProcedure/Increment_Level_proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Modify_StatBlock_Proc.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Register.sql", databaseName, user, pass);
+				db.runSql("./Queries/CreateStoreProcedure/Update_DM.sql", databaseName, user, pass);
+				
+				// Create View
+				db.runSql("./Queries/CharacterSheet_View.sql", databaseName, user, pass);
+				
+				
+				JOptionPane.showMessageDialog(null, "Finish Initializing Database: [" + databaseName + "] ^v^");
 				
 			}	
 		});
