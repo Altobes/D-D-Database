@@ -8,14 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JTextField;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.AbstractListModel;
-import javax.swing.JSlider;
-import javax.swing.JScrollBar;
-import javax.swing.JTree;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -24,16 +18,12 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.awt.Choice;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
-
-import com.ibm.icu.util.ULocale.Type;
-
 import java.awt.Color;
 
 public class Frag_DM_View {

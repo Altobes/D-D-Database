@@ -135,7 +135,6 @@ public class Frag_Create_Campaign {
 			@Override
 			public void actionPerformed(ActionEvent e) { // Open create character menu
 				frame.dispose();
-				//frame.setVisible(false);
 				initializeParty();
 			}
 		});
@@ -145,7 +144,7 @@ public class Frag_Create_Campaign {
 	}
 	
 	private void initializeParty() {
-		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
+		dbService.connect(Dataclass.USER, Dataclass.PASS); // replace "username" and "password" with your own rose login
 		frame2 = new JFrame();
 		frame2.setAlwaysOnTop(true);
 		frame2.setBounds(100, 100, 500, 300);
@@ -249,7 +248,6 @@ public class Frag_Create_Campaign {
 				try {
 					cs = dbService.getConnection().prepareCall("{? = call Create_Campaign(?, ?, ?)}");
 
-					
 					String Name = new String(nameField.getText());
 					cs.setString(2, Name);
 					cs.setString(4, user); //DM User

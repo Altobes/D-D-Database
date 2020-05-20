@@ -5,15 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class DungeonMaster {
-
-	
-
 	private DatabaseConnectionService dbService = null;
 	private String user;
 	
@@ -127,28 +121,7 @@ public class DungeonMaster {
 		return Statblocks;
 	}
 	
-
-	public ArrayList<String> getPlayerCharacter() {	
-		//TO DO: Task 2 
-		ArrayList<String> characters = new ArrayList<String>();
-		java.sql.Statement stat = null;
-		String s=String.format("Select Name from %s.dbo.Player_Character", this.dbService.databaseName);
-		try{
-			Connection c = this.dbService.getConnection();
-			stat = c.createStatement();
-			ResultSet r = ((java.sql.Statement) stat).executeQuery(s);
-			while(r.next()){
-				String name = r.getString("Name");
-				characters.add(name);
-			}
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
-		return characters;
-	}
-	
 	public ArrayList<String> getParty() {	
-		//TO DO: Task 2 
 		ArrayList<String> pty = new ArrayList<String>();
 		java.sql.Statement stat = null;
 		String s = String.format("Select PartyID from %s.dbo.Player_Character", this.dbService.databaseName);
@@ -170,7 +143,6 @@ public class DungeonMaster {
 	}
 	
 	public ArrayList<String> getBackStory() {	
-		//TO DO: Task 2 
 		ArrayList<String> stories = new ArrayList<String>();
 		java.sql.Statement stat = null;
 		String s=String.format("Select back_story from %s.dbo.Player_Character", this.dbService.databaseName);

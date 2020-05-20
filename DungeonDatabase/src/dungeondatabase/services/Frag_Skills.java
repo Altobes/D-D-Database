@@ -15,7 +15,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowListener;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ import java.awt.Choice;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 public class Frag_Skills {
 
@@ -34,7 +32,6 @@ public class Frag_Skills {
 	private String character_num;
 	private DefaultTableModel tb;
 	private Player_character p;
-	private int Character;
 
 	/**
 	 * Launch the application.

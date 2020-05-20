@@ -113,7 +113,6 @@ public class Frag_Create_NPC {
 				System.out.println(campagignID);
 				npc.addNPC(npc_name, npc_cr, statID, campagignID);
 				frame.setVisible(false);
-
 			}	
 		});
 		frame.getContentPane().add(btnNewButton);

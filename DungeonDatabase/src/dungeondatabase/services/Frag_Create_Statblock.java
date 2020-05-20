@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 public class Frag_Create_Statblock {
 	JFrame frame;
 	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
-	private String user = "altobes";
 
 	/**
 	 * Launch the application.
@@ -41,18 +40,17 @@ public class Frag_Create_Statblock {
 	 * Create the application.
 	 */
 	public Frag_Create_Statblock() {
-		initialize();
+		initialize("altobes");
 	}
 
 	public Frag_Create_Statblock(String user) {
-		this.user = user;
-		initialize();
+		initialize(user);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(String user) {
 		dbService.connect(Dataclass.USER, Dataclass.PASS);
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);

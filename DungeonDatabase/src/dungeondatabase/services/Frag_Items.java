@@ -14,8 +14,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowListener;
 import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -23,7 +21,6 @@ import java.awt.Choice;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 public class Frag_Items {
 
@@ -34,7 +31,6 @@ public class Frag_Items {
 	private String character_num;
 	private DefaultTableModel tb;
 	private Player_character p;
-	private int Character;
 
 	/**
 	 * Launch the application.
@@ -56,19 +52,17 @@ public class Frag_Items {
 	 * Create the application.
 	 */
 	public Frag_Items() {
-		this.user = "altobes";
-		initialize();
+		initialize("altobes");
 	}
 	
-	public Frag_Items(String username) {
-		this.user = username;
-		initialize();
+	public Frag_Items(String user) {
+		initialize(user);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(String user) {
 		dbService.connect(Dataclass.USER, Dataclass.PASS);
 		p = new Player_character(dbService);
 		ArrayList<ArrayList<String>> characters = p.getAllCharacters(user);
@@ -230,7 +224,6 @@ public class Frag_Items {
 			return false;
 		}
 		try {
-			Connection c = this.dbService.getConnection();
 			cs = dbService.getConnection().prepareCall("{? = call Delete_Item(?, ?)}");
 			Object itemID = table.getValueAt(table.getSelectedRow(), 0);
 			cs.setString(2, itemID.toString());

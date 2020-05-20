@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 public class Frag_Create_Skill {
 	JFrame frame;
 	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
-	private String user;
 	private String player;
 	private Player_character p;
 	/**

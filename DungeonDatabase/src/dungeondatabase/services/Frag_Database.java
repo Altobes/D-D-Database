@@ -3,21 +3,12 @@ package dungeondatabase.services;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.HeadlessException;
 
-import javax.swing.JTextField;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.AbstractListModel;
-import javax.swing.JSlider;
-import javax.swing.JScrollBar;
-import javax.swing.JTree;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.CallableStatement;
@@ -25,35 +16,21 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
-import java.awt.Choice;
 import javax.swing.JButton;
-import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 
 public class Frag_Database {
 
 	JFrame frame;
-	private JLabel lblNewLabel_1;
-	private Choice choice_1;
-	private JTable table;
-	private JLabel lblNewLabel_2;
-	private JTextField textField;
-	private JLabel lblNewLabel_3;
-	private JButton btnNewButton;
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
 	private JButton btnNewButton_3;
 	private JButton btnNewButton_4;
 	private JButton btnNewButton_5;
-	private JButton btnNewButton_6;
-	private JButton btnNewButton_7;
-	private JButton btnNewButton_8;
 	private JButton btnNewButton_9;
 	private JButton btnNewButton_10;
 	private JButton deleteButton;
 	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
-	private Player_character pc = new Player_character(dbService);
 
 	private String user = "altobes";
 
@@ -93,8 +70,6 @@ public class Frag_Database {
 	 */
 	void initialize(String hash) {
 		dbService.connect(Dataclass.USER, Dataclass.PASS);
-		ArrayList<String> pc_temp = pc.getPlayerCharacter(user);
-		ArrayList<String> pty_temp = pc.getParty(user);
 		frame = new JFrame();
 		frame.setBounds(100, 100, 750, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

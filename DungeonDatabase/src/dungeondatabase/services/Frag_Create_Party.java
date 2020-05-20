@@ -43,11 +43,6 @@ public class Frag_Create_Party {
 		initialize();
 	}
 	
-	public Frag_Create_Party(String user) {
-		
-	}
-	
-
 	/**
 	 * Initialize the contents of the frame.
 	 */

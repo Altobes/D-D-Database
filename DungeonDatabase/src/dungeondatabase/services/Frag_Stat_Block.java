@@ -14,16 +14,13 @@ import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-
-
 public class Frag_Stat_Block {
 
 	JFrame frame;
 	private JTable table;
 	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
 	private Player_character pc = new Player_character(dbService);
-	
-	private String user;
+	//private String user;
 
 	/**
 	 * Launch the application.
@@ -45,17 +42,17 @@ public class Frag_Stat_Block {
 	 * Create the application.
 	 */
 	public Frag_Stat_Block() {
-		initialize();
+		initialize("altobes");
 	}
 	public Frag_Stat_Block(String user) {
-		this.user = user;
-		initialize();
+		//this.user = user;
+		initialize(user);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(String user) {
 		dbService.connect(Dataclass.USER, Dataclass.PASS);
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
@@ -89,7 +86,7 @@ public class Frag_Stat_Block {
 		);
 		table.setBounds(10, 81, 666, 372);
 		
-		fillTable(tb);
+		fillTable(tb, user);
 		
 		table.setModel(tb);
 		frame.getContentPane().add(table);
@@ -114,7 +111,7 @@ public class Frag_Stat_Block {
 			public void windowActivated(java.awt.event.WindowEvent e) {
 				if (deactivated) {
 					tb.setRowCount(1);
-					fillTable(tb);
+					fillTable(tb, user);
 				}
 				deactivated = false;
 			}
@@ -141,7 +138,7 @@ public class Frag_Stat_Block {
 		
 	}
 	
-	void fillTable(DefaultTableModel tb) {
+	void fillTable(DefaultTableModel tb, String user) {
 		ArrayList<ArrayList<String>> stats = pc.getStatBlock(user);
 		
 		for(int i = 0; i < stats.get(0).size(); i++) {

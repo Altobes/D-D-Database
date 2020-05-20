@@ -6,7 +6,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.event.*;
 import java.awt.event.ActionListener;
@@ -109,25 +108,6 @@ public class Frag_Create_Character {
 		frame.getContentPane().add(storyField);
 		storyField.setColumns(10);
 		
-//		JLabel lblNewLabel_6 = new JLabel("Create Stat Block");
-//		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 20));
-//		lblNewLabel_6.setBounds(10, 240, 184, 25);
-//		frame.getContentPane().add(lblNewLabel_6);
-//		
-//		JButton createStatButton = new JButton("Create New Statblock");
-//		createStatButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
-//		createStatButton.setBounds(200, 240, 200, 25);
-//		Frag_Create_Statblock window = new Frag_Create_Statblock();
-//		createStatButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) { //Open create character menu
-//				window.frame.setVisible(true);
-//				
-//			}
-//		});
-//		window.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//		frame.getContentPane().add(createStatButton);
-
 		JButton btnNewButton = new JButton("Create");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton.setBounds(200, 45, 200, 20);

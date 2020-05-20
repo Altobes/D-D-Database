@@ -1,13 +1,9 @@
 package dungeondatabase.services;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
 
 public class Party {
 
@@ -16,34 +12,6 @@ public class Party {
 	public Party(DatabaseConnectionService dbService) {
 		this.dbService = dbService;
 	}
-	
-	public boolean addResturant(String restName, String addr, String contact) {
-		//TO DO: Task 5
-//		try{
-//			Connection c = this.dbService.getConnection();
-//			CallableStatement proc = c.prepareCall("{?=call AddRestaurant(?,?,?)}");
-//			proc.registerOutParameter(1, Types.INTEGER);
-//			proc.setString(2, restName);
-//			proc.setString(3, addr);
-//			proc.setString(4, contact);
-//			proc.execute();
-//			switch(proc.getInt(1)) {
-//			case 1:
-//				JOptionPane.showMessageDialog(null, "Please Enter a Restaurant Name");
-//				return false;
-//			case 2:
-//				JOptionPane.showMessageDialog(null, "Restaurant Name Exist, Please try another one");
-//				return false;
-//			}
-//			JOptionPane.showMessageDialog(null, "Successful adding: "+ restName);
-//			return true;
-//		}catch(SQLException e){
-//			JOptionPane.showMessageDialog(null, "Error!!!");
-//			return false;
-//		}
-		return true;
-	}
-	
 
 	public ArrayList<String> getPartyName() {	
 		ArrayList<String> Parties = new ArrayList<String>();
