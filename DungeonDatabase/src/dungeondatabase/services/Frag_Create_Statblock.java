@@ -56,7 +56,7 @@ public class Frag_Create_Statblock {
 		dbService.connect(Dataclass.USER, Dataclass.PASS);
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
-		frame.setBounds(100, 100, 500, 600);
+		frame.setBounds(100, 100, 600, 650);
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Dungeon Database");
@@ -179,6 +179,26 @@ public class Frag_Create_Statblock {
 		langField.setBounds(200, 480, 200, 25);
 		frame.getContentPane().add(langField);
 		langField.setColumns(10);
+		
+		JLabel partyLabel = new JLabel("Party");
+		partyLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		partyLabel.setBounds(10, 520, 184, 25);
+		frame.getContentPane().add(partyLabel);
+
+		JTextField partyField = new JTextField();
+		partyField.setBounds(200, 520, 200, 25);
+		frame.getContentPane().add(partyField);
+		partyField.setColumns(10);
+		
+		JLabel storyLabel = new JLabel("Story");
+		storyLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		storyLabel.setBounds(10, 560, 184, 25);
+		frame.getContentPane().add(storyLabel);
+
+		JTextField storyField = new JTextField();
+		storyField.setBounds(200, 560, 300, 25);
+		frame.getContentPane().add(storyField);
+		storyField.setColumns(10);
 
 		JButton btnNewButton = new JButton("Create");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -187,6 +207,7 @@ public class Frag_Create_Statblock {
 		class statListener implements ActionListener {
 			
 			String user;
+			int statID;
 			
 			public statListener(String user) {
 				this.user = user;
@@ -195,10 +216,11 @@ public class Frag_Create_Statblock {
 			@Override
 			public void actionPerformed(ActionEvent e) { //Open create statblock menu
 				CallableStatement cs = null;
+				String Name = null;
 				try {
-					cs = dbService.getConnection().prepareCall("{? = call CreateStatblock(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+					cs = dbService.getConnection().prepareCall("{? = call CreateStatblock(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
 
-					String Name = new String(NameField.getText());
+					Name = new String(NameField.getText());
 					cs.setString(2, Name.trim());
 					
 					String Race = new String(raceField.getText());
@@ -232,22 +254,69 @@ public class Frag_Create_Statblock {
 					cs.setString(3, Languages.trim());
 					
 					cs.registerOutParameter(1, Types.INTEGER);
+					cs.registerOutParameter(13, Types.INTEGER);
 					
 					cs.execute();
 					
+					statID = cs.getInt(13);
 					JOptionPane.showMessageDialog(null, "Stat Block Created");
-					frame.dispose();
+					//frame.dispose();
 					
-					Frag_Create_Character window = new Frag_Create_Character(user);
-					window.frame.setVisible(true);
+					
+					
+					//Frag_Create_Character window = new Frag_Create_Character(user);
+					//window.frame.setVisible(true);
 			
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-		
+				
+				cs = null;
+				try {
+					cs = dbService.getConnection().prepareCall("{? = call Create_PlayerCharacter(?, ?, ?, ?, ?)}");
+					cs.setString(2, Name);
+	
+					int party = -1;
+	
+					if (!partyField.getText().equals("")) {
+						try {
+							party = Integer.parseInt(partyField.getText());
+						} catch (NumberFormatException e1) {
+							JOptionPane.showMessageDialog(null, "ERROR: Need Valid PartyID");
+						}
+					}
+					
+					cs.setInt(5, party);
+					cs.setInt(6, statID);
+	
+					String Story = new String(storyField.getText());
+					cs.setString(3, Story);
+	
+					cs.setString(4, user);
+	
+					cs.registerOutParameter(1, Types.INTEGER);
+					cs.execute();
+	
+					int result = cs.getInt(1);
+					if (result == 3) {
+						JOptionPane.showMessageDialog(null, "ERROR: Need Valid User ID. " + user + " is not valid.");
+					} else if (result == 4) {
+						JOptionPane.showMessageDialog(null, "ERROR: Need Valid Party ID");
+					} else if (result == 5) {
+						JOptionPane.showMessageDialog(null, "ERROR: Need Valid Statblock ID");
+					} else if (result == 6) {
+						JOptionPane.showMessageDialog(null, "ERROR: Need Valid Name");
+					} else if (result == 0) {
+						JOptionPane.showMessageDialog(null, "Successfully Created Player");
+						frame.dispose();
+					}
+	
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
-
 		}
 		
 		ActionListener stat = new statListener(user);

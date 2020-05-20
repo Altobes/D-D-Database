@@ -149,16 +149,19 @@ public class Frag_Player_character {
 	}
 	
 	void fillTable(DefaultTableModel tb) {
-		ArrayList<String> names = pc.getPlayerCharacter(user);
-		ArrayList<String> backstories = pc.getBackStory(user);
+		//ArrayList<String> names = pc.getPlayerCharacter(user);
+		//ArrayList<String> backstories = pc.getBackStory(user);
+		ArrayList<ArrayList<String>> players = pc.getAllCharacters(user);
 		
-		for(int i = 0; i<names.size(); i++) {
-			tb.addRow(new Object[] {
-				names.get(i)
-			});
+		if (players.size()== 0) {
+			return;
 		}
-		for(int i = 0; i<backstories.size(); i++) {
-			tb.setValueAt(backstories.get(i), i+1, 1);
+		for (int i = 0;i < players.get(0).size();i++) {
+			tb.addRow(new Object[] {
+					players.get(0).get(i)
+				});
+			tb.setValueAt(players.get(1).get(i), i+1, 1);
+			tb.setValueAt(players.get(2).get(i), i+1, 2);
 		}
 		
 		
