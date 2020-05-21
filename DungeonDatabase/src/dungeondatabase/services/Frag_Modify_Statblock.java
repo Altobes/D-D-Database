@@ -11,14 +11,18 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.awt.Color;
 import javax.swing.JTextField;
 
 public class Frag_Modify_Statblock {
 	JFrame frame;
-	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
+	private DatabaseConnectionService dbService = new DatabaseConnectionService("golem.csse.rose-hulman.edu",
+			"DungeonDatabase");
+	private String user = "altobes";
 
 	/**
 	 * Launch the application.
@@ -40,21 +44,22 @@ public class Frag_Modify_Statblock {
 	 * Create the application.
 	 */
 	public Frag_Modify_Statblock() {
-		initialize("altobes");
+		initialize();
 	}
 
 	public Frag_Modify_Statblock(String user) {
-		initialize(user);
+		this.user = user;
+		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(String user) {
-		dbService.connect(Dataclass.USER, Dataclass.PASS);
+	private void initialize() {
+		dbService.connect("Dungeon19", "Password123"); // replace "username" and "password" with your own rose login
 		frame = new JFrame();
 		frame.setAlwaysOnTop(true);
-		frame.setBounds(100, 100, 500, 600);
+		frame.setBounds(100, 100, 500, 650);
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Dungeon Database");
@@ -168,15 +173,29 @@ public class Frag_Modify_Statblock {
 		frame.getContentPane().add(chaField);
 		chaField.setColumns(10);
 
-		JLabel lblNewLabel_12 = new JLabel("Languages");
+		JLabel lblNewLabel_12 = new JLabel("Add or Delete (-)");
 		lblNewLabel_12.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_12.setBounds(10, 480, 184, 25);
 		frame.getContentPane().add(lblNewLabel_12);
+		JLabel lblNewLabel_13 = new JLabel("Languages");
+		lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_13.setBounds(10, 505, 184, 25);
+		frame.getContentPane().add(lblNewLabel_13);
 
 		JTextField langField = new JTextField();
 		langField.setBounds(200, 480, 200, 25);
 		frame.getContentPane().add(langField);
 		langField.setColumns(10);
+		
+		JLabel statID = new JLabel("Stat ID");
+		statID.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		statID.setBounds(10, 545, 184, 25);
+		frame.getContentPane().add(statID);
+
+		JTextField statField = new JTextField();
+		statField.setBounds(200, 545, 200, 25);
+		frame.getContentPane().add(statField);
+		statField.setColumns(10);
 
 		JButton btnNewButton = new JButton("Modify");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -185,6 +204,7 @@ public class Frag_Modify_Statblock {
 		class statListener implements ActionListener {
 			
 			String user;
+			
 			public statListener(String user) {
 				this.user = user;
 			}
@@ -193,40 +213,60 @@ public class Frag_Modify_Statblock {
 			public void actionPerformed(ActionEvent e) { //Open create statblock menu
 				CallableStatement cs = null;
 				try {
-					cs = dbService.getConnection().prepareCall("{? = call CreateStatblock(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
-
+					cs = dbService.getConnection().prepareCall("{? = call Modify_StatBlock(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+			//----------------------------------------------------------------------------------------------------------------------------------
+					int StatID = -1;					
+					try {
+						StatID = Integer.parseInt(statField.getText());
+					} catch (NumberFormatException exception) {					
+						StatID = -1;				
+					}
+					if (StatID < 0) {
+						JOptionPane.showMessageDialog(null, "Invalid Stat Block ID");
+						return;
+					}					
+					String query = String.format("Select StatID From Player_Character Where Username = '%s' and StatID = %d", user, StatID);
+					Statement st = cs.getConnection().createStatement();
+					ResultSet rs = st.executeQuery(query);
+					if (rs.getRow() == 0) {
+						JOptionPane.showMessageDialog(null, "You do not have access to this stat block or it does not exist");
+						return;
+					}					
+					setAttributes(cs, StatID, 2, statField);
+			//----------------------------------------------------------------------------------------------------------------------------------
+					
 					String Name = new String(NameField.getText());
-					cs.setString(2, Name.trim());
+					cs.setString(3, Name.trim());
 					
 					String Race = new String(raceField.getText());
-					cs.setString(6, Race.trim());
+					cs.setString(7, Race.trim());
 					
 					int Speed = -1;
-					setAttributes(cs, Speed, 5, speedField);
+					setAttributes(cs, Speed, 6, speedField);
 					
 					int AC = -1;
-					setAttributes(cs, AC, 4, acField);
+					setAttributes(cs, AC, 5, acField);
 					
 					int Str = -1;
-					setAttributes(cs, Str, 7, strengthField);
+					setAttributes(cs, Str, 9, strengthField);
 					
 					int Dex = -1;
-					setAttributes(cs, Dex, 8, dexField);
+					setAttributes(cs, Dex, 10, dexField);
 					
 					int Con = -1;
-					setAttributes(cs, Con, 9, conField);
+					setAttributes(cs, Con, 11, conField);
 					
 					int Int = -1;
-					setAttributes(cs, Int, 10, intField);
+					setAttributes(cs, Int, 12, intField);
 					
 					int Wis = -1;
-					setAttributes(cs, Wis, 11, wisField);
+					setAttributes(cs, Wis, 13, wisField);
 					
 					int Cha = -1;
-					setAttributes(cs, Cha, 12, chaField);
+					setAttributes(cs, Cha, 14, chaField);
 					
 					String Languages = new String(langField.getText());
-					cs.setString(3, Languages.trim());
+					cs.setString(4, Languages.trim());
 					
 					cs.registerOutParameter(1, Types.INTEGER);
 					
@@ -242,7 +282,6 @@ public class Frag_Modify_Statblock {
 				}
 		
 			}
-
 		}
 		
 		ActionListener stat = new statListener(user);
