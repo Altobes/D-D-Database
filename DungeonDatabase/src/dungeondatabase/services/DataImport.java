@@ -23,7 +23,7 @@ public class DataImport {
 		
 		String[] inserts = populateArray(); //Fill this with insert statements
 		
-		int[] params = new int[] {0, 0, 2, 12, 4, 6, 2, 3, 3, 3, 3, 5, 2, 2, 2, 2}; //Fill this with the number of 
+		int[] params = new int[] {0, 0, 2, 12, 4, 6, 2, 3, 3, 3, 3, 4, 2, 2, 2, 2}; //Fill this with the number of 
 											//parameters required for each statement
 											//Number of ?'s
 		
@@ -70,6 +70,10 @@ public class DataImport {
 				}
 				System.out.println("----------------------------------");
 				//Do stuff with insert statement while inserting arguments here
+				if (insertIndex == 2) {
+					//call the userservice function
+					continue;
+				}
 				CallableStatement cs = c.prepareCall(inserts[insertIndex]);
 				for (int i = 1; i <= params[insertIndex]; i++) {
 					cs.setString(i, args.get(i-1));
@@ -86,7 +90,7 @@ public class DataImport {
 	
 	private static String[] populateArray() {
 		String[] s = new String[16];
-		s[2] = String.format("{Call Register(?, ?)}");
+//		s[2] = String.format("{Call Register(?, ?)}"); //Remove and call the function
 		s[3] = String.format("Insert into StatBlock (Name, AC, Speed, StatID, Race, STR, DEX, CON, INT, WIS, CHA, Languages) Values(?, ?, ?, ?,?,?,?,?,?,?,?,?)");
 		s[4] = String.format("Insert into Party (Level, Name, PartyID, [Current Location]) Values(?, ?, ?, ?)");
 		s[5] = String.format("Insert into Player_Character (PlayerID, Name, back_story, Username, PartyID, StatID) Values(?,?,?,?,?,?)");
@@ -95,7 +99,7 @@ public class DataImport {
 		s[8] = String.format("Insert into Spells (Name, Description, SpellID) Values(?, ?, ?)");
 		s[9] = String.format("Insert into Skills (Name, Description, SkillID) Values(?, ?, ?)");
 		s[10] = String.format("Insert into Campaign (Name, CampaignID, PartyID) Values(?, ?, ?)");
-		s[11] = String.format("Insert into NPC (Name, CR, StatID, CampaignID) Values(?, ?, ?, ?, ?)");
+		s[11] = String.format("Insert into NPC (Name, CR, StatID, CampaignID) Values(?, ?, ?, ?)");
 		s[12] = String.format("Insert into DM_Manages_Campaign (DM_ID, CampaignID) Values(?, ?)");
 		s[13] = String.format("Insert into StatItems (StatID, ItemID) Values (?, ?)");
 		s[14] = String.format("Insert into StatSpells (StatID, SpellID) Values (?, ?)");

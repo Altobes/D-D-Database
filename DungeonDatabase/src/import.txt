@@ -1,6 +1,6 @@
 User:
-user1, user2
-pass123!, pass456$
+user1, pass123!
+user2, pass456$
 ;
 StatBlock:
 John Doe, 8, 30, 40, Human, 10, 12, 14, 12, 10, 8, Common
@@ -38,7 +38,7 @@ Sea Adventure, 150, 150
 Call of Cthulu, 200, 200
 ;
 NPC:
-Billy Bob, 60, 6, 200
+Billy Bob, 6, 60, 200
 ;
 DM_Manages_Campaign:
 66, 100
