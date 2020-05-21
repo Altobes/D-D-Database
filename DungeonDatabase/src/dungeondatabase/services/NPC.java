@@ -42,7 +42,7 @@ public class NPC {
 				JOptionPane.showMessageDialog(null, "Please Enter NPC CR");
 				return false;
 			case 5:
-				JOptionPane.showMessageDialog(null, "NPC Name Exist, Please try another one");
+				JOptionPane.showMessageDialog(null, "NPC Already Exists, Please try another one");
 				return false;
 			}
 			JOptionPane.showMessageDialog(null, "Successful adding: "+ name);

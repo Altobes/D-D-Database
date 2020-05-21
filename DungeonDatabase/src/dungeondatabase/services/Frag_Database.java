@@ -335,6 +335,7 @@ public class Frag_Database {
 		Connection c = this.dbService.getConnection();
 		cs = c.prepareCall("Select Username from DM Where Username = ?");
 		//cs.setString(1, this.dbService.databaseName);
+		//System.out.println(user);
 		cs.setString(1, user);
 		ResultSet r = cs.executeQuery();
 		if (!r.next()) {

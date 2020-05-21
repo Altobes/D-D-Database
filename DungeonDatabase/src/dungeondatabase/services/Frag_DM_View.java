@@ -315,6 +315,28 @@ public class Frag_DM_View {
 		});
 		frame.getContentPane().add(drop_character);
 		
+		
+		
+		
+		JButton create_NPC = new JButton("Create NPC");
+		create_NPC.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		create_NPC.setBounds(565, 20, 135, 20);
+		create_NPC.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e1) { // Open create character menu
+
+				Frag_Create_NPC npc = new Frag_Create_NPC();
+				npc.frame.setVisible(true);
+			}
+		});
+		frame.getContentPane().add(create_NPC);
+		
+		
+		
+		
+		
+		
+		
 		JButton deleteCamp = new JButton("Delete Campaign");
 		deleteCamp.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		deleteCamp.setBounds(10, 10, 160, 20);
