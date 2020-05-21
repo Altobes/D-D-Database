@@ -7,6 +7,11 @@ John Doe, 8, 30, 40, Human, 10, 12, 14, 12, 10, 8, Common
 Homer Simpson, 12, 20, 50, Human, 10, 8, 16, 8, 8, 16, Common
 Billy Bob, 20, 30, 60, Human, 20, 20, 20, 20, 20, 20, Deep Speak
 ;
+Party:
+10, Party Boys, 100, The Party
+3, Good Guys, 150, Tavern
+3, Deep Sea Dudes, 200, Ship
+;
 Player_Character:
 50, Homer Simpson, Worker, user1, 100, 50
 55, John Doe, Hunter, user2, 150, 40
@@ -26,11 +31,6 @@ Magic Missile, 3d4 Force, 45
 ;
 Skills:
 Nap, Sleep, 44
-;
-Party:
-10, Party Boys, 100, The Party
-3, Good Guys, 150, Tavern
-3, Deep Sea Dudes, 200, Ship
 ;
 Campaign:
 Curse of Strahd, 100 , 100 
