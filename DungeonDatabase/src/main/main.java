@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.Font;
 import dungeondatabase.services.DBInit;
+import dungeondatabase.services.DataImport;
 import dungeondatabase.services.DatabaseConnectionService;
 import dungeondatabase.services.Dataclass;
 import dungeondatabase.services.UserService;
@@ -188,7 +189,13 @@ public class main {
 				// Create View
 				db.runSql("./Queries/CharacterSheet_View.sql", databaseName, user, pass);
 				
-				
+				DataImport data = new DataImport();
+				try {
+					data.importFromFile(dbService);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				JOptionPane.showMessageDialog(null, "Finish Initializing Database: [" + databaseName + "] ^v^");
 				
 			}	

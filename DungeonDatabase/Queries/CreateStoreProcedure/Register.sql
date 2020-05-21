@@ -19,8 +19,8 @@ BEGIN
 		Print 'PasswordHash cannot be null or empty.'
 		RETURN (3)
 	END
-	IF (SELECT COUNT(*) FROM [User]
-          WHERE Username = @Username) = 1
+	IF ((SELECT COUNT(*) FROM [User]
+          WHERE Username = @Username) > 0)
 	BEGIN
       Print 'ERROR: Username already exists.' 
 	  RETURN(4)
@@ -31,5 +31,6 @@ BEGIN
 
 	INSERT INTO [User](Username, PasswordSalt, PasswordHash, JoinDate)
 	VALUES (@username, @passwordSalt, @passwordHash, @Date)
+	Return 0
 END
 

@@ -41,6 +41,7 @@ public class DataImport {
 			return false;
 		}
 		ArrayList<String> textArray = new ArrayList<>();
+		UserService serv = new UserService(db);
 		
 		s.useDelimiter(":");
 		while(s.hasNext()) {
@@ -72,6 +73,8 @@ public class DataImport {
 				//Do stuff with insert statement while inserting arguments here
 				if (insertIndex == 2) {
 					//call the userservice function
+					serv.register(args.get(0), args.get(1));
+					args.clear();
 					continue;
 				}
 				CallableStatement cs = c.prepareCall(inserts[insertIndex]);
@@ -91,6 +94,7 @@ public class DataImport {
 	private static String[] populateArray() {
 		String[] s = new String[16];
 //		s[2] = String.format("{Call Register(?, ?)}"); //Remove and call the function
+		
 		s[3] = String.format("Insert into StatBlock (Name, AC, Speed, StatID, Race, STR, DEX, CON, INT, WIS, CHA, Languages) Values(?, ?, ?, ?,?,?,?,?,?,?,?,?)");
 		s[4] = String.format("Insert into Party (Level, Name, PartyID, [Current Location]) Values(?, ?, ?, ?)");
 		s[5] = String.format("Insert into Player_Character (PlayerID, Name, back_story, Username, PartyID, StatID) Values(?,?,?,?,?,?)");

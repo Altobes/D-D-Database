@@ -67,7 +67,6 @@ public class UserService {
 		try{
 			Connection c = this.dbService.getConnection();
 			CallableStatement proc = c.prepareCall("{?=call dbo.Register(?,?,?)}");
-			System.out.println("???");
 			proc.registerOutParameter(1, Types.INTEGER);
 			byte[] psb=this.getNewSalt();
 			String ps=this.getStringFromBytes(psb);
@@ -76,7 +75,9 @@ public class UserService {
 			proc.setString(3, ps);
 			proc.setString(4, ph);
 			proc.execute();
-			if(proc.getInt(1)!=0) throw new SQLException();
+			System.out.println("Username: " + username);
+			System.out.println(proc.getInt(1));
+			if (proc.getInt(1) != 0 ) throw new SQLException();
 			JOptionPane.showMessageDialog(null, "Registration Success");
 			return true;
 		}catch(SQLException e){
