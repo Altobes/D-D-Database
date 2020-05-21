@@ -85,7 +85,7 @@ public class DataImport {
 	}
 	
 	private static String[] populateArray() {
-		String[] s = new String[12];
+		String[] s = new String[16];
 		s[2] = String.format("{Call Register(?, ?)}");
 		s[3] = String.format("{Insert into StatBlock * Values(?, ?, ?, ?,?,?,?,?,?,?,?)}");
 		s[4] = String.format("{Insert into PlayerCharacter * Values(?,?,?,?,?)}");
@@ -96,8 +96,8 @@ public class DataImport {
 		s[9] = String.format("{Insert into Party * Values(?, ?, ?, ?)}");
 		s[10] = String.format("{Insert into Campaign * Values(?, ?, ?)}");
 		s[11] = String.format("{Insert into NPC * Values(?, ?, ?, ?)}");
-		s[12] = String.format("{Insert into StatItems * Values (?, ?)}");
-		s[13] = String.format("{Insert into DM_Manages_Campaign * Values(?, ?}");
+		s[12] = String.format("{Insert into DM_Manages_Campaign * Values(?, ?}");
+		s[13] = String.format("{Insert into StatItems * Values (?, ?)}");
 		s[14] = String.format("{Insert into StatSpells * Values (?, ?)}");
 		s[15] = String.format("{Insert into StatSkills * Values (?, ?)}");
 		//DM_Manages should be updated automatically 
