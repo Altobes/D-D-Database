@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 public class Frag_Create_Character {
 	JFrame frame;
 	private DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME,Dataclass.DBNAME);
-	private String user = "altobes";
+	private String user;
 
 	/**
 	 * Launch the application.

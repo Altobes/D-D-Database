@@ -1,56 +1,60 @@
 User:
-username1, password1
-username2, password2
+user1, user2
+pass123!, pass456$
 ;
 StatBlock:
-StatID, Name, Language, AC, Speed, Race, STR, DEX, CON, INT, WIS, CHA
-StatID, NAME, LANGUAGE, ac, SPEED, race, str, dex, con, int, wis, cha
+John Doe, 8, 30, 40, Human, 10, 12, 14, 12, 10, 8, Common
+Homer Simpson, 12, 20, 50, Human, 10, 8, 16, 8, 8, 16, Common,
+Billy Bob, 20, 30, 60, Human, 20, 20, 20, 20, 20, 20, Deep Speak,
 ;
 Player_Character:
-PlayerID, Name, Backstory, username, partyID, StatID
+50, Homer Simpson, Worker, user1, 100, 50
+55, John Doe, Hunter, user2, 150, 40
 ;
 DM:
-username, DMID
-UserName2, DM_ID_2
+user2, 66
+user1, 77
 ;
 Items:
-Name, Description, PlayerID
-Name2, Description2, PlayerID
-Name3, Description3, PlayerID2
-;
-Spells:
-spellName, SpellDesc, PlayerID
-SpellName, SpellDesc2, PlayerID2
-;
-Skills:
-SkillName, SkillID, PlayerID
+Sword, 1d8 Slashing, 44
+Knife, 1d4 Slashing, 45
+Doughnut, sprinkles, 46
 ;
 StatItems:
-1, 2
-3, 4
+60, 44
+40, 45
+50, 46
+;
+Spells:
+Fireball, 8d6 damage, 44
+Magic Missile, 3d4 Force, 45
 ;
 StatSpells:
-1, 2
-3, 5
+60, 44
+40, 45
+;
+Skills:
+Nap, Sleep, 44
 ;
 StatSkills:
-1, 3
-2, 4
+50, 44
 ;
 Party:
-Level, Name, Location
-Level2, Name2, Location3
+10, Party Boys, 100, The Party
+3, Good Guys, 150, Tavern
+3, Deep Sea Dudes, 200, Ship
 ;
 Campaign:
-Name, PartyID, DM_ID
-Name2, PartyID2, DM_ID
-Name3, PartyID3, DM_ID
+Curse of Strahd, 100 , 100 
+Sea Adventure, 150, 150
+Call of Cthulu, 200, 200
 ;
 NPC:
-ID, Name, CR, StatID, CampaignID
+100, Billy Bob, 60, 6, 200
 ;
 DM_Manages_Campaign:
-DMID, CAMPID
-DM_ID, CAMP_ID
+66, 100
+66, 150
+77, 200
 ;
 

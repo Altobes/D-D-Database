@@ -23,22 +23,9 @@ public class DataImport {
 		
 		String[] inserts = populateArray(); //Fill this with insert statements
 		
-		int[] params = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}; //Fill this with the number of 
+		int[] params = new int[] {0, 2, 11, 5, 1, 3, 3, 3, 4, 3, 4}; //Fill this with the number of 
 											//parameters required for each statement
 											//Number of ?'s
-		params[1] = 2;
-		params[2] = 11;
-		params[3] = 5;
-		params[4] = 1;
-		params[5] = 3;
-		params[6] = 3;
-		params[7] = 3;
-		params[8] = 0;
-		params[9] = 0;
-		params[10] = 0;
-		params[11] = 4;
-		params[12] = 3;
-		params[13] = 4;
 		
 		int insertIndex = 0; //The index to keep track of which insert to run
 		
@@ -108,12 +95,9 @@ public class DataImport {
 		s[5] = String.format("Call %s.dbo.Create_Item(?, ?, ?)", Dataclass.USER);
 		s[6] = String.format("Call %s.dbo.Create_Spell(?, ?, ?)", Dataclass.USER);
 		s[7] = String.format("Call %s.dbo.Create_Skill(?, ?, ?)", Dataclass.USER);
-		s[8] = String.format("Call %s.dbo", Dataclass.USER);//Don't know what 
-		s[9] = String.format("Call %s.dbo", Dataclass.USER);
-		s[10] = String.format("Call %s.dbo", Dataclass.USER);
-		s[11] = String.format("Call %s.dbo.Create_Party(?, ?, ?, ?)", Dataclass.USER);
-		s[12] = String.format("Call %s.dbo.Create_Campaign(?, ?, ?)", Dataclass.USER);
-		s[13] = String.format("Call %s.dbo.CreateNPC(?, ?, ?, ?)", Dataclass.USER);
+		s[8] = String.format("Call %s.dbo.Create_Party(?, ?, ?, ?)", Dataclass.USER);
+		s[9] = String.format("Call %s.dbo.Create_Campaign(?, ?, ?)", Dataclass.USER);
+		s[10] = String.format("Call %s.dbo.CreateNPC(?, ?, ?, ?)", Dataclass.USER);
 		//DM_Manages should be updated automatically 
 		//TODO: populate the array
 		//In order of the import document
