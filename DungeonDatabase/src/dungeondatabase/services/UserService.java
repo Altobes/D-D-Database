@@ -52,12 +52,14 @@ public class UserService {
 				return true;
 			}else{
 				int currentLine = new Throwable().getStackTrace()[0].getLineNumber() + 1;
-				JOptionPane.showMessageDialog(null, "Login Failed: Error on line " + currentLine);
+//				JOptionPane.showMessageDialog(null, "Login Failed: Error on line " + currentLine);
+				JOptionPane.showMessageDialog(null, "Login Failed");
 				return false;
 			}
 		}catch(SQLException e){
 			int currentLine = new Throwable().getStackTrace()[0].getLineNumber() + 1;
-			JOptionPane.showMessageDialog(null, "Login Failed: Error on line " + currentLine);
+//			JOptionPane.showMessageDialog(null, "Login Failed: Error on line " + currentLine);
+			JOptionPane.showMessageDialog(null, "Login Failed");
 			return false;	
 		}
 	}

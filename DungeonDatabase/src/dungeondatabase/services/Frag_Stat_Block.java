@@ -97,13 +97,13 @@ public class Frag_Stat_Block {
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) { //Open create character menu
-				Frag_Modify_Statblock window = new Frag_Modify_Statblock();
+				Frag_Modify_Statblock window = new Frag_Modify_Statblock(user);
 				window.frame.setVisible(true);
 				
 			}
 		});
 		frame.getContentPane().add(btnNewButton);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		frame.addWindowListener(new WindowListener() {
 			private boolean deactivated;
