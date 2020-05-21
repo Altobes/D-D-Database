@@ -212,6 +212,7 @@ public class Frag_Modify_Statblock {
 			String user;
 			
 			public statListener(String user) {
+				System.out.println(user);
 				this.user = user;
 			}
 
