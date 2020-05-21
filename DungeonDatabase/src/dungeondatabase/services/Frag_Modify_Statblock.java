@@ -173,27 +173,33 @@ public class Frag_Modify_Statblock {
 		frame.getContentPane().add(chaField);
 		chaField.setColumns(10);
 
-		JLabel lblNewLabel_12 = new JLabel("Add or Delete (-)");
+		JLabel lblNewLabel_12 = new JLabel("Add Languages");
 		lblNewLabel_12.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_12.setBounds(10, 480, 184, 25);
 		frame.getContentPane().add(lblNewLabel_12);
-		JLabel lblNewLabel_13 = new JLabel("Languages");
-		lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_13.setBounds(10, 505, 184, 25);
-		frame.getContentPane().add(lblNewLabel_13);
 
 		JTextField langField = new JTextField();
 		langField.setBounds(200, 480, 200, 25);
 		frame.getContentPane().add(langField);
 		langField.setColumns(10);
 		
+		JLabel lblNewLabel_13 = new JLabel("Delete Character");
+		lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_13.setBounds(10, 520, 184, 25);
+		frame.getContentPane().add(lblNewLabel_13);
+		
+		JTextField delCharField = new JTextField();
+		delCharField.setBounds(200, 520, 200, 25);
+		frame.getContentPane().add(delCharField);
+		delCharField.setColumns(10);
+		
 		JLabel statID = new JLabel("Stat ID");
 		statID.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		statID.setBounds(10, 545, 184, 25);
+		statID.setBounds(10, 560, 184, 25);
 		frame.getContentPane().add(statID);
 
 		JTextField statField = new JTextField();
-		statField.setBounds(200, 545, 200, 25);
+		statField.setBounds(200, 560, 200, 25);
 		frame.getContentPane().add(statField);
 		statField.setColumns(10);
 
@@ -226,6 +232,7 @@ public class Frag_Modify_Statblock {
 						return;
 					}					
 					String query = String.format("Select StatID From Player_Character Where Username = '%s' and StatID = %d", user, StatID);
+					System.out.println("\n"+user+"\n");
 					Statement st = cs.getConnection().createStatement();
 					ResultSet rs = st.executeQuery(query);
 					if (rs.getRow() == 0) {
@@ -234,6 +241,20 @@ public class Frag_Modify_Statblock {
 					}					
 					setAttributes(cs, StatID, 2, statField);
 			//----------------------------------------------------------------------------------------------------------------------------------
+					
+					String delChar = new String(delCharField.getText());
+					if (!delChar.equals("")) {
+						String query2 = String.format("Select Name From Player_Character Where Username = '%s' and StatID = %d and Name = '%s'", user, StatID, delChar);
+						Statement st2 = cs.getConnection().createStatement();
+						ResultSet rs2 = st2.executeQuery(query2);
+						if (rs2.getRow() == 0) {
+							JOptionPane.showMessageDialog(null, "You do not have access to this stat block or it does not exist");
+							return;
+						} else {
+							cs.setString(8, delChar.trim());
+						}
+					}
+					
 					
 					String Name = new String(NameField.getText());
 					cs.setString(3, Name.trim());
