@@ -95,7 +95,7 @@ public class DataImport {
 		s[8] = String.format("Insert into Spells (Name, Description, SpellID) Values(?, ?, ?)");
 		s[9] = String.format("Insert into Skills (Name, Description, SkillID) Values(?, ?, ?)");
 		s[10] = String.format("Insert into Campaign (Name, CampaignID, PartyID) Values(?, ?, ?)");
-		s[11] = String.format("Insert into NPC (NPC_ID, Name, CR, StatID, CampaignID) Values(?, ?, ?, ?, ?)");
+		s[11] = String.format("Insert into NPC (Name, CR, StatID, CampaignID) Values(?, ?, ?, ?, ?)");
 		s[12] = String.format("Insert into DM_Manages_Campaign (DM_ID, CampaignID) Values(?, ?)");
 		s[13] = String.format("Insert into StatItems (StatID, ItemID) Values (?, ?)");
 		s[14] = String.format("Insert into StatSpells (StatID, SpellID) Values (?, ?)");

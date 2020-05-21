@@ -38,7 +38,7 @@ Sea Adventure, 150, 150
 Call of Cthulu, 200, 200
 ;
 NPC:
-100, Billy Bob, 60, 6, 200
+Billy Bob, 60, 6, 200
 ;
 DM_Manages_Campaign:
 66, 100
