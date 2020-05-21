@@ -20,24 +20,12 @@ Sword, 1d8 Slashing, 44
 Knife, 1d4 Slashing, 45
 Doughnut, sprinkles, 46
 ;
-StatItems:
-60, 44
-40, 45
-50, 46
-;
 Spells:
 Fireball, 8d6 damage, 44
 Magic Missile, 3d4 Force, 45
 ;
-StatSpells:
-60, 44
-40, 45
-;
 Skills:
 Nap, Sleep, 44
-;
-StatSkills:
-50, 44
 ;
 Party:
 10, Party Boys, 100, The Party
@@ -57,4 +45,15 @@ DM_Manages_Campaign:
 66, 150
 77, 200
 ;
-
+StatItems:
+60, 44
+40, 45
+50, 46
+;
+StatSpells:
+60, 44
+40, 45
+;
+StatSkills:
+50, 44
+;

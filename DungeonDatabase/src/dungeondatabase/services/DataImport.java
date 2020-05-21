@@ -23,11 +23,11 @@ public class DataImport {
 		
 		String[] inserts = populateArray(); //Fill this with insert statements
 		
-		int[] params = new int[] {0, 0, 2, 11, 5, 1, 3, 3, 3, 4, 3, 4}; //Fill this with the number of 
+		int[] params = new int[] {0, 0, 2, 12, 7, 2, 3, 3, 3, 4, 3, 5, 2, 2, 2, 2}; //Fill this with the number of 
 											//parameters required for each statement
 											//Number of ?'s
 		
-		int insertIndex = 2; //The index to keep track of which insert to run
+		int insertIndex = 0; //The index to keep track of which insert to run
 		
 		db.connect(Dataclass.USER, Dataclass.PASS);
 		Connection c = db.getConnection();
@@ -87,15 +87,19 @@ public class DataImport {
 	private static String[] populateArray() {
 		String[] s = new String[12];
 		s[2] = String.format("{Call Register(?, ?)}");
-		s[3] = String.format("{Call CreateStatblock(?, ?, ?, ?,?,?,?,?,?,?,?)}");
-		s[4] = String.format("{Call Create_PlayerCharacter(?,?,?,?,?)}");
-		s[5] = String.format("{Call CreateDM(?)}");
-		s[6] = String.format("{Call Create_Item(?, ?, ?)}");
-		s[7] = String.format("{Call Create_Spell(?, ?, ?)}");
-		s[8] = String.format("{Call Create_Skill(?, ?, ?)}");
-		s[9] = String.format("{Call Create_Party(?, ?, ?, ?)}");
-		s[10] = String.format("{Call Create_Campaign(?, ?, ?)}");
-		s[11] = String.format("{Call CreateNPC(?, ?, ?, ?)}");
+		s[3] = String.format("{Insert into StatBlock * Values(?, ?, ?, ?,?,?,?,?,?,?,?)}");
+		s[4] = String.format("{Insert into PlayerCharacter * Values(?,?,?,?,?)}");
+		s[5] = String.format("{Insert into DM * Values (?)}");
+		s[6] = String.format("{Insert into Items * Values (?, ?, ?)}");
+		s[7] = String.format("{Insert into Spells * Values(?, ?, ?)}");
+		s[8] = String.format("{Insert into Skills * Values(?, ?, ?)}");
+		s[9] = String.format("{Insert into Party * Values(?, ?, ?, ?)}");
+		s[10] = String.format("{Insert into Campaign * Values(?, ?, ?)}");
+		s[11] = String.format("{Insert into NPC * Values(?, ?, ?, ?)}");
+		s[12] = String.format("{Insert into StatItems * Values (?, ?)}");
+		s[13] = String.format("{Insert into DM_Manages_Campaign * Values(?, ?}");
+		s[14] = String.format("{Insert into StatSpells * Values (?, ?)}");
+		s[15] = String.format("{Insert into StatSkills * Values (?, ?)}");
 		//DM_Manages should be updated automatically 
 		//Populate the array
 		//In order of the import document
