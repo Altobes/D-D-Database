@@ -138,6 +138,7 @@ public class main {
 				}
 				// Create Table
 				JOptionPane.showMessageDialog(null, "Creating Tables...");
+				db.runSql("./Queries/AddOwner.sql", databaseName, user, pass);
 				db.runSql("./Queries/CreateTable/Create_Party.sql", databaseName, user, pass);
 				db.runSql("./Queries/CreateTable/Create_Campaign.sql", databaseName, user, pass);
 				db.runSql("./Queries/CreateTable/Create_DM.sql", databaseName, user, pass);
