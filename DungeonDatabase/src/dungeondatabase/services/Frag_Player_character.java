@@ -149,7 +149,7 @@ public class Frag_Player_character {
 	}
 	
 	void fillTable(DefaultTableModel tb) {
-		ArrayList<ArrayList<String>> players = pc.getAllCharacters(user);
+		ArrayList<ArrayList<String>> players = pc.getPlayerAll(user);
 		
 		if (players.size() < 3) {
 			JOptionPane.showMessageDialog(null, "ERROR: Could not retrieve players");

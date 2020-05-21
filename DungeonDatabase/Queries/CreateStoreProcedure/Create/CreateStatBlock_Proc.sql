@@ -4,10 +4,9 @@ CREATE Procedure [dbo].[CreateStatBlock] (
   @AC int = 8,
   @Speed int = 30,
   @Race varchar(50) = 'Human',
-  @STR int = 10, @DEX int = 10, @CON int = 10, @INT int = 10, @WIS int = 10, @CHA int = 10)
+  @STR int = 10, @DEX int = 10, @CON int = 10, @INT int = 10, @WIS int = 10, @CHA int = 10,
+  @StatID int Output)
 AS
-
-Declare @StatID int
 
 IF (@Race is null or @Race = '')
 BEGIN
