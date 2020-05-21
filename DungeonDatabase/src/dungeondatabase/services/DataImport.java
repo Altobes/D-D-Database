@@ -87,19 +87,19 @@ public class DataImport {
 	private static String[] populateArray() {
 		String[] s = new String[16];
 		s[2] = String.format("{Call Register(?, ?)}");
-		s[3] = String.format("{Insert into StatBlock * Values(?, ?, ?, ?,?,?,?,?,?,?,?,?)}");
-		s[4] = String.format("{Insert into PlayerCharacter * Values(?,?,?,?,?,?)}");
-		s[5] = String.format("{Insert into DM * Values (?, ?)}");
-		s[6] = String.format("{Insert into Items * Values (?, ?, ?)}");
-		s[7] = String.format("{Insert into Spells * Values(?, ?, ?)}");
-		s[8] = String.format("{Insert into Skills * Values(?, ?, ?)}");
-		s[9] = String.format("{Insert into Party * Values(?, ?, ?, ?)}");
-		s[10] = String.format("{Insert into Campaign * Values(?, ?, ?)}");
-		s[11] = String.format("{Insert into NPC * Values(?, ?, ?, ?, ?)}");
-		s[12] = String.format("{Insert into DM_Manages_Campaign * Values(?, ?}");
-		s[13] = String.format("{Insert into StatItems * Values (?, ?)}");
-		s[14] = String.format("{Insert into StatSpells * Values (?, ?)}");
-		s[15] = String.format("{Insert into StatSkills * Values (?, ?)}");
+		s[3] = String.format("{Insert into StatBlock (Name, AC, Speed, StatID, Race, STR, DEX, CON, INT, WIS, CHA, Languages) Values(?, ?, ?, ?,?,?,?,?,?,?,?,?)}");
+		s[4] = String.format("{Insert into PlayerCharacter (PlayerID, Name, back_story, Username, PartyID, StatID) Values(?,?,?,?,?,?)}");
+		s[5] = String.format("{Insert into DM (Username, DM_ID) Values (?, ?)}");
+		s[6] = String.format("{Insert into Items (Name, Description, ItemID) Values (?, ?, ?)}");
+		s[7] = String.format("{Insert into Spells (Name, Description, SpellID) Values(?, ?, ?)}");
+		s[8] = String.format("{Insert into Skills (Name, Description, SkillID) Values(?, ?, ?)}");
+		s[9] = String.format("{Insert into Party (Level, Name, PartyID, [Current Location]) Values(?, ?, ?, ?)}");
+		s[10] = String.format("{Insert into Campaign (Name, CampaignID, PartyID) Values(?, ?, ?)}");
+		s[11] = String.format("{Insert into NPC (NPC_ID, Name, CR, StatID, CampaignID) Values(?, ?, ?, ?, ?)}");
+		s[12] = String.format("{Insert into DM_Manages_Campaign (DM_ID, CampaignID) Values(?, ?}");
+		s[13] = String.format("{Insert into StatItems (StatID, ItemID) Values (?, ?)}");
+		s[14] = String.format("{Insert into StatSpells (StatID, SpellID) Values (?, ?)}");
+		s[15] = String.format("{Insert into StatSkills (StatID, SkillID) Values (?, ?)}");
 		//DM_Manages should be updated automatically 
 		//Populate the array
 		//In order of the import document
