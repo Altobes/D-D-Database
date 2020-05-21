@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -149,7 +151,8 @@ public class Frag_Player_character {
 	void fillTable(DefaultTableModel tb) {
 		ArrayList<ArrayList<String>> players = pc.getAllCharacters(user);
 		
-		if (players.size()== 0) {
+		if (players.size() < 3) {
+			JOptionPane.showMessageDialog(null, "ERROR: Could not retrieve players");
 			return;
 		}
 		for (int i = 0;i < players.get(0).size();i++) {
