@@ -23,7 +23,7 @@ public class DataImport {
 		
 		String[] inserts = populateArray(); //Fill this with insert statements
 		
-		int[] params = new int[] {0, 0, 2, 12, 7, 2, 3, 3, 3, 4, 3, 5, 2, 2, 2, 2}; //Fill this with the number of 
+		int[] params = new int[] {0, 0, 2, 12, 6, 2, 3, 3, 3, 4, 3, 5, 2, 2, 2, 2}; //Fill this with the number of 
 											//parameters required for each statement
 											//Number of ?'s
 		
@@ -87,15 +87,15 @@ public class DataImport {
 	private static String[] populateArray() {
 		String[] s = new String[16];
 		s[2] = String.format("{Call Register(?, ?)}");
-		s[3] = String.format("{Insert into StatBlock * Values(?, ?, ?, ?,?,?,?,?,?,?,?)}");
-		s[4] = String.format("{Insert into PlayerCharacter * Values(?,?,?,?,?)}");
-		s[5] = String.format("{Insert into DM * Values (?)}");
+		s[3] = String.format("{Insert into StatBlock * Values(?, ?, ?, ?,?,?,?,?,?,?,?,?)}");
+		s[4] = String.format("{Insert into PlayerCharacter * Values(?,?,?,?,?,?)}");
+		s[5] = String.format("{Insert into DM * Values (?, ?)}");
 		s[6] = String.format("{Insert into Items * Values (?, ?, ?)}");
 		s[7] = String.format("{Insert into Spells * Values(?, ?, ?)}");
 		s[8] = String.format("{Insert into Skills * Values(?, ?, ?)}");
 		s[9] = String.format("{Insert into Party * Values(?, ?, ?, ?)}");
 		s[10] = String.format("{Insert into Campaign * Values(?, ?, ?)}");
-		s[11] = String.format("{Insert into NPC * Values(?, ?, ?, ?)}");
+		s[11] = String.format("{Insert into NPC * Values(?, ?, ?, ?, ?)}");
 		s[12] = String.format("{Insert into DM_Manages_Campaign * Values(?, ?}");
 		s[13] = String.format("{Insert into StatItems * Values (?, ?)}");
 		s[14] = String.format("{Insert into StatSpells * Values (?, ?)}");

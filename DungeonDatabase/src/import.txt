@@ -4,8 +4,8 @@ pass123!, pass456$
 ;
 StatBlock:
 John Doe, 8, 30, 40, Human, 10, 12, 14, 12, 10, 8, Common
-Homer Simpson, 12, 20, 50, Human, 10, 8, 16, 8, 8, 16, Common,
-Billy Bob, 20, 30, 60, Human, 20, 20, 20, 20, 20, 20, Deep Speak,
+Homer Simpson, 12, 20, 50, Human, 10, 8, 16, 8, 8, 16, Common
+Billy Bob, 20, 30, 60, Human, 20, 20, 20, 20, 20, 20, Deep Speak
 ;
 Player_Character:
 50, Homer Simpson, Worker, user1, 100, 50
