@@ -1,6 +1,3 @@
-use DungeonDatabase
-Go
-
-Create USER yuans From Login yuans;
-exec sp_addrolemember 'db_owner', yuans;
-Go
+Create USER dungeon19 From Login dungeon19;
+exec sp_addrolemember 'db_datareader', dungeon19;
+exec sp_addrolemember 'db_datawriter', dungeon19;

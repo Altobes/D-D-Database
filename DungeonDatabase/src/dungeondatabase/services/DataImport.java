@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class DataImport {
 	
 	public static void main(String[] args) {
-		DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.USER, Dataclass.PASS);
+		DatabaseConnectionService dbService = new DatabaseConnectionService(Dataclass.SNAME, Dataclass.DBNAME);
 		try {
 			importFromFile(dbService);
 		} catch (SQLException e) {
@@ -23,15 +23,14 @@ public class DataImport {
 		
 		String[] inserts = populateArray(); //Fill this with insert statements
 		
-		int[] params = new int[] {0, 2, 11, 5, 1, 3, 3, 3, 4, 3, 4}; //Fill this with the number of 
+		int[] params = new int[] {0, 0, 2, 11, 5, 1, 3, 3, 3, 4, 3, 4}; //Fill this with the number of 
 											//parameters required for each statement
 											//Number of ?'s
 		
-		int insertIndex = 0; //The index to keep track of which insert to run
+		int insertIndex = 2; //The index to keep track of which insert to run
 		
-		//TODO: uncomment this to connect to the database
-		//db.connect(Dataclass.USER, Dataclass.PASS);
-		//Connection c = db.getConnection();
+		db.connect(Dataclass.USER, Dataclass.PASS);
+		Connection c = db.getConnection();
 		
 		File text = new File("./src/import.txt");
 		Scanner s = null;
@@ -53,7 +52,7 @@ public class DataImport {
 		for (String strBlock : textArray) {
 			String[] individualRows = strBlock.split("\n");
 			for (String strRow : individualRows) {
-				if (insertIndex == 0) {
+				if (insertIndex < 2) {
 					insertIndex++;
 					continue;
 				}
@@ -67,16 +66,16 @@ public class DataImport {
 						continue;
 					str = str.trim();
 					args.add(str);
-					System.out.println(str);
+					System.out.println(str + " " + inserts[insertIndex]);
 				}
 				System.out.println("----------------------------------");
 				//Do stuff with insert statement while inserting arguments here
-				//TODO: uncomment this once populate is working
-//				CallableStatement cs = c.prepareCall(inserts[insertIndex]);
-//				for (int i = 1; i <= params[insertIndex]; i++) {
-//					cs.setString(i, args.get(i));
-//				}
+				CallableStatement cs = c.prepareCall(inserts[insertIndex]);
+				for (int i = 1; i <= params[insertIndex]; i++) {
+					cs.setString(i, args.get(i-1));
+				}
 //				cs.execute();
+				cs.cancel();
 				args.clear();
 			}
 			System.out.println("----------------------------------");
@@ -86,20 +85,19 @@ public class DataImport {
 	}
 	
 	private static String[] populateArray() {
-		String[] s = new String[15];
-		
-		s[1] = String.format("Call %s.dbo.Register(?, ?)", Dataclass.USER);
-		s[2] = String.format("Call %s.dbo.CreateStatblock(?, ?, ?, ?,?,?,?,?,?,?,?)", Dataclass.USER);
-		s[3] = String.format("Call %s.dbo.Create_PlayerCharacter(?,?,?,?,?)", Dataclass.USER);
-		s[4] = String.format("Call %s.dbo.CreateDM(?)", Dataclass.USER);
-		s[5] = String.format("Call %s.dbo.Create_Item(?, ?, ?)", Dataclass.USER);
-		s[6] = String.format("Call %s.dbo.Create_Spell(?, ?, ?)", Dataclass.USER);
-		s[7] = String.format("Call %s.dbo.Create_Skill(?, ?, ?)", Dataclass.USER);
-		s[8] = String.format("Call %s.dbo.Create_Party(?, ?, ?, ?)", Dataclass.USER);
-		s[9] = String.format("Call %s.dbo.Create_Campaign(?, ?, ?)", Dataclass.USER);
-		s[10] = String.format("Call %s.dbo.CreateNPC(?, ?, ?, ?)", Dataclass.USER);
+		String[] s = new String[12];
+		s[2] = String.format("{Call Register(?, ?)}");
+		s[3] = String.format("{Call CreateStatblock(?, ?, ?, ?,?,?,?,?,?,?,?)}");
+		s[4] = String.format("{Call Create_PlayerCharacter(?,?,?,?,?)}");
+		s[5] = String.format("{Call CreateDM(?)}");
+		s[6] = String.format("{Call Create_Item(?, ?, ?)}");
+		s[7] = String.format("{Call Create_Spell(?, ?, ?)}");
+		s[8] = String.format("{Call Create_Skill(?, ?, ?)}");
+		s[9] = String.format("{Call Create_Party(?, ?, ?, ?)}");
+		s[10] = String.format("{Call Create_Campaign(?, ?, ?)}");
+		s[11] = String.format("{Call CreateNPC(?, ?, ?, ?)}");
 		//DM_Manages should be updated automatically 
-		//TODO: populate the array
+		//Populate the array
 		//In order of the import document
 		//0th element is ignored
 		//Also update the params with the number of parameters in each statement
