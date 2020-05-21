@@ -21,7 +21,7 @@ public class DBInit {
 	private static final String URL = "jdbc:sqlserver://golem.csse.rose-hulman.edu";
 	private static String USER = Dataclass.USER;
 	private static String PASSWORD = Dataclass.PASS;
-	private static String INSTRUCTIONS = new String();
+//	private static String INSTRUCTIONS = new String();
 
 	public static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(URL, USER, PASSWORD);

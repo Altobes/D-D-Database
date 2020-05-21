@@ -220,8 +220,7 @@ public class Frag_Modify_Statblock {
 			public void actionPerformed(ActionEvent e) { // Open create statblock menu
 				CallableStatement cs = null;
 				try {
-					cs = dbService.getConnection()
-							.prepareCall("{? = call Modify_StatBlock(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+					cs = dbService.getConnection().prepareCall("{? = call Modify_StatBlock(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
 					// ----------------------------------------------------------------------------------------------------------------------------------
 					int StatID = -1;
 					try {
@@ -233,8 +232,7 @@ public class Frag_Modify_Statblock {
 						JOptionPane.showMessageDialog(null, "Invalid Stat Block ID");
 						return;
 					}
-					String query = String.format(
-							"Select StatID From Player_Character Where Username = '%s' and StatID = %d", user, StatID);
+					String query = String.format("Select StatID From Player_Character Where Username = '%s' and StatID = %d", user, StatID);
 					System.out.println("\n" + user + "\n");
 					Statement st = cs.getConnection().createStatement();
 					ResultSet rs = st.executeQuery(query);
@@ -245,22 +243,25 @@ public class Frag_Modify_Statblock {
 					setAttributes(cs, StatID, 2, statField);
 					// ----------------------------------------------------------------------------------------------------------------------------------
 
+					String action = "Created";
 					String delChar = new String(delCharField.getText());
 					if (!delChar.equals("")) {
-						String query2 = String.format(
-								"Select Name From Player_Character Where Username = '%s' and StatID = %d and Name = '%s'",
-								user, StatID, delChar);
+						String query2 = String.format("Select PlayerID From Player_Character Where Username = '%s' and StatID = %d and Name = '%s'", user, StatID, delChar);
 						Statement st2 = cs.getConnection().createStatement();
 						ResultSet rs2 = st2.executeQuery(query2);
 						if (rs2.getRow() == 0) {
-							JOptionPane.showMessageDialog(null,
-									"You do not have access to this stat block or it does not exist");
+							JOptionPane.showMessageDialog(null, "You do not have access to this stat block or it does not exist");
 							return;
 						} else {
 							cs.setString(8, delChar.trim());
+							int PlayerID = rs2.getInt("PlayerID");
+							cascadeDelPlayer(PlayerID);
+							JOptionPane.showMessageDialog(null, "Player Character Deleted");
+							action = "Deleted";
 						}
 					}
-
+					// ----------------------------------------------------------------------------------------------------------------------------------
+					
 					String Name = new String(NameField.getText());
 					cs.setString(3, Name.trim());
 
@@ -298,14 +299,13 @@ public class Frag_Modify_Statblock {
 
 					cs.execute();
 
-					JOptionPane.showMessageDialog(null, "Stat Block Created");
+					JOptionPane.showMessageDialog(null, String.format("Stat Block %s", action));
 					frame.dispose();
 
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
 			}
 		}
 
@@ -323,5 +323,19 @@ public class Frag_Modify_Statblock {
 			attr = -1;
 		}
 		cs.setInt(parameterNumber, attr);
+	}
+	
+	public void cascadeDelPlayer(int PlayerID) {
+		CallableStatement cs = null;
+		try {
+			cs = dbService.getConnection().prepareCall("{? = call Delete_Player(?)}");
+			
+			cs.setInt(PlayerID, 2);							
+			cs.registerOutParameter(1, Types.INTEGER);
+			
+			cs.execute();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 }

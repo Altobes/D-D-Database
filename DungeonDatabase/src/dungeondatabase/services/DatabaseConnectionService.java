@@ -7,9 +7,6 @@ import javax.swing.JOptionPane;
 
 public class DatabaseConnectionService {
 
-	//DO NOT EDIT THIS STRING, YOU WILL RECEIVE NO CREDIT FOR THIS TASK IF THIS STRING IS EDITED
-	private final String SampleURL = "jdbc:sqlserver://${dbServer};databaseName=${dbName};user=${user};password={${pass}}";
-
 	private Connection connection = null;
 
 	public String databaseName;
