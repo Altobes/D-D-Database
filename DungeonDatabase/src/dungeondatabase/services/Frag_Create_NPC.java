@@ -4,9 +4,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.CallableStatement;
+import java.sql.SQLException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -104,13 +108,20 @@ public class Frag_Create_NPC {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String npc_name = textField.getText();
-				int npc_cr = Integer.parseInt(textField_1.getText());
-				int statID = Integer.parseInt(textField_2.getText());
-				int campagignID = Integer.parseInt(textField_3.getText());
-				System.out.println(npc_name);
-				System.out.println(npc_cr);
-				System.out.println(statID);
-				System.out.println(campagignID);
+//				int npc_cr = Integer.parseInt(textField_1.getText());
+//				int statID = Integer.parseInt(textField_2.getText());
+//				int campagignID = Integer.parseInt(textField_3.getText());
+//				System.out.println(npc_name);
+//				System.out.println(npc_cr);
+//				System.out.println(statID);
+//				System.out.println(campagignID);
+				int npc_cr = emptyIntFieldCheck(textField_1);
+				int statID = emptyIntFieldCheck(textField_2);
+				int campagignID = emptyIntFieldCheck(textField_3);
+				if (npc_cr < 0 || statID < 0 || campagignID < 0) {
+					JOptionPane.showMessageDialog(null, "The data you enetered is not valid");
+					return;
+				}
 				npc.addNPC(npc_name, npc_cr, statID, campagignID);
 				frame.setVisible(false);
 			}	
@@ -123,4 +134,15 @@ public class Frag_Create_NPC {
 		lblNewLabel_1.setBounds(150, 5, 168, 20);
 		frame.getContentPane().add(lblNewLabel_1);
 	}
+	
+	public int emptyIntFieldCheck(JTextField textField) {
+		int toRet = -1;
+		try {
+			toRet = Integer.parseInt(textField.getText());
+		} catch (NumberFormatException exception) {
+			toRet = -1;
+		}
+		return toRet;
+	}
+	
 }

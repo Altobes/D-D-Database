@@ -182,17 +182,17 @@ public class Frag_Modify_Statblock {
 		langField.setBounds(200, 480, 200, 25);
 		frame.getContentPane().add(langField);
 		langField.setColumns(10);
-		
+
 		JLabel lblNewLabel_13 = new JLabel("Delete Character");
 		lblNewLabel_13.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_13.setBounds(10, 520, 184, 25);
 		frame.getContentPane().add(lblNewLabel_13);
-		
+
 		JTextField delCharField = new JTextField();
 		delCharField.setBounds(200, 520, 200, 25);
 		frame.getContentPane().add(delCharField);
 		delCharField.setColumns(10);
-		
+
 		JLabel statID = new JLabel("Stat ID");
 		statID.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		statID.setBounds(10, 560, 184, 25);
@@ -206,116 +206,117 @@ public class Frag_Modify_Statblock {
 		JButton btnNewButton = new JButton("Modify");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNewButton.setBounds(200, 45, 200, 20);
-		
+
 		class statListener implements ActionListener {
-			
+
 			String user;
-			
+
 			public statListener(String user) {
 				System.out.println(user);
 				this.user = user;
 			}
 
 			@Override
-			public void actionPerformed(ActionEvent e) { //Open create statblock menu
+			public void actionPerformed(ActionEvent e) { // Open create statblock menu
 				CallableStatement cs = null;
 				try {
-					cs = dbService.getConnection().prepareCall("{? = call Modify_StatBlock(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
-			//----------------------------------------------------------------------------------------------------------------------------------
-					int StatID = -1;					
+					cs = dbService.getConnection()
+							.prepareCall("{? = call Modify_StatBlock(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+					// ----------------------------------------------------------------------------------------------------------------------------------
+					int StatID = -1;
 					try {
 						StatID = Integer.parseInt(statField.getText());
-					} catch (NumberFormatException exception) {					
-						StatID = -1;				
+					} catch (NumberFormatException exception) {
+						StatID = -1;
 					}
 					if (StatID < 0) {
 						JOptionPane.showMessageDialog(null, "Invalid Stat Block ID");
 						return;
-					}					
-					String query = String.format("Select StatID From Player_Character Where Username = '%s' and StatID = %d", user, StatID);
-					System.out.println("\n"+user+"\n");
+					}
+					String query = String.format(
+							"Select StatID From Player_Character Where Username = '%s' and StatID = %d", user, StatID);
+					System.out.println("\n" + user + "\n");
 					Statement st = cs.getConnection().createStatement();
 					ResultSet rs = st.executeQuery(query);
 					if (rs.getRow() == 0) {
 						JOptionPane.showMessageDialog(null, "You do not have access to this stat block or it does not exist");
 						return;
-					}					
+					}
 					setAttributes(cs, StatID, 2, statField);
-			//----------------------------------------------------------------------------------------------------------------------------------
-					
+					// ----------------------------------------------------------------------------------------------------------------------------------
+
 					String delChar = new String(delCharField.getText());
 					if (!delChar.equals("")) {
-						String query2 = String.format("Select Name From Player_Character Where Username = '%s' and StatID = %d and Name = '%s'", user, StatID, delChar);
+						String query2 = String.format(
+								"Select Name From Player_Character Where Username = '%s' and StatID = %d and Name = '%s'",
+								user, StatID, delChar);
 						Statement st2 = cs.getConnection().createStatement();
 						ResultSet rs2 = st2.executeQuery(query2);
 						if (rs2.getRow() == 0) {
-							JOptionPane.showMessageDialog(null, "You do not have access to this stat block or it does not exist");
+							JOptionPane.showMessageDialog(null,
+									"You do not have access to this stat block or it does not exist");
 							return;
 						} else {
 							cs.setString(8, delChar.trim());
 						}
 					}
-					
-					
+
 					String Name = new String(NameField.getText());
 					cs.setString(3, Name.trim());
-					
+
 					String Race = new String(raceField.getText());
 					cs.setString(7, Race.trim());
-					
+
 					int Speed = -1;
 					setAttributes(cs, Speed, 6, speedField);
-					
+
 					int AC = -1;
 					setAttributes(cs, AC, 5, acField);
-					
+
 					int Str = -1;
 					setAttributes(cs, Str, 9, strengthField);
-					
+
 					int Dex = -1;
 					setAttributes(cs, Dex, 10, dexField);
-					
+
 					int Con = -1;
 					setAttributes(cs, Con, 11, conField);
-					
+
 					int Int = -1;
 					setAttributes(cs, Int, 12, intField);
-					
+
 					int Wis = -1;
 					setAttributes(cs, Wis, 13, wisField);
-					
+
 					int Cha = -1;
 					setAttributes(cs, Cha, 14, chaField);
-					
+
 					String Languages = new String(langField.getText());
 					cs.setString(4, Languages.trim());
-					
+
 					cs.registerOutParameter(1, Types.INTEGER);
-					
+
 					cs.execute();
-					
+
 					JOptionPane.showMessageDialog(null, "Stat Block Created");
 					frame.dispose();
-					
-			
+
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-		
+
 			}
 		}
-		
+
 		ActionListener stat = new statListener(user);
 		btnNewButton.addActionListener(stat);
-		
-		
+
 		frame.getContentPane().add(btnNewButton);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
-	public void setAttributes(CallableStatement cs, int attr, int parameterNumber, JTextField textField)
-			throws SQLException {
+	public void setAttributes(CallableStatement cs, int attr, int parameterNumber, JTextField textField) throws SQLException {
 		try {
 			attr = Integer.parseInt(textField.getText());
 		} catch (NumberFormatException exception) {
