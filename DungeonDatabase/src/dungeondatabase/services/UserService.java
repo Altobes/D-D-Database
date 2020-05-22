@@ -80,6 +80,7 @@ public class UserService {
 			System.out.println("Username: " + username);
 			System.out.println(proc.getInt(1));
 			if (proc.getInt(1) != 0 ) throw new SQLException();
+			setPermissions(username);
 			JOptionPane.showMessageDialog(null, "Registration Success");
 			return true;
 		}catch(SQLException e){
@@ -116,6 +117,16 @@ public class UserService {
 			e.printStackTrace();
 		}
 		return getStringFromBytes(hash);
+	}
+	
+	private void setPermissions(String user) throws SQLException {
+//		Connection c = dbService.getConnection();
+//		CallableStatement cs = c.prepareCall("exec sp_addrolemember 'db_datareader', ?");
+//		cs.setString(1, user);
+//		cs.execute();
+//		CallableStatement cs2 = c.prepareCall("exec sp_addrolemember 'db_datawriter', ?");
+//		cs2.setString(1, user);
+//		cs2.execute();
 	}
 
 }

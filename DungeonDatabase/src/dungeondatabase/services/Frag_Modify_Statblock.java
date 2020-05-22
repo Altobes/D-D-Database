@@ -249,7 +249,8 @@ public class Frag_Modify_Statblock {
 						String query2 = String.format("Select PlayerID From Player_Character Where Username = '%s' and StatID = %d and Name = '%s'", user, StatID, delChar);
 						Statement st2 = cs.getConnection().createStatement();
 						ResultSet rs2 = st2.executeQuery(query2);
-						if (rs2.getRow() == 0) {
+						if (!rs2.next()) {
+							System.out.println(user);
 							JOptionPane.showMessageDialog(null, "You do not have access to this stat block or it does not exist");
 							return;
 						} else {
